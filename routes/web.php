@@ -95,6 +95,8 @@ Route::view('/aboutUs', 'admin.pages.about')->name('aboutUs');
             Route::view('create', 'admin.pages.user.create-user')->name('createUser');
             Route::view('access/{id}', 'admin.pages.user.users-access-manager')->name('userAccess');
         });
+
+        Route::view('news', 'admin.pages.news.news-list')->name('news');
     
     });
 });

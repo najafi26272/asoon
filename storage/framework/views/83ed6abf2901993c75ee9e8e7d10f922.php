@@ -4,14 +4,14 @@
         <h3 class="card-title align-items-start flex-column">
             <span class="card-label fw-bold fs-3 mb-1">اخبار رصد شده</span>
         </h3>
-        @if(\Illuminate\Support\Facades\Auth::user()->accesses->meetings_access)
+        <!--[if BLOCK]><![endif]--><?php if(\Illuminate\Support\Facades\Auth::user()->accesses->meetings_access): ?>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
                 <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal"
                    data-bs-target="#kt_modal_new_mosavabe">
                     <i class="ki-duotone ki-plus fs-2"></i>رصد اخبار جدید</a>
             </div>
-        @endif
+        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
     </div>
     <!--end::Header-->
 
@@ -38,18 +38,18 @@
                     <th class="min-w-150px">
                         وضعیت
                     </th>
-                    @if(\Illuminate\Support\Facades\Auth::user()->accesses->meetings_access)
+                    <!--[if BLOCK]><![endif]--><?php if(\Illuminate\Support\Facades\Auth::user()->accesses->meetings_access): ?>
 
                     <th class="min-w-100px text-end">
                         عملیات
                     </th>
-                    @endif
+                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                 </tr>
                 </thead>
                 <!--end::Table head-->
                 <!--begin::Table body-->
                 <tbody>
-                @foreach($items as $item)
+                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
                         <td class="">
                             <div class="d-flex align-items-center">
@@ -57,9 +57,9 @@
                                     <p class="text-dark fw-bold fs-6">
 
                                     <span class="ms-1" data-bs-toggle="tooltip"
-                                          @if($item->sms_status == 1) title="اس ام اس یادآور ارسال شده است."
-                                          @else title="اس ام اس یادآور ارسال نشده است." @endif>
-										<i class="fa fa-envelope  @if($item->sms_status == 1) text-primary @else text-gray-500  @endif ">
+                                          <?php if($item->sms_status == 1): ?> title="اس ام اس یادآور ارسال شده است."
+                                          <?php else: ?> title="اس ام اس یادآور ارسال نشده است." <?php endif; ?>>
+										<i class="fa fa-envelope  <?php if($item->sms_status == 1): ?> text-primary <?php else: ?> text-gray-500  <?php endif; ?> ">
 											<span class="path1"></span>
 											<span class="path2"></span>
 											<span class="path3"></span>
@@ -68,10 +68,10 @@
 
 
                                         <span class="ms-1" data-bs-toggle="tooltip"
-                                              @if($item->priority == "much") title="اولویت زیاد"
-                                              @elseif($item->priority == "low") title="اولویت کم"
-                                              @elseif($item->priority == "normal") title="اولویت متوسط" @endif>
-                                            <i class="fa fa-flag   @if($item->priority == "much") text-danger @elseif($item->priority == "low") text-warning  @elseif($item->priority == "normal") text-primary @endif "></i>
+                                              <?php if($item->priority == "much"): ?> title="اولویت زیاد"
+                                              <?php elseif($item->priority == "low"): ?> title="اولویت کم"
+                                              <?php elseif($item->priority == "normal"): ?> title="اولویت متوسط" <?php endif; ?>>
+                                            <i class="fa fa-flag   <?php if($item->priority == "much"): ?> text-danger <?php elseif($item->priority == "low"): ?> text-warning  <?php elseif($item->priority == "normal"): ?> text-primary <?php endif; ?> "></i>
 											<span class="path1"></span>
 											<span class="path2"></span>
 											<span class="path3"></span>
@@ -79,36 +79,37 @@
 									    </span>
 
 
-                                        {{$item->description}} </p>
+                                        <?php echo e($item->description); ?> </p>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <p class="text-dark fw-bold text-hover-primary d-block fs-6">
-                                {{$item->end_date? verta($item->end_date)->format('Y/m/d'): ''}}
+                                <?php echo e($item->end_date? verta($item->end_date)->format('Y/m/d'): ''); ?>
+
                             </p>
                         </td>
                         <td>
                             <div class="d-flex flex-column w-100 me-2">
-                                <p class="text-dark fw-bold text-hover-primary fs-6">{{$item->user->name}} {{$item->user->family}}</p>
+                                <p class="text-dark fw-bold text-hover-primary fs-6"><?php echo e($item->user->name); ?> <?php echo e($item->user->family); ?></p>
                             </div>
                         </td>
                         <td>
-                            @if($item->status == "waiting")
+                            <!--[if BLOCK]><![endif]--><?php if($item->status == "waiting"): ?>
                                 <div class="badge badge-light-warning"> در انتظار</div>
-                            @elseif($item->status == "progressing")
+                            <?php elseif($item->status == "progressing"): ?>
 
                                 <div class="badge badge-light-primary">درحال انجام</div>
 
-                            @elseif($item->status == "finished")
+                            <?php elseif($item->status == "finished"): ?>
                                 <div class="badge badge-light-success">انجام شده</div>
-                            @endif
+                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                         </td>
-                        @if(\Illuminate\Support\Facades\Auth::user()->accesses->meetings_access)
+                        <!--[if BLOCK]><![endif]--><?php if(\Illuminate\Support\Facades\Auth::user()->accesses->meetings_access): ?>
 
                             <td>
                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                    <a wire:click="update({{$item->id}})"
+                                    <a wire:click="update(<?php echo e($item->id); ?>)"
                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
 
                                     <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
@@ -119,16 +120,16 @@
 										</i>
 									</span>
                                     </a>
-                                    <a wire:click="delete({{$item->id}})"
+                                    <a wire:click="delete(<?php echo e($item->id); ?>)"
                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
-                                        {{--                                   --}}
-                                        {{--                                    <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">--}}
-                                        {{--										<i class="ki-duotone ki-trash fs-2 text-gray-500 fs-6">--}}
-                                        {{--											<span class="path1"></span>--}}
-                                        {{--											<span class="path2"></span>--}}
-                                        {{--											<span class="path3"></span>--}}
-                                        {{--										</i>--}}
-                                        {{--									</span>--}}
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
                                         <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
                                     <i class="ki-duotone ki-trash fs-2">
                                         <span class="path1"></span>
@@ -141,22 +142,24 @@
                                     </a>
                                 </div>
                             </td>
-                        @endif
+                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
                     </tr>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                 </tbody>
                 <!--end::Table body-->
             </table>
             <!--end::Table-->
-            @if(count($items) != 0)
+            <!--[if BLOCK]><![endif]--><?php if(count($items) != 0): ?>
                 <div class="custom-paginate clearfix" style="margin-top: 10px;margin-right:10px">
-                    {{$items->links()}}
+                    <?php echo e($items->links()); ?>
+
                 </div>
-            @endif
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
         </div>
         <!--end::Table container-->
     </div>
     <!--begin::Body-->
 </div>
 
+<?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/news-list-component.blade.php ENDPATH**/ ?>
