@@ -1,47 +1,40 @@
 <?php
-
 namespace App\Livewire\ManageNews;
-
 use Livewire\Component;
 use App\Models\News;
+use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 
 class NewsListComponent extends Component
 {
-    public $title,$link,$content,$summary,$agency,$topic,$reason,$goals;
-     
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+    public $char = "";
+    public $title, $link, $content, $summary, $agency, $topic, $reason, $goals;
+    public $pageNumber = 10;
     protected $listeners = [
-        '$_news_refresh'=>'refresh'
+        '$_news_refresh' => 'refresh'
     ];
-    
-    public function refresh(){
-        $items = News::orderBy('title', 'asc')->get();
+    public function refresh()
+    {
+        $searchTerm = '%'.$this->char.'%';
+        $items = News::where('title','LIKE',$searchTerm)->orWhere('link','like',$searchTerm)->orWhere('topic','like',$searchTerm)->latest()->paginate($this->pageNumber);
     }
-    
-    public function submit(){
-        $this->validate([
-            'title' => ['required'],
-            'link' => ['required']
-        ]);
-        $data = News::create([
-            'title'=>trim($this->title),
-            'link'=>$this->link
-        ]);
-        $this->title = "";
-    }
-    
-    public function delete($id){
-        $this->dispatch('$_news_deletable',$id);
+    public function delete($id)
+    {
+        $this->dispatch('$_news_deletable', $id);
         $this->dispatch('show-delete-news-modal');
     }
-    
-    public function update($id){
-        $this->dispatch('$_news_editable',$id);
+    public function update($id)
+    {
+        $this->dispatch('$_news_editable', $id);
     }
-    
     public function render()
     {
-        $items = News::orderBy('title', 'asc')->get();
-        return view('livewire.manage-news.news-list-component',['items'=>$items]);
+        $searchTerm = '%'.$this->char.'%';
+        $items = News::where('title','LIKE',$searchTerm)->orWhere('link','like',$searchTerm)->orWhere('topic','like',$searchTerm)->latest()->paginate($this->pageNumber);
+        return view('livewire.manage-news.news-list-component', [
+            'items' => $items,
+        ]);
     }
-
 }

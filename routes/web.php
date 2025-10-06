@@ -97,7 +97,6 @@ Route::view('/aboutUs', 'admin.pages.about')->name('aboutUs');
         });
 
         Route::view('news', 'admin.pages.news.news-list')->name('news');
-    
     });
 });
 
