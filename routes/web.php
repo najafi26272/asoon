@@ -97,6 +97,12 @@ Route::view('/aboutUs', 'admin.pages.about')->name('aboutUs');
         });
 
         Route::view('news', 'admin.pages.news.news-list')->name('news');
+        Route::group(['prefix' => 'news'], function () {
+            Route::view('create', 'admin.pages.news.create-news')->name('news');
+            Route::view('list', 'admin.pages.news.list-news')->name('news');
+            Route::view('review', 'admin.pages.news.review-news')->name('news');
+
+        });
     });
 });
 

@@ -26,23 +26,23 @@
                  id="#kt_aside_menu"
                  data-kt-menu="true">
                 <!--begin:Menu item-->
-                <div class="menu-item  @if(Request::segment(2) == "dashboard") here active @endif menu-accordion">
+                <div class="menu-item  <?php if(Request::segment(2) == "dashboard"): ?> here active <?php endif; ?> menu-accordion">
                     <!--begin:Menu link-->
                     <span class="menu-link">
                 <span class="menu-icon">
                        <i class="ki-duotone ki-black-left fs-2"></i>
                     </span>
 
-                    <a href="{{route('dashboard')}}" class="menu-title"
-                       @if(Request::segment(2) == "dashboard") style=" font-weight: bold" @endif>
+                    <a href="<?php echo e(route('dashboard')); ?>" class="menu-title"
+                       <?php if(Request::segment(2) == "dashboard"): ?> style=" font-weight: bold" <?php endif; ?>>
                         داشبورد
                     </a>
                     <span>
-                        @if(Request::segment(2) == "dashboard")
+                        <?php if(Request::segment(2) == "dashboard"): ?>
                             <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
-                        @else
+                        <?php else: ?>
                             <i class="fa fa-chevron-left" style="font-size: 10px"></i>
-                        @endif
+                        <?php endif; ?>
                     </span>
                 </span>
                     <!--end:Menu link-->
@@ -50,25 +50,25 @@
                 </div>
                 <!--end:Menu item-->
 
-                @if(\Illuminate\Support\Facades\Auth::user()->level == "admin")
+                <?php if(\Illuminate\Support\Facades\Auth::user()->level == "admin"): ?>
                     <!--begin:Menu item-->
-                    <div class="menu-item  @if(Request::segment(2) == "categories") here active @endif menu-accordion">
+                    <div class="menu-item  <?php if(Request::segment(2) == "categories"): ?> here active <?php endif; ?> menu-accordion">
                         <!--begin:Menu link-->
                 <span class="menu-link">
                     <span class="menu-icon">
                        <i class="ki-duotone ki-black-left fs-2"></i>
                     </span>
 
-                    <a href="{{route('categories')}}" class="menu-title"
-                       @if(Request::segment(2) == "categories") style=" font-weight: bold" @endif>
+                    <a href="<?php echo e(route('categories')); ?>" class="menu-title"
+                       <?php if(Request::segment(2) == "categories"): ?> style=" font-weight: bold" <?php endif; ?>>
                         بخش های اصلی
                     </a>
                     <span>
-                        @if(Request::segment(2) == "categories")
+                        <?php if(Request::segment(2) == "categories"): ?>
                             <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
-                        @else
+                        <?php else: ?>
                             <i class="fa fa-chevron-left" style="font-size: 10px"></i>
-                        @endif
+                        <?php endif; ?>
                     </span>
                 </span>
                         <!--end:Menu link-->
@@ -80,19 +80,19 @@
 						<span class="menu-icon">
 							<i class="ki-duotone ki-black-left fs-2"></i>
 						</span>
-						<span class="menu-title" @if(Request::segment(2) == "contactUs" or Request::segment(2) == "chats") style=" color: black;font-weight: bold" @endif >پشتیبانی</span>
+						<span class="menu-title" <?php if(Request::segment(2) == "contactUs" or Request::segment(2) == "chats"): ?> style=" color: black;font-weight: bold" <?php endif; ?> >پشتیبانی</span>
 						<span class="menu-arrow" style="overflow:unset">
-						    @if(Request::segment(2) == "contactUs" or Request::segment(2) == "chats")
+						    <?php if(Request::segment(2) == "contactUs" or Request::segment(2) == "chats"): ?>
                                     <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
-                            @else
+                            <?php else: ?>
 						            <i class="fa fa-chevron-left" style="font-size: 10px"></i>
-                            @endif
+                            <?php endif; ?>
 						</span>
 					</span>
 					<div class="menu-sub menu-sub-accordion" kt-hidden-height="121" style="display: none; overflow: hidden;">
 					    <div class="menu-item">
 							<!--begin:Menu link-->
-							<a class="menu-link " href="{{route('contactUs')}}">
+							<a class="menu-link " href="<?php echo e(route('contactUs')); ?>">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
@@ -102,7 +102,7 @@
 						</div>
 						<div class="menu-item">
 							<!--begin:Menu link-->
-							<a class="menu-link " href="{{route('chats')}}">
+							<a class="menu-link " href="<?php echo e(route('chats')); ?>">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
@@ -114,72 +114,72 @@
                 </div>
                 <!--end:Menu item-->
 
-                @endif
+                <?php endif; ?>
 
 
 
 
                 <!--begin:Menu item-->
                 <div
-                    class="menu-item  @if(Request::segment(2) == "meetings" ||Request::segment(2) == "mosavabat") here active @endif menu-accordion">
+                    class="menu-item  <?php if(Request::segment(2) == "meetings" ||Request::segment(2) == "mosavabat"): ?> here active <?php endif; ?> menu-accordion">
                     <!--begin:Menu link-->
                     <span class="menu-link">
                 <span class="menu-icon">
                     <i class="ki-duotone ki-black-left fs-2"></i>
                 </span>
-                <a href="{{route('meetings')}}" class="menu-title"
-                   @if(Request::segment(2) == "meetings"||Request::segment(2) == "mosavabat") style=" font-weight: bold" @endif>جلسات</a>
+                <a href="<?php echo e(route('meetings')); ?>" class="menu-title"
+                   <?php if(Request::segment(2) == "meetings"||Request::segment(2) == "mosavabat"): ?> style=" font-weight: bold" <?php endif; ?>>جلسات</a>
                 <span>
-                     @if(Request::segment(2) == "meetings"||Request::segment(2) == "mosavabat")
+                     <?php if(Request::segment(2) == "meetings"||Request::segment(2) == "mosavabat"): ?>
                         <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
-                    @else
+                    <?php else: ?>
                         <i class="fa fa-chevron-left" style="font-size: 10px"></i>
-                    @endif
+                    <?php endif; ?>
                 </span>
             </span>
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
 
-                @if (\Illuminate\Support\Facades\Auth::user()->accesses->user_access)
+                <?php if(\Illuminate\Support\Facades\Auth::user()->accesses->user_access): ?>
 
                     <!--begin:Menu item-->
-                    <div class="menu-item  @if(Request::segment(2) == "users" ) here active @endif menu-accordion">
+                    <div class="menu-item  <?php if(Request::segment(2) == "users" ): ?> here active <?php endif; ?> menu-accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                 <span class="menu-icon">
                     <i class="ki-duotone ki-black-left fs-2"></i>
                 </span>
-                <a href="{{route('users')}}" class="menu-title"
-                   @if(Request::segment(2) == "users") style=" font-weight: bold" @endif>کاربران</a>
+                <a href="<?php echo e(route('users')); ?>" class="menu-title"
+                   <?php if(Request::segment(2) == "users"): ?> style=" font-weight: bold" <?php endif; ?>>کاربران</a>
                 <span>
-                     @if(Request::segment(2) == "users")
+                     <?php if(Request::segment(2) == "users"): ?>
                         <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
-                    @else
+                    <?php else: ?>
                         <i class="fa fa-chevron-left" style="font-size: 10px"></i>
-                    @endif
+                    <?php endif; ?>
                 </span>
             </span>
                         <!--end:Menu link-->
                     </div>
                     <!--end:Menu item-->
-                @endif
+                <?php endif; ?>
 
                     <!--begin:Menu item-->
-                    <div class="menu-item  @if(Request::segment(2) == "projects" ) here active @endif menu-accordion">
+                    <div class="menu-item  <?php if(Request::segment(2) == "projects" ): ?> here active <?php endif; ?> menu-accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                 <span class="menu-icon">
                     <i class="ki-duotone ki-black-left fs-2"></i>
                 </span>
-                <a href="{{route('projects')}}" class="menu-title"
-                   @if(Request::segment(2) == "projects") style=" font-weight: bold" @endif>پروژه ها</a>
+                <a href="<?php echo e(route('projects')); ?>" class="menu-title"
+                   <?php if(Request::segment(2) == "projects"): ?> style=" font-weight: bold" <?php endif; ?>>پروژه ها</a>
                 <span>
-                     @if(Request::segment(2) == "projects")
+                     <?php if(Request::segment(2) == "projects"): ?>
                         <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
-                    @else
+                    <?php else: ?>
                         <i class="fa fa-chevron-left" style="font-size: 10px"></i>
-                    @endif
+                    <?php endif; ?>
                 </span>
             </span>
                         <!--end:Menu link-->
@@ -190,20 +190,20 @@
 
 
                 <!--begin:Menu item-->
-                <div class="menu-item  @if(Request::segment(2) == "tasks" ) here active @endif menu-accordion">
+                <div class="menu-item  <?php if(Request::segment(2) == "tasks" ): ?> here active <?php endif; ?> menu-accordion">
                     <!--begin:Menu link-->
                     <span class="menu-link">
                 <span class="menu-icon">
                     <i class="ki-duotone ki-black-left fs-2"></i>
                 </span>
-                <a href="{{route('tasks')}}" class="menu-title"
-                   @if(Request::segment(2) == "tasks") style=" font-weight: bold" @endif>وظیفه ها</a>
+                <a href="<?php echo e(route('tasks')); ?>" class="menu-title"
+                   <?php if(Request::segment(2) == "tasks"): ?> style=" font-weight: bold" <?php endif; ?>>وظیفه ها</a>
                 <span>
-                     @if(Request::segment(2) == "tasks")
+                     <?php if(Request::segment(2) == "tasks"): ?>
                         <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
-                    @else
+                    <?php else: ?>
                         <i class="fa fa-chevron-left" style="font-size: 10px"></i>
-                    @endif
+                    <?php endif; ?>
                 </span>
             </span>
                     <!--end:Menu link-->
@@ -211,20 +211,20 @@
                 <!--end:Menu item-->
 
                 <!--begin:Menu item-->
-                <div class="menu-item  @if(Request::segment(2) == "reports" ) here active @endif menu-accordion">
+                <div class="menu-item  <?php if(Request::segment(2) == "reports" ): ?> here active <?php endif; ?> menu-accordion">
                     <!--begin:Menu link-->
                     <span class="menu-link">
                 <span class="menu-icon">
                     <i class="ki-duotone ki-black-left fs-2"></i>
                 </span>
-                <a href="{{route('reports')}}" class="menu-title"
-                   @if(Request::segment(2) == "reports") style=" font-weight: bold" @endif>گزارش کارها</a>
+                <a href="<?php echo e(route('reports')); ?>" class="menu-title"
+                   <?php if(Request::segment(2) == "reports"): ?> style=" font-weight: bold" <?php endif; ?>>گزارش کارها</a>
                 <span>
-                     @if(Request::segment(2) == "reports")
+                     <?php if(Request::segment(2) == "reports"): ?>
                         <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
-                    @else
+                    <?php else: ?>
                         <i class="fa fa-chevron-left" style="font-size: 10px"></i>
-                    @endif
+                    <?php endif; ?>
                 </span>
             </span>
                     <!--end:Menu link-->
@@ -279,7 +279,7 @@
                 <!--begin::Avatar-->
                 <div class="symbol symbol-circle symbol-40px">
                     <img
-                        src="@if(\Illuminate\Support\Facades\Auth::user()->avatar) {{asset("storage/images/users/avatar")}}/{{\Illuminate\Support\Facades\Auth::user()->avatar}} @else {{asset("assets/media/avatars/blank.png")}} @endif"
+                        src="<?php if(\Illuminate\Support\Facades\Auth::user()->avatar): ?> <?php echo e(asset("storage/images/users/avatar")); ?>/<?php echo e(\Illuminate\Support\Facades\Auth::user()->avatar); ?> <?php else: ?> <?php echo e(asset("assets/media/avatars/blank.png")); ?> <?php endif; ?>"
                         alt="photo"/>
                 </div>
                 <!--end::Avatar-->
@@ -287,11 +287,11 @@
                 <div class="ms-2">
                     <!--begin::نام-->
                     <a href="#"
-                       class="text-gray-800 text-hover-primary fs-6 fw-bold lh-1">{{\Illuminate\Support\Facades\Auth::user()->name  }} {{\Illuminate\Support\Facades\Auth::user()->family}}</a>
+                       class="text-gray-800 text-hover-primary fs-6 fw-bold lh-1"><?php echo e(\Illuminate\Support\Facades\Auth::user()->name); ?> <?php echo e(\Illuminate\Support\Facades\Auth::user()->family); ?></a>
                     <!--end::نام-->
                     <!--begin::Major-->
                     <span
-                        class="text-muted fw-semibold d-block fs-7 lh-1">{{\Illuminate\Support\Facades\Auth::user()->description}}</span>
+                        class="text-muted fw-semibold d-block fs-7 lh-1"><?php echo e(\Illuminate\Support\Facades\Auth::user()->description); ?></span>
                     <!--end::Major-->
                 </div>
                 <!--end::کاربر info-->
@@ -317,18 +317,19 @@
                             <!--begin::Avatar-->
                             <div class="symbol symbol-50px me-5">
                                 <img
-                                    src="@if(\Illuminate\Support\Facades\Auth::user()->avatar) {{asset("storage/images/users/avatar")}}/{{\Illuminate\Support\Facades\Auth::user()->avatar}} @else {{asset("assets/media/avatars/blank.png")}} @endif   "
+                                    src="<?php if(\Illuminate\Support\Facades\Auth::user()->avatar): ?> <?php echo e(asset("storage/images/users/avatar")); ?>/<?php echo e(\Illuminate\Support\Facades\Auth::user()->avatar); ?> <?php else: ?> <?php echo e(asset("assets/media/avatars/blank.png")); ?> <?php endif; ?>   "
                                     alt="photo"/>
                             </div>
                             <!--end::Avatar-->
                             <!--begin::کاربرname-->
                             <div class="d-flex flex-column">
                                 <div
-                                    class="fw-bold d-flex align-items-center fs-5">{{\Illuminate\Support\Facades\Auth::user()->family}}
-                                    {{--                                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">حرفه ای</span>--}}
+                                    class="fw-bold d-flex align-items-center fs-5"><?php echo e(\Illuminate\Support\Facades\Auth::user()->family); ?>
+
+                                    
                                 </div>
                                 <a href="#"
-                                   class="fw-semibold text-muted text-hover-primary fs-7">{{\Illuminate\Support\Facades\Auth::user()->username}}</a>
+                                   class="fw-semibold text-muted text-hover-primary fs-7"><?php echo e(\Illuminate\Support\Facades\Auth::user()->username); ?></a>
                             </div>
                             <!--end::کاربرname-->
                         </div>
@@ -339,16 +340,16 @@
                     <!--end::Menu separator-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-5">
-                        <a href="/admin/profile/{{\Illuminate\Support\Facades\Auth::user()->id}}"
-                           class="menu-link px-5">@if(Request::segment(2) == "users" )
+                        <a href="/admin/profile/<?php echo e(\Illuminate\Support\Facades\Auth::user()->id); ?>"
+                           class="menu-link px-5"><?php if(Request::segment(2) == "users" ): ?>
                                 <i class="fa fa-circle text-success"
                                    style="color: #50cd89; font-size: 10px; margin-left: 5px"></i>
-                            @endif پروفایل من</a>
+                            <?php endif; ?> پروفایل من</a>
                     </div>
                     <!--end::Menu item-->
                     <!--begin::Menu item-->
            <!--         <div class="menu-item px-5">-->
-           <!--             <a href="{{route('projects')}}" class="menu-link px-5">-->
+           <!--             <a href="<?php echo e(route('projects')); ?>" class="menu-link px-5">-->
            <!--                 <span class="menu-text">پروژه های من</span>-->
            <!--                 <span class="menu-badge">-->
 											<!--	<span-->
@@ -365,7 +366,7 @@
 
                     <!--begin::Menu item-->
                     <div class="menu-item px-5">
-                        <a href="{{route('logout')}}" class="menu-link px-5">خروج</a>
+                        <a href="<?php echo e(route('logout')); ?>" class="menu-link px-5">خروج</a>
                     </div>
                     <!--end::Menu item-->
                 </div>
@@ -381,3 +382,4 @@
 
 
 
+<?php /**PATH D:\project\asou\asoon\resources\views/admin/parts/sidebar.blade.php ENDPATH**/ ?>
