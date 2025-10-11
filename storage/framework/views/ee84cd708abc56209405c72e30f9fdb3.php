@@ -1,5 +1,3 @@
-
-
 <?php $__env->startPush('css'); ?>
     <link rel="stylesheet" href="<?php echo e(asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.css")); ?>">
 <?php $__env->stopPush(); ?>
@@ -53,7 +51,22 @@ unset($__params);
 unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
-    
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('manage-news.edit-news-component', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-925457730-3', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
@@ -74,6 +87,7 @@ if (isset($__slots)) unset($__slots);
         });
 
         document.addEventListener('news_created', event => {
+            $("#kt_modal_new_news").modal('hide');
             $("#kt_modal_edit_news").modal('hide');
         });
 

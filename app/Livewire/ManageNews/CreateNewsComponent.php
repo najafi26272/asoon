@@ -19,6 +19,9 @@ class CreateNewsComponent extends Component
             'creator_id' => Auth::user()->id,
             'title' => trim($this->title),
             'link' => $this->link,
+            'goals' => $this->goals,
+            'topic' => $this->topic,
+            'summary' => $this->summary,
             'status' => 'waiting'
         ]);
         $this->reset();

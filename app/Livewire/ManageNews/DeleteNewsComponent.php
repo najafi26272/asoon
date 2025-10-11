@@ -18,7 +18,6 @@ class DeleteNewsComponent extends Component
         $this->dispatch('news-deleted');
         $this->dispatch('$_news_refresh');
         $this->dispatch('$_success_full_message');
-
     }
     public function render()
     {

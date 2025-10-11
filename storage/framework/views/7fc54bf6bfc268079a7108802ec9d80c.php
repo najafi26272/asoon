@@ -1,14 +1,14 @@
-<div wire:ignore.self class="modal fade" id="kt_modal_new_news" tabindex="-1" aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="kt_modal_edit_news" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Form-->
-            <form wire:submit.prevent="submit" class="form" method="POST" id="kt_modal_new_mosavabe_form">
+            <form wire:submit.prevent="submit" class="form" method="POST" id="kt_modal_new_news_form">
                 <!--begin::Modal header-->
                 <div class="modal-header" id="kt_modal_new_mosavabe_header">
                     <!--begin::Modal title-->
-                    <h2>خبر جدید</h2>
+                    <h2>ویرایش خبر</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -36,11 +36,19 @@
                             <!--end::Tags-->
                             <input wire:model="title" type="text" class="form-control form-control-solid"
                                    placeholder="عنوان" autofocus="false"/>
-                            @error('title')
+                            <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['title'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                             <div id="defaultFormControlHelp" class="form-text text-danger">
-                                {{ $message }}
+                                <?php echo e($message); ?>
+
                             </div>
-                            @enderror
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
@@ -51,11 +59,19 @@
                             <!--end::Tags-->
                             <input wire:model="link" type="text" class="form-control form-control-solid"
                                    placeholder="لینک" autofocus="false"/>
-                            @error('link')
+                            <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['link'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                             <div id="defaultFormControlHelp" class="form-text text-danger">
-                                {{ $message }}
+                                <?php echo e($message); ?>
+
                             </div>
-                            @enderror
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
@@ -66,11 +82,19 @@
                             <!--end::Tags-->
                             <input wire:model="goals" type="text" class="form-control form-control-solid"
                                    placeholder="اهداف" autofocus="false"/>
-                            @error('goals')
+                            <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['goals'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                             <div id="defaultFormControlHelp" class="form-text text-danger">
-                                {{ $message }}
+                                <?php echo e($message); ?>
+
                             </div>
-                            @enderror
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
@@ -81,11 +105,19 @@
                             <!--end::Tags-->
                             <input wire:model="topic" type="text" class="form-control form-control-solid"
                                    placeholder="موضوع خبر" autofocus="false"/>
-                            @error('topic')
+                            <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['topic'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                             <div id="defaultFormControlHelp" class="form-text text-danger">
-                                {{ $message }}
+                                <?php echo e($message); ?>
+
                             </div>
-                            @enderror
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
@@ -96,11 +128,19 @@
                             <!--end::Tags-->
                             <textarea wire:model="summary" class="form-control form-control-solid" rows="3"
                             name="summary" placeholder="خلاصه خبر"></textarea>
-                            @error('summary')
+                            <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['summary'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                             <div id="defaultFormControlHelp" class="form-text text-danger">
-                                {{ $message }}
+                                <?php echo e($message); ?>
+
                             </div>
-                            @enderror
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                         </div>
                     </div>
                     <!--end::Scroll-->
@@ -126,3 +166,4 @@
     </div>
 </div>
 
+<?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/edit-news-component.blade.php ENDPATH**/ ?>

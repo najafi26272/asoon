@@ -1,4 +1,3 @@
-<!--begin::Modal - مصوبه های جدید-->
 <div wire:ignore.self class="modal fade" id="kt_modal_new_news" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -127,9 +126,9 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                                 <span class="required">خلاصه خبر</span>
                             </label>
                             <!--end::Tags-->
-                            <textarea wire:model="summery" class="form-control form-control-solid" rows="3"
-                            name="summery" placeholder="خلاصه خبر"></textarea>
-                            <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['summery'];
+                            <textarea wire:model="summary" class="form-control form-control-solid" rows="3"
+                            name="summary" placeholder="خلاصه خبر"></textarea>
+                            <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['summary'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -166,26 +165,5 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
         </div>
     </div>
 </div>
-<!--end::Modal - مصوبه  جدید-->
-
-
-<?php $__env->startPush('scripts'); ?>
-    <script>
-
-        $('#selectedUser').on('change', function (e) {
-            let data = $(this).val();
-        window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedUser', data);
-        });
-
-        $('#priority').on('change', function (e) {
-            let data = $(this).val();
-        window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('priority', data);
-        });
-        
-          $('#priority').select2();
-        $('#selectedUser').select2();
-
-    </script>
-<?php $__env->stopPush(); ?>
 
 <?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/create-news-component.blade.php ENDPATH**/ ?>
