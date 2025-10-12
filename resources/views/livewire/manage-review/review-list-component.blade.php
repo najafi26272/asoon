@@ -7,7 +7,7 @@
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold fs-3 mb-1">رصدها </span>
+            <span class="card-label fw-bold fs-3 mb-1">لیست بازبینی های من </span>
         </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
@@ -43,13 +43,6 @@
                 </div>
                 <!--end::Form-->
             </div>
-             
-            @if(count($items) != 0)
-                <a class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal"
-                   data-bs-target="#kt_modal_new_news">
-                    <i class="ki-duotone ki-plus fs-2"></i>رصد جدید</a>
-            @endif
-          
             </div>
     </div>
     <!--end::Header-->
@@ -62,11 +55,7 @@
                 <div class="py-10 text-center">
                     <img src="{{asset("assets/media/svg/illustrations/easy/2.svg")}}" class=" w-200px"
                          alt="">
-                    <p class="m-5">در حال حاضر رصدی  برای شما ثبت نشده است.</p>
-                    <a class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
-                       data-bs-target="#kt_modal_new_news">رصد جدید
-                        <i class="fa fa-plus"></i>
-                    </a>
+                    <p class="m-5">در حال حاضر بازبینی  برای شما ثبت نشده است.</p>
                 </div>
             @else
                 <!--begin::Table-->
@@ -81,7 +70,7 @@
                             لینک  
                         </th>  
                         <th class="min-w-100px">
-                            تاریخ ثبت  
+                            تاریخ ثبت خبر  
                         </th>                      
                         <th class="min-w-100px">
                             وضعیت
@@ -107,7 +96,6 @@
                                     {{$item->created_at? verta($item->created_at)->format('Y/m/d'): ''}}
                                 </p>
                             </td>
-                          
                             <td>
                                 <div class="badge badge-light-primary">{{ $item->step->stepDefinition->title }}</div>                                    
                             </td>
@@ -124,20 +112,8 @@
 										</i>
 									</span>
                                     </a>
-                                    <a wire:click="delete({{$item->id}})"
-                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
-                                         <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
-                                     <i class="ki-duotone ki-trash fs-2">
-                                         <span class="path1"></span>
-                                         <span class="path2"></span>
-                                         <span class="path3"></span>
-                                         <span class="path4"></span>
-                                         <span class="path5"></span>
-                                     </i>
-                                    </span>
-                                     </a>
                                 </div>
-                            </td>
+                            </td>                           
                         </tr>
                     @endforeach
                     </tbody>

@@ -18,7 +18,7 @@ class NewsStep extends Model
         return $this->belongsTo(User::class, 'creator_id');
     }
 
-    public function step()
+    public function stepDefinition()
     {
         return $this->belongsTo(Step::class, 'step_id');
     }

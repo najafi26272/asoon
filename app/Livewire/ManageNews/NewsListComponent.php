@@ -18,7 +18,12 @@ class NewsListComponent extends Component
     public function refresh()
     {
         $searchTerm = '%'.$this->char.'%';
-        $items = News::where('title','LIKE',$searchTerm)->orWhere('link','like',$searchTerm)->orWhere('topic','like',$searchTerm)->latest()->paginate($this->pageNumber);
+        $items = News::with('step.stepDefinition')
+            ->where('title', 'LIKE', $searchTerm)
+            ->orWhere('link', 'LIKE', $searchTerm)
+            ->orWhere('topic', 'LIKE', $searchTerm)
+            ->latest()
+            ->paginate($this->pageNumber);
     }
     public function delete($id)
     {
@@ -32,7 +37,13 @@ class NewsListComponent extends Component
     public function render()
     {
         $searchTerm = '%'.$this->char.'%';
-        $items = News::where('title','LIKE',$searchTerm)->orWhere('link','like',$searchTerm)->orWhere('topic','like',$searchTerm)->latest()->paginate($this->pageNumber);
+        $items = News::with('step.stepDefinition')
+        ->where('title', 'LIKE', $searchTerm)
+        ->orWhere('link', 'LIKE', $searchTerm)
+        ->orWhere('topic', 'LIKE', $searchTerm)
+        ->latest()
+        ->paginate($this->pageNumber);
+
         return view('livewire.manage-news.news-list-component', [
             'items' => $items,
         ]);

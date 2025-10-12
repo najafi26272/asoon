@@ -54,11 +54,32 @@ class News extends Model
     }
     /**
      * Get the user who last updated the news.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+    */
     public function updater()
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
+
+    public function editorsAssignments()
+    {
+        return $this->hasMany(AssignEditor::class, 'news_id');
+    }
+
+    public function assignedEditors()
+    {
+        // اگر لازم باشد دسترسی مستقیم به کاربران ویرایشگرها
+        return $this->belongsToMany(User::class, 'assign_editors', 'news_id', 'editor_id')
+                    ->withTimestamps();
+    }
+
+    public function step()
+    {
+        return $this->belongsTo(NewsStep::class, 'status');
+    }
+
+    public function editNews()
+    {
+        return $this->hasOne(EditNews::class);
+    }
+   
 }

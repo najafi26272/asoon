@@ -112,17 +112,7 @@
                             </td>
                           
                             <td>
-                                <a class="cursor-pointer" >
-                                    <!--[if BLOCK]><![endif]--><?php if($item->status == "waiting"): ?>
-                                        <div class="badge badge-light-warning"> در انتظار</div>
-                                    <?php elseif($item->status == "progressing"): ?>
-
-                                        <div class="badge badge-light-primary">درحال انجام</div>
-
-                                    <?php elseif($item->status == "finished"): ?>
-                                        <div class="badge badge-light-success">انجام شده</div>
-                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                </a>
+                                <div class="badge badge-light-primary"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
                             </td>
                             <td>
                                 <div class="d-flex justify-content-end flex-shrink-0">
@@ -138,21 +128,19 @@
 									</span>
                                     </a>
                                     <a wire:click="delete(<?php echo e($item->id); ?>)"
-                                       class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
-                                        <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
-                                    <i class="ki-duotone ki-trash fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                    </i>
-                                   </span>
-                                    </a>
+                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
+                                         <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
+                                     <i class="ki-duotone ki-trash fs-2">
+                                         <span class="path1"></span>
+                                         <span class="path2"></span>
+                                         <span class="path3"></span>
+                                         <span class="path4"></span>
+                                         <span class="path5"></span>
+                                     </i>
+                                    </span>
+                                     </a>
                                 </div>
                             </td>
-                          
-                           
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                     </tbody>
@@ -175,111 +163,6 @@
             color:#3da5a5 !important;
         }
     </style>
-
-
-
-<br>
-<div class="px-5">
-    <h2>لیست بازبینی های من</h2>
-  <!--begin::Table-->
-  <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
-    <!--begin::Table head-->
-    <thead>
-    <tr class="fw-bold text-muted">
-        <th class="min-w-200px">
-            عنوان
-        </th>
-        <th class="min-w-100px">
-              لینک
-        </th>
-        <th class="min-w-100px">
-            تاریخ ثبت  
-        </th>  
-        <th class="min-w-220px">
-              جزئیات
-        </th>                    
-        <th class="min-w-100px">
-            وضعیت
-        </th>   
-        <th class="min-w-100px text-end">
-            عملیات
-        </th>                        
-    </tr>
-    </thead>
-    <!--end::Table head-->
-    <!--begin::Table body-->
-    <tbody>
-        <tr>
-            <td class="">
-            عنوان رصد
-            </td>
-            <td class="">
-              link
-            </td>
-            <td>
-                <p class="text-dark fw-bold text-hover-primary d-block fs-6">
-                    9/7/6789
-                    
-                </p>
-            </td>
-            <td>
-                متن خبر
-            </td>
-        
-            <td>
-                <a class="cursor-pointer" >
-                        <div class="badge badge-light-warning"> در انتظار</div>
-
-                        <div class="badge badge-light-primary">درحال انجام</div>
-
-                        <div class="badge badge-light-success">انجام شده</div>
-                  
-                </a>
-            </td>
-            <td>
-                <div class="d-flex justify-content-end flex-shrink-0">
-                    <a  data-bs-toggle="modal"
-                       data-bs-target="#kt_modal_news_review"
-
-                       class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-
-                    <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
-                        <i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            <span class="path3"></span>
-                        </i>
-                    </span>
-                    </a>
-
-                    
-                    <a 
-                       class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
-                        <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
-                    <i class="ki-duotone ki-trash fs-2">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                        <span class="path3"></span>
-                        <span class="path4"></span>
-                        <span class="path5"></span>
-                    </i>
-                   </span>
-                    </a>
-                </div>
-            </td>
-          
-           
-        </tr>
-  
-    </tbody>
-    <!--end::Table body-->
-    </table>
-    <!--end::Table-->
-</div>
-
-
-
-
 </div>
 <?php $__env->startPush('scripts'); ?>
     <script>
@@ -290,9 +173,7 @@
     </script>
 
 
-
 <script src="<?php echo e(asset("assets/plugins/custom/tinymce/tinymce.bundle.js")); ?>"></script>
-
 
 <script>
     // start textEditor

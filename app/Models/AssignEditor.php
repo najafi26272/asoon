@@ -17,6 +17,11 @@ class AssignEditor extends Model
         'description',
     ];
 
+    public function news()
+    {
+        return $this->belongsTo(News::class, 'news_id');
+    }
+
     public function editor()
     {
         return $this->belongsTo(User::class, 'editor_id');
@@ -25,10 +30,5 @@ class AssignEditor extends Model
     public function assigner()
     {
         return $this->belongsTo(User::class, 'assigner_id');
-    }
-
-    public function news()
-    {
-        return $this->belongsTo(News::class, 'news_id');
     }
 }

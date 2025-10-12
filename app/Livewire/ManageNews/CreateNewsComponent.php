@@ -3,7 +3,7 @@
 namespace App\Livewire\ManageNews;
 
 use Livewire\Component;
-use App\Models\News;
+use App\Models\{News,NewsStep};
 use Illuminate\Support\Facades\Auth;
 
 class CreateNewsComponent extends Component
@@ -22,8 +22,14 @@ class CreateNewsComponent extends Component
             'goals' => $this->goals,
             'topic' => $this->topic,
             'summary' => $this->summary,
-            'status' => 'waiting'
         ]);
+        $step = NewsStep::create([
+            'news_id' => $data->id,
+            'step_id' => 1,
+            'creator_id' => Auth::user()->id,
+        ]);
+        $data->update(['status' => $step->id]);
+
         $this->reset();
         $this->dispatch('$_news_refresh');
         $this->dispatch('news_created');
