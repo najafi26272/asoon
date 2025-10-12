@@ -32,41 +32,6 @@
                                 <div class="form-text text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <!-- Display Title -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>عنوان</span>
-                            </label>
-                            {{ $title }}
-                        </div>
-                        <!-- Display Link -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>لینک</span>
-                            </label>
-                            {{ $link }}
-                        </div>
-                        <!-- Display Goals -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>اهداف</span>
-                            </label>
-                            {{ $goals }}
-                        </div>
-                        <!-- Display Topic -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>موضوع خبر</span>
-                            </label>
-                            {{ $topic }}
-                        </div>
-                        <!-- Display Summary -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>خلاصه خبر</span>
-                            </label>
-                            {{ $summary }}
-                        </div>
                     </div>
                 </div>
                 <!-- Modal Footer -->

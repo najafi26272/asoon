@@ -100,21 +100,42 @@
                                 </p>
                             </td>
                             <td>
-                                <div class="badge badge-light-primary"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
+                                <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 7): ?>
+                                    <div class="badge badge-light-warning"> در انتظار بازنویسی</div>
+                                <?php else: ?>
+                                    <!--[if BLOCK]><![endif]--><?php if($item->editNews->status == "waiting"): ?>
+                                        <div class="badge badge-light-warning"> در انتظار بررسی</div>
+                                    <?php elseif($item->editNews->status == "accept"): ?>
+                                        <div class="badge badge-light-success">تایید شده</div>
+                                    <?php elseif($item->editNews->status == "reject"): ?>
+                                        <div class="badge badge-light-danger">رد شده</div>
+                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                             </td>
                             <td>
                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                    <a wire:click="update(<?php echo e($item->id); ?>)"
+                                    <a wire:click="details(<?php echo e($item->id); ?>)"
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                     <span class="ms-1" data-bs-toggle="tooltip" title="جزییات">
+                                         <i class="ki-duotone ki-eye fs-2 text-gray-500 fs-6">
+                                             <span class="path1"></span>
+                                             <span class="path2"></span>
+                                             <span class="path3"></span>
+                                         </i>
+                                     </span>
+                                     </a>
+                                     <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 7 or $item->editNews->status == "waiting"): ?>
+                                     <a wire:click="update(<?php echo e($item->id); ?>)"
                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
+                                     <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
 										<i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
 											<span class="path1"></span>
 											<span class="path2"></span>
 											<span class="path3"></span>
 										</i>
-									</span>
-                                    </a>
+									 </span>
+                                     </a>
+                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                 </div>
                             </td>                           
                         </tr>

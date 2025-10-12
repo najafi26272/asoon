@@ -19,14 +19,29 @@ unset($__params);
 unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
-    
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('manage-review.review-details-component', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-2471014533-1', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
     <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
 [$__name, $__params] = $__split('manage-review.edit-review-component', []);
 
-$__html = app('livewire')->mount($__name, $__params, 'lw-2471014533-1', $__slots ?? [], get_defined_vars());
+$__html = app('livewire')->mount($__name, $__params, 'lw-2471014533-2', $__slots ?? [], get_defined_vars());
 
 echo $__html;
 
@@ -47,6 +62,10 @@ if (isset($__slots)) unset($__slots);
 <script src="<?php echo e(asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.js")); ?>"></script>
 
     <script>
+        document.addEventListener('$_review_details', event => {
+            $("#kt_modal_review_details").modal('show');
+        });
+
         document.addEventListener('$_review_editable', event => {
             $("#kt_modal_edit_review").modal('show');
         });

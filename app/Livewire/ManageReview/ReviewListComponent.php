@@ -20,7 +20,7 @@ class ReviewListComponent extends Component
     {
         $searchTerm = '%'.$this->char.'%';
         $editorId = Auth::user()->id;
-        $items = News::where('title','LIKE',$searchTerm)->whereHas('editorsAssignments', function ($query) use ($editorId) {
+        $items = News::with('editNews')->where('title','LIKE',$searchTerm)->whereHas('editorsAssignments', function ($query) use ($editorId) {
             $query->where('editor_id', $editorId);
         })->with(['assignedEditors' => function ($q) use ($editorId) {
             $q->where('editor_id', $editorId);
@@ -35,11 +35,15 @@ class ReviewListComponent extends Component
     {
         $this->dispatch('$_review_editable', $id);
     }
+    public function details($id)
+    {
+        $this->dispatch('$_review_details', $id);
+    }
     public function render()
     {
         $searchTerm = '%'.$this->char.'%';
         $editorId = Auth::user()->id;
-        $items = News::where('title','LIKE',$searchTerm)->whereHas('editorsAssignments', function ($query) use ($editorId) {
+        $items = News::with('editNews')->where('title','LIKE',$searchTerm)->whereHas('editorsAssignments', function ($query) use ($editorId) {
             $query->where('editor_id', $editorId);
         })->with(['assignedEditors' => function ($q) use ($editorId) {
             $q->where('editor_id', $editorId);

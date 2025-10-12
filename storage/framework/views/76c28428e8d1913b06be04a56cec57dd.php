@@ -39,46 +39,6 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                         </div>
-                        <!-- Display Title -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>عنوان</span>
-                            </label>
-                            <?php echo e($title); ?>
-
-                        </div>
-                        <!-- Display Link -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>لینک</span>
-                            </label>
-                            <?php echo e($link); ?>
-
-                        </div>
-                        <!-- Display Goals -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>اهداف</span>
-                            </label>
-                            <?php echo e($goals); ?>
-
-                        </div>
-                        <!-- Display Topic -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>موضوع خبر</span>
-                            </label>
-                            <?php echo e($topic); ?>
-
-                        </div>
-                        <!-- Display Summary -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>خلاصه خبر</span>
-                            </label>
-                            <?php echo e($summary); ?>
-
-                        </div>
                     </div>
                 </div>
                 <!-- Modal Footer -->

@@ -6,7 +6,7 @@
 
 @section('content')
     <livewire:manage-review.review-list-component/>
-    {{-- <livewire:manage-news.create-news-component/> --}}
+    <livewire:manage-review.review-details-component/>
     <livewire:manage-review.edit-review-component/>
 @endsection
 
@@ -19,6 +19,10 @@
 <script src="{{asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.js")}}"></script>
 
     <script>
+        document.addEventListener('$_review_details', event => {
+            $("#kt_modal_review_details").modal('show');
+        });
+
         document.addEventListener('$_review_editable', event => {
             $("#kt_modal_edit_review").modal('show');
         });

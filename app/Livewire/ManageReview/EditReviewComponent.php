@@ -12,10 +12,9 @@ class EditReviewComponent extends Component
         '$_review_editable'=>'saveData'
     ];
 
-    public $newsId,$title,$link,$content,$summary,$agency,$topic,$reason,$goals,$edited_content;
+    public $reviewId,$newsId,$title,$link,$content,$summary,$agency,$topic,$reason,$goals,$edited_content;
 
     public function saveData($id){
-        $this->newsId = $id;
         $news = News::with('editNews')->find($id);
         $this->newsId         = $news->id;
         $this->title          = $news->title;
@@ -23,6 +22,8 @@ class EditReviewComponent extends Component
         $this->summary        = $news->summary;
         $this->topic          = $news->topic;
         $this->goals          = $news->goals;
+        $this->reviewId = $news->editNews->id ?? null;
+        $this->review_status = $news->editNews->status ?? null;
         $this->edited_content = $news->editNews->edited_content ?? null;
     }
     public function submit()
@@ -37,8 +38,9 @@ class EditReviewComponent extends Component
         ]);
         News::findOrFail($this->newsId)->update(['status' => $newsStep->id]);
         EditNews::updateOrCreate(
-            ['news_id' => $this->newsId],
+            ['id' => $this->reviewId],
             [
+                'news_id' => $this->newsId,
                 'edited_content' => $this->edited_content,
                 'editor_id'      => Auth::id(),
                 'status'         => 'waiting',
