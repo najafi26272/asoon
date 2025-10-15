@@ -707,6 +707,19 @@
 <!--end::Javascript-->
 
 <script>
+    window.addEventListener('$_alert_message',  event => {
+        Swal.fire({
+            title: 'پیام موفقیت!',
+            text:  event.detail[0].message,
+            icon: 'success',
+            customClass: {
+                confirmButton: 'btn btn-primary'
+            },
+            confirmButtonText: 'متوجه شدم',
+            buttonsStyling: false
+        });
+    })
+
     window.addEventListener('$_success_full_message',  event => {
         Swal.fire({
             title: 'پیام موفقیت!',

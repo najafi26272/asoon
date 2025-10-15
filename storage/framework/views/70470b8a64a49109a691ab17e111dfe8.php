@@ -247,11 +247,17 @@
 										<!--begin:Menu item-->
 										<div class="menu-item">
 											<!--begin:Menu link-->
-											<a class="menu-link" href="admin/news" target="_blank" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+											<a class="menu-link" href="<?php echo e(route('news')); ?>" target="_blank" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title"> رصد اخبار من</span>
+												<span class="menu-title">اخبار رصدشده</span>
+											</a>
+                                            <a class="menu-link" href="<?php echo e(route('newsReview')); ?>" target="_blank" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">بازنویسی ها</span>
 											</a>
 											<!--end:Menu link-->
 										</div>

@@ -74,6 +74,9 @@
                     <!--begin::Table head-->
                     <thead>
                     <tr class="fw-bold text-muted">
+                        <th class="min-w-50px">
+                            <input type="checkbox" id="selectAll" wire:model="selectAll" class="form-check-input">
+                        </th>
                         <th class="min-w-200px">
                             عنوان
                         </th>
@@ -96,8 +99,16 @@
                     <tbody>
                     <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
+                            <td>
+                                <input 
+                                type="checkbox" 
+                                wire:model="selectedIds" 
+                                value="<?php echo e($item->id); ?>" 
+                                class="form-check-input item-checkbox"
+                            >
+                            </td>
                             <td class="">
-                            <?php echo e($item->title); ?>
+                                <?php echo e($item->title); ?>
 
                             </td>
                             <td class="">
@@ -110,7 +121,6 @@
 
                                 </p>
                             </td>
-                          
                             <td>
                                 <div class="badge badge-light-primary"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
                             </td>
@@ -147,6 +157,26 @@
                     <!--end::Table body-->
                 </table>
                 <!--end::Table-->
+                 <!-- Action Buttons -->
+            <div class="d-flex justify-content-start mt-5">
+                <button 
+                    wire:click="approveSelected"
+                    class="btn btn-success me-3"
+                    <?php if(count($selectedIds) == 0): ?> disabled <?php endif; ?>
+                >
+                    تأیید انتخاب‌ها
+                </button>
+
+                <button 
+                    class="btn btn-danger" 
+                    data-bs-toggle="modal"
+                    data-bs-target="#rejectModal"
+                    <?php if(count($selectedIds) == 0): ?> disabled <?php endif; ?>
+                >
+                    رد انتخاب‌ها
+                </button>
+            </div>
+
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             <!--[if BLOCK]><![endif]--><?php if(count($items) != 0): ?>
                 <div class="custom-paginate clearfix" style="margin-top: 10px;margin-right:10px">
@@ -163,13 +193,67 @@
             color:#3da5a5 !important;
         }
     </style>
+
+    <!-- Reject Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1" wire:ignore.self>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">رد موارد انتخاب شده</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <textarea 
+                    wire:model="rejectDescription"
+                    class="form-control"
+                    rows="4"
+                    placeholder="در صورت نیاز دلیل رد کردن را وارد کنید..."
+                ></textarea>
+                <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['rejectDescription'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-danger"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
+            </div>
+            <div class="modal-footer">
+                <button 
+                    wire:click="rejectSelected"
+                    class="btn btn-danger"
+                >
+                    تأیید رد
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
+</div>
+
 <?php $__env->startPush('scripts'); ?>
     <script>
+        // مدیریت انتخاب تمامی آیتم‌ها
+        $('#selectAll').on('change', function() {
+            const isChecked = $(this).prop('checked');
+            $('.item-checkbox').prop('checked', isChecked);
+            const ids = $('.item-checkbox:checked').map((i, el) => el.value).get();
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedIds', ids);
+        });
+
+        // مدیریت تغییرات تک تک آیتم‌ها
+        $(document).on('change', '.item-checkbox', function() {
+            const allChecked = $('.item-checkbox:checked').length === $('.item-checkbox').length;
+            $('#selectAll').prop('checked', allChecked);
+            const ids = $('.item-checkbox:checked').map((i, el) => el.value).get();
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedIds', ids);
+        });
+    
         $('#searching').on('keyup', function (e) {
             let data = $(this).val();
             window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('char', data);
         });
+
     </script>
 
 

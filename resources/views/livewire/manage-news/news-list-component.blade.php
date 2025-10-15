@@ -74,6 +74,9 @@
                     <!--begin::Table head-->
                     <thead>
                     <tr class="fw-bold text-muted">
+                        <th class="min-w-50px">
+                            <input type="checkbox" id="selectAll" wire:model="selectAll" class="form-check-input">
+                        </th>
                         <th class="min-w-200px">
                             عنوان
                         </th>
@@ -96,8 +99,16 @@
                     <tbody>
                     @foreach($items as $item)
                         <tr>
+                            <td>
+                                <input 
+                                type="checkbox" 
+                                wire:model="selectedIds" 
+                                value="{{ $item->id }}" 
+                                class="form-check-input item-checkbox"
+                            >
+                            </td>
                             <td class="">
-                            {{$item->title}}
+                                {{$item->title}}
                             </td>
                             <td class="">
                                 {{$item->link}}
@@ -107,7 +118,6 @@
                                     {{$item->created_at? verta($item->created_at)->format('Y/m/d'): ''}}
                                 </p>
                             </td>
-                          
                             <td>
                                 <div class="badge badge-light-primary">{{ $item->step->stepDefinition->title }}</div>                                    
                             </td>
@@ -144,6 +154,26 @@
                     <!--end::Table body-->
                 </table>
                 <!--end::Table-->
+                 <!-- Action Buttons -->
+            <div class="d-flex justify-content-start mt-5">
+                <button 
+                    wire:click="approveSelected"
+                    class="btn btn-success me-3"
+                    @if(count($selectedIds) == 0) disabled @endif
+                >
+                    تأیید انتخاب‌ها
+                </button>
+
+                <button 
+                    class="btn btn-danger" 
+                    data-bs-toggle="modal"
+                    data-bs-target="#rejectModal"
+                    @if(count($selectedIds) == 0) disabled @endif
+                >
+                    رد انتخاب‌ها
+                </button>
+            </div>
+
             @endif
             @if(count($items) != 0)
                 <div class="custom-paginate clearfix" style="margin-top: 10px;margin-right:10px">
@@ -159,13 +189,60 @@
             color:#3da5a5 !important;
         }
     </style>
+
+    <!-- Reject Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1" wire:ignore.self>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">رد موارد انتخاب شده</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <textarea 
+                    wire:model="rejectDescription"
+                    class="form-control"
+                    rows="4"
+                    placeholder="در صورت نیاز دلیل رد کردن را وارد کنید..."
+                ></textarea>
+                @error('rejectDescription') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>
+            <div class="modal-footer">
+                <button 
+                    wire:click="rejectSelected"
+                    class="btn btn-danger"
+                >
+                    تأیید رد
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
+</div>
+
 @push('scripts')
     <script>
+        // مدیریت انتخاب تمامی آیتم‌ها
+        $('#selectAll').on('change', function() {
+            const isChecked = $(this).prop('checked');
+            $('.item-checkbox').prop('checked', isChecked);
+            const ids = $('.item-checkbox:checked').map((i, el) => el.value).get();
+            @this.set('selectedIds', ids);
+        });
+
+        // مدیریت تغییرات تک تک آیتم‌ها
+        $(document).on('change', '.item-checkbox', function() {
+            const allChecked = $('.item-checkbox:checked').length === $('.item-checkbox').length;
+            $('#selectAll').prop('checked', allChecked);
+            const ids = $('.item-checkbox:checked').map((i, el) => el.value).get();
+            @this.set('selectedIds', ids);
+        });
+    
         $('#searching').on('keyup', function (e) {
             let data = $(this).val();
             @this.set('char', data);
         });
+
     </script>
 
 {{-- textEditor --}}

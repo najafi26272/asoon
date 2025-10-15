@@ -36,6 +36,10 @@
         document.addEventListener('news-deleted', event => {
             $("#kt_modal_delete_news").modal('hide');
         });
+
+        document.addEventListener('news-rejected', event => {
+            $("#rejectModal").modal('hide');
+        });
     </script>
 @endpush
 
