@@ -98,6 +98,9 @@ Route::view('/aboutUs', 'admin.pages.about')->name('aboutUs');
 
         Route::view('news', 'admin.pages.news.news-list')->name('news');
         Route::view('news/review', 'admin.pages.news.review.review-news-list')->name('newsReview');
+        Route::view('news/review', 'admin.pages.news.review.review-news-list')->name('news');
+
+        Route::view('example', 'admin.pages.news')->name('news');
     });
 });
 

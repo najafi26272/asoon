@@ -1,14 +1,14 @@
-<div wire:ignore.self class="modal fade" id="kt_modal_new_news" tabindex="-1" aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="kt_modal_edit_news" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Form-->
-            <form wire:submit.prevent="submit" class="form" method="POST" id="kt_modal_new_mosavabe_form">
+            <form wire:submit.prevent="submit" class="form" method="POST" id="kt_modal_new_news_form">
                 <!--begin::Modal header-->
                 <div class="modal-header" id="kt_modal_new_mosavabe_header">
                     <!--begin::Modal title-->
-                    <h2>خبر جدید</h2>
+                    <h2>ویرایش خبر</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -166,4 +166,4 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
     </div>
 </div>
 
-<?php /**PATH D:\project\asou\asoon\resources\views/livewire/manage-news/create-news-component.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\project\asou\asoon\resources\views/livewire/manage-news/edit-news-component.blade.php ENDPATH**/ ?>
