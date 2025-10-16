@@ -1,8 +1,8 @@
 
-@push("style")
+<?php $__env->startPush("style"); ?>
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.0.0/ckeditor5.css" />
 
-@endpush
+<?php $__env->stopPush(); ?>
 
 <div class="card mb-5 mb-xl-10">
     <!--begin::Header-->
@@ -52,13 +52,13 @@
     <div class="card-body py-3">
         <!--begin::Table container-->
         <div class="table-responsive">
-            @if(count($items) == 0)
+            <!--[if BLOCK]><![endif]--><?php if(count($items) == 0): ?>
                 <div class="py-10 text-center">
-                    <img src="{{asset("assets/media/svg/illustrations/easy/2.svg")}}" class=" w-200px"
+                    <img src="<?php echo e(asset("assets/media/svg/illustrations/easy/2.svg")); ?>" class=" w-200px"
                          alt="">
                     <p class="m-5">در حال حاضر بازبینی  برای شما ثبت نشده است.</p>
                 </div>
-            @else
+            <?php else: ?>
                 <!--begin::Table-->
                 <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
                     <!--begin::Table head-->
@@ -84,35 +84,38 @@
                     <!--end::Table head-->
                     <!--begin::Table body-->
                     <tbody>
-                    @foreach($items as $item)
+                    <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
                             <td class="">
-                            {{$item->title}}
+                            <?php echo e($item->title); ?>
+
                             </td>
                             <td class="">
-                                {{$item->link}}
+                                <?php echo e($item->link); ?>
+
                             </td>
                             <td>
                                 <p class="text-dark fw-bold text-hover-primary d-block fs-6">
-                                    {{$item->created_at? verta($item->created_at)->format('Y/m/d'): ''}}
+                                    <?php echo e($item->created_at? verta($item->created_at)->format('Y/m/d'): ''); ?>
+
                                 </p>
                             </td>
                             <td>
-                                @if($item->step->stepDefinition->id == 7)
+                                <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 7): ?>
                                     <div class="badge badge-light-warning"> در انتظار بازنویسی</div>
-                                @else
-                                    @if($item->editNews->status == "waiting")
+                                <?php else: ?>
+                                    <!--[if BLOCK]><![endif]--><?php if($item->editNews->status == "waiting"): ?>
                                         <div class="badge badge-light-warning"> در انتظار بررسی</div>
-                                    @elseif($item->editNews->status == "accept")
+                                    <?php elseif($item->editNews->status == "accept"): ?>
                                         <div class="badge badge-light-success">تایید شده</div>
-                                    @elseif($item->editNews->status == "reject")
+                                    <?php elseif($item->editNews->status == "reject"): ?>
                                         <div class="badge badge-light-danger">رد شده</div>
-                                    @endif
-                                @endif
+                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                             </td>
                             <td>
                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                    <a wire:click="details({{$item->id}})"
+                                    <a wire:click="details(<?php echo e($item->id); ?>)"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                      <span class="ms-1" data-bs-toggle="tooltip" title="جزییات">
                                          <i class="ki-duotone ki-eye fs-2 text-gray-500 fs-6">
@@ -122,8 +125,8 @@
                                          </i>
                                      </span>
                                      </a>
-                                     @if($item->step->stepDefinition->id == 7 or $item->editNews->status == "waiting")
-                                     <a wire:click="update({{$item->id}})"
+                                     <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 7 or $item->editNews->status == "waiting"): ?>
+                                     <a wire:click="update(<?php echo e($item->id); ?>)"
                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                      <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
 										<i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
@@ -133,21 +136,17 @@
 										</i>
 									 </span>
                                      </a>
-                                     @endif
+                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                 </div>
                             </td>                           
                         </tr>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                     </tbody>
                     <!--end::Table body-->
                 </table>
                 <!--end::Table-->
-            @endif
-            {{-- @if(count($items) != 0)
-                <div class="custom-paginate clearfix" style="margin-top: 10px;margin-right:10px">
-                    {{ $items->links() }}
-                </div>
-            @endif --}}
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+            
         </div>
         <!--end::Table container-->
     </div>
@@ -158,16 +157,16 @@
         }
     </style>
 </div>
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
     <script>
         $('#searching').on('keyup', function (e) {
             let data = $(this).val();
-            @this.set('char', data);
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('char', data);
         });
     </script>
 
-{{-- textEditor --}}
-<script src="{{asset("assets/plugins/custom/tinymce/tinymce.bundle.js")}}"></script>
+
+<script src="<?php echo e(asset("assets/plugins/custom/tinymce/tinymce.bundle.js")); ?>"></script>
 
 <script>
     // start textEditor
@@ -187,4 +186,4 @@
     // end textEditor
 </script>
 
-@endpush
+<?php $__env->stopPush(); ?><?php /**PATH D:\project\asou\asoon\resources\views/livewire/manage-review/review-list-component.blade.php ENDPATH**/ ?>
