@@ -435,7 +435,7 @@
                                     </label>
                                     <!--end::Tags-->
                                     <select class="form-select form-select-solid" id="selectedAuthorWeb"
-                                            data-placeholder="افراد حاضر در جلسه را انتخاب کنید." >
+                                            data-placeholder=" انتخاب کنید." >
 
                                         {{-- @foreach($users as $user) --}}
                                             <option value="1"> 
@@ -528,6 +528,45 @@
                                 @enderror --}}
                             </div>
                         </div>
+
+                        <div class="row g-9 mb-8">
+                            
+                            <!--begin::Col-->
+                            <div class="col-md-12 fv-row">
+                                <!--begin::Input group-->
+                                <div wire:ignore class="d-flex flex-column mb-8 fv-row">
+                                    <!--begin::Tags-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                        <span class=""> اولویت</span>
+                                        <span class="ms-1" data-bs-toggle="tooltip"
+                                              title="این خبر چه اولویتی دارد؟ ">
+                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                        </i>
+                                    </span>
+                                    </label>
+                                    <!--end::Tags-->
+                                    <select class="form-select form-select-solid" id="selectedLanguage"
+                                            data-placeholder="انتخاب کنید ">
+
+                                        {{-- @foreach() --}}
+                                            <option value="fa">فارسی</option>
+                                            <option value="ar">عربی</option>
+                                            <option value="en">انگلیسی</option>
+                                        {{-- @endforeach --}}
+
+                                    </select>
+                                </div>
+                                <!--end::Input group-->
+                                {{-- @error('')
+                                <div id="defaultFormControlHelp" class="form-text text-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror --}}
+                            </div>
+                        </div>
                          
                     </div>
                 </div>
@@ -595,19 +634,25 @@
 $(document).ready(function() {
     $('#selectedPriority').select2({
         width: '100%', // به جای 'style'، می‌توانید '100%' استفاده کنید
-        placeholder: "افراد حاضر در جلسه را انتخاب کنید.",
+        placeholder:"انتخاب کنید",
         closeOnSelect: true
     });
     $('#selectedAuthorSocioal').select2({
         width: '100%', // به جای 'style'، می‌توانید '100%' استفاده کنید
-        placeholder: "افراد حاضر در جلسه را انتخاب کنید.",
+        placeholder:"انتخاب کنید",
         closeOnSelect: true
     });
     $('#selectedAuthorWeb').select2({
         width: '100%', // به جای 'style'، می‌توانید '100%' استفاده کنید
-        placeholder: "افراد حاضر در جلسه را انتخاب کنید.",
+        placeholder:"انتخاب کنید",
         closeOnSelect: true
     });
+    $('#selectedLanguage').select2({
+        width: '100%', // به جای 'style'، می‌توانید '100%' استفاده کنید
+        placeholder:"انتخاب کنید",
+        closeOnSelect: true
+    });
+    
 });
 </script>
 
