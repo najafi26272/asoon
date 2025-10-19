@@ -126,6 +126,17 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-end flex-shrink-0">
+                                    <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 3): ?>
+                                    <a wire:click="addInfo(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="افزودن اطلاعات">
+                                        <i class="ki-duotone ki-switch fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    </a>
+                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                     <a wire:click="update(<?php echo e($item->id); ?>)"
                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
 
@@ -148,7 +159,7 @@
                                          <span class="path5"></span>
                                      </i>
                                     </span>
-                                     </a>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -229,6 +240,7 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
         </div>
     </div>
 </div>
+
 </div>
 
 <?php $__env->startPush('scripts'); ?>

@@ -9,6 +9,7 @@
     <livewire:manage-news.create-news-component/>
     <livewire:manage-news.delete-news-component/>
     <livewire:manage-news.edit-news-component/>
+    <livewire:manage-news.add-info-component/>
 @endsection
 
 @push('scripts')
@@ -22,7 +23,15 @@
     <script>
         document.addEventListener('show-delete-news-modal', event => {
             $("#kt_modal_delete_news").modal('show');
-        }) ;
+        });
+
+        document.addEventListener('show-add-info-news-modal', event => {
+            $("#kt_modal_add-info-news").modal('show');
+        });
+
+        document.addEventListener('info-added', event => {
+            $("#kt_modal_add-info-news").modal('hide');
+        });
 
         document.addEventListener('$_news_editable', event => {
             $("#kt_modal_edit_news").modal('show');

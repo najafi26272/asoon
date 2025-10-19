@@ -22,9 +22,15 @@ return new class extends Migration
             $table->string('topic')->nullable()->comment('موضوع خبر');
             $table->text('reason')->nullable();
             $table->text('goals')->nullable();
-            $table->enum('channel', ['site', 'social media']);
-            $table->enum('language', ['fa', 'en', 'ar']);
-            $table->enum('priority', ['low', 'medium', 'high']);
+            $table->json('channels')->default(json_encode([
+                'active' => ['web'],
+                'available' => ['web', 'socialMedia']
+            ]));
+            $table->json('languages')->default(json_encode([
+                'active' => ['fa'],
+                'available' => ['fa', 'en', 'ar']
+            ]));            
+            $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
             $table->string('status')->nullable();
             $table->boolean('need_cover')->default(true);
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();

@@ -5,6 +5,7 @@ use App\Models\{News,NewsStep};
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class NewsListComponent extends Component
 {
@@ -19,6 +20,13 @@ class NewsListComponent extends Component
     protected $listeners = [
         '$_news_refresh' => 'refresh',
     ];
+
+    public function addInfo($id)
+    {
+        $this->dispatch('$_info_add', $id);
+        $this->dispatch('show-add-info-news-modal');
+    }
+
     public function refresh()
     {
         $searchTerm = '%'.$this->char.'%';
@@ -48,7 +56,7 @@ class NewsListComponent extends Component
         ]);
 
             foreach ($this->selectedIds as $id) {
-                NewsStep::create([
+                $step = NewsStep::create([
                     'news_id' => $id,
                     'step_id' => $stepId,
                     'creator_id' => Auth::id(),
@@ -56,7 +64,7 @@ class NewsListComponent extends Component
                 ]);
                 
                 News::findOrFail($id)->update([
-                    'status' => NewsStep::latest()->first()->id
+                    'status' => $step->id
                 ]);
             }
 

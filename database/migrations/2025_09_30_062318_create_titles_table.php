@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('news_id')->constrained('news')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('creator_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('reviewer_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->enum('channel', ['site', 'social media']);
+            $table->enum('channel', ['web', 'socialMedia']);
             $table->enum('status', ['waiting', 'reject', 'accept']);
             $table->text('description')->nullable();
             $table->timestamps();

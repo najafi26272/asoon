@@ -123,6 +123,17 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-end flex-shrink-0">
+                                    @if($item->step->stepDefinition->id == 3)
+                                    <a wire:click="addInfo({{$item->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="افزودن اطلاعات">
+                                        <i class="ki-duotone ki-switch fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    </a>
+                                    @endif
                                     <a wire:click="update({{$item->id}})"
                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
 
@@ -145,7 +156,7 @@
                                          <span class="path5"></span>
                                      </i>
                                     </span>
-                                     </a>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -218,6 +229,7 @@
         </div>
     </div>
 </div>
+
 </div>
 
 @push('scripts')
