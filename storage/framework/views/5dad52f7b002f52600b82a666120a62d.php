@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.0.0/ckeditor5.css" />
 
 <?php $__env->stopPush(); ?>
+
 <div class="card mb-5 mb-xl-10">
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
@@ -145,12 +146,7 @@
                 </table>
                 <!--end::Table-->
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-            <?php if(count($items) != 0): ?>
-                <div class="custom-paginate clearfix" style="margin-top: 10px;margin-right:10px">
-                    <?php echo e($items->links()); ?>
-
-                </div>
-            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+            
         </div>
         <!--end::Table container-->
     </div>

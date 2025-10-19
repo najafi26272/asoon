@@ -26,7 +26,7 @@
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">متن بازنویسی</span>
                             </label>
-                            <textarea wire:model="edited_content" class="form-control form-control-solid" rows="3"
+                            <textarea wire:model="edited_content" id="editor" class="form-control form-control-solid" rows="3"
                                       name="edited_content" placeholder="متن بازنویسی"></textarea>
                             <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['edited_content'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -56,4 +56,5 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             <!-- Form End -->
         </div>
     </div>
-</div><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-review/edit-review-component.blade.php ENDPATH**/ ?>
+</div>
+<?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-review/edit-review-component.blade.php ENDPATH**/ ?>
