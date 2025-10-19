@@ -16,59 +16,44 @@
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body py-10 px-lg-17">
+                    <!--begin::Scroll-->
                     <div class="scroll-y me-n7 pe-7" id="kt_modal_new_mosavabe_scroll" data-kt-scroll="true"
                          data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
                          data-kt-scroll-dependencies="#kt_modal_new_address_header"
                          data-kt-scroll-wrappers="#kt_modal_new_address_scroll" data-kt-scroll-offset="300px">
-                        <!-- Edited Content Input -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">متن بازنویسی</span>
-                            </label>
-                            <?php echo e($edited_content); ?>
+                        
+                        
+                         <table class="table  table-row-dashed ">
+                            <tbody>
+                                <tr>
+                                    <td >متن بازنویسی</td>
+                                    <td><?php echo e($edited_content); ?></td>
+                                </tr>
+                                <tr>
+                                    <td >عنوان</td>
+                                    <td><?php echo e($title); ?></td>
+                                </tr>
+                                <tr>
+                                    <td>لینک</td>
+                                    <td><?php echo e($link); ?></td>
+                                </tr>
+                                <tr>
+                                    <td >اهداف</td>
+                                    <td><?php echo e($goals); ?></td>
+                                </tr>
+                                <tr>
+                                    <td>موضوع</td>
+                                    <td><?php echo e($topic); ?></td>
+                                </tr>
+                                <tr>
+                                    <td>خلاصه</td>
+                                    <td><?php echo e($summary); ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                        </div>
-                        <!-- Display Title -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>عنوان</span>
-                            </label>
-                            <?php echo e($title); ?>
-
-                        </div>
-                        <!-- Display Link -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>لینک</span>
-                            </label>
-                            <?php echo e($link); ?>
-
-                        </div>
-                        <!-- Display Goals -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>اهداف</span>
-                            </label>
-                            <?php echo e($goals); ?>
-
-                        </div>
-                        <!-- Display Topic -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>موضوع خبر</span>
-                            </label>
-                            <?php echo e($topic); ?>
-
-                        </div>
-                        <!-- Display Summary -->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span>خلاصه خبر</span>
-                            </label>
-                            <?php echo e($summary); ?>
-
-                        </div>
                     </div>
+                    <!--end::Scroll-->
                 </div>
         </div>
     </div>
