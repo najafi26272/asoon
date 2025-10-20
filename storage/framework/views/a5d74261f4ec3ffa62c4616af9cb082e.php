@@ -306,6 +306,413 @@
 </div>
 
 
+<div class="row g-6 g-xl-9">
+    <!--begin::Col-->
+    <div class="col-md-6 col-xl-4">
+        <!--begin::کارت-->
+        <div  class="card border-hover-primary text-center">
+            <!--begin::کارت header-->
+            <div class="card-header border-0 pt-9 m-auto">
+                <!--begin::کارت Title-->
+                <div class="card-title m-0">
+                    <!--begin::Avatar-->
+                    <div class="symbol symbol-50px w-50px bg-light">
+                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+                    </div>
+                    <!--end::Avatar-->
+                </div>
+                <!--end::Car Title-->
+               
+            </div>
+            <!--end:: کارت header-->
+            <!--begin:: کارت body-->
+            <div class="card-body p-9">
+                <!--begin::نام-->
+                <div class="fs-3 fw-bold text-dark"> رصدهای من </div>
+                <!--end::نام-->
+                <!--begin::توضیحات-->
+                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
+                    لیست رصدهای که تاکنون انجام داده اید
+                </p>
+                <!--end::توضیحات-->
+                <!--begin::Info-->
+                <div class="d-flex flex-wrap mb-5 justify-center">
+                    <!--begin::Due-->
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">123</div>
+                        <div class="fw-semibold text-gray-400">تایید شده</div>
+                    </div>
+                    <!--end::Due-->
+                    <!--begin::بودجه-->
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">30</div>
+                        <div class="fw-semibold text-gray-400">رد شده</div>
+                    </div>
+                    <!--end::بودجه-->
+                </div>
+                <!--end::Info-->
+                <!--begin::پردازش-->
+                <div class=" mb-5" >
+                    <a href="#" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
+                </div>
+                <!--end::پردازش-->
+            
+            </div>
+            <!--end:: کارت body-->
+        </div>
+        <!--end::کارت-->
+    </div>
+    <!--end::Col-->
+ <!--begin::Col-->
+    <div class="col-md-6 col-xl-4">
+        <!--begin::کارت-->
+        <div  class="card border-hover-primary text-center">
+            <!--begin::کارت header-->
+            <div class="card-header border-0 pt-9 m-auto">
+                <!--begin::کارت Title-->
+                <div class="card-title m-0">
+                    <!--begin::Avatar-->
+                    <div class="symbol symbol-50px w-50px bg-light">
+                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+                    </div>
+                    <!--end::Avatar-->
+                </div>
+                <!--end::Car Title-->
+            
+            </div>
+            <!--end:: کارت header-->
+            <!--begin:: کارت body-->
+            <div class="card-body p-9">
+                <!--begin::نام-->
+                <div class="fs-3 fw-bold text-dark">  بازنویسی ها </div>
+                <!--end::نام-->
+                <!--begin::توضیحات-->
+                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
+                    بازنویسی رصدهای تایید شده
+                </p>
+                <!--end::توضیحات-->
+                <!--begin::Info-->
+                <div class="d-flex flex-wrap mb-5 justify-center">
+                    <!--begin::Due-->
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">123</div>
+                        <div class="fw-semibold text-gray-400"> بازنویسی کل</div>
+                    </div>
+                    <!--end::Due-->
+                    <!--begin::بودجه-->
+                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">3</div>
+                        <div class="fw-semibold text-gray-400"> بازنویسی جدید</div>
+                    </div>
+                    <!--end::بودجه-->
+                </div>
+                <!--end::Info-->
+                <!--begin::پردازش-->
+                <div class=" mb-5" >
+                    <a href="#" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
+                </div>
+                <!--end::پردازش-->
+            
+            </div>
+            <!--end:: کارت body-->
+        </div>
+        <!--end::کارت-->
+    </div>
+    <!--end::Col-->
+    
+    <!--begin::Col-->
+    <div class="col-md-6 col-xl-4">
+        <!--begin::کارت-->
+        <div  class="card border-hover-primary text-center">
+            <!--begin::کارت header-->
+            <div class="card-header border-0 pt-9 m-auto">
+                <!--begin::کارت Title-->
+                <div class="card-title m-0">
+                    <!--begin::Avatar-->
+                    <div class="symbol symbol-50px w-50px bg-light">
+                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+                    </div>
+                    <!--end::Avatar-->
+                </div>
+                <!--end::Car Title-->
+            
+            </div>
+            <!--end:: کارت header-->
+            <!--begin:: کارت body-->
+            <div class="card-body p-9">
+                <!--begin::نام-->
+                <div class="fs-3 fw-bold text-dark">   تیتر رصد ها </div>
+                <!--end::نام-->
+                <!--begin::توضیحات-->
+                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
+                        افزودن تیتر مناسب خبر
+                </p>
+                <!--end::توضیحات-->
+                <!--begin::Info-->
+                <div class="d-flex flex-wrap mb-5 justify-center">
+                    <!--begin::Due-->
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">123</div>
+                        <div class="fw-semibold text-gray-400">  کل تیترها</div>
+                    </div>
+                    <!--end::Due-->
+                    <!--begin::بودجه-->
+                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">3</div>
+                        <div class="fw-semibold text-gray-400"> در انتظار</div>
+                    </div>
+                    <!--end::بودجه-->
+                </div>
+                <!--end::Info-->
+                <!--begin::پردازش-->
+                <div class=" mb-5" >
+                    <a href="#" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
+                </div>
+                <!--end::پردازش-->
+            
+            </div>
+            <!--end:: کارت body-->
+        </div>
+        <!--end::کارت-->
+    </div>
+    <!--end::Col-->
+
+    <!--begin::Col-->
+    <div class="col-md-6 col-xl-4">
+        <!--begin::کارت-->
+        <div  class="card border-hover-primary text-center">
+            <!--begin::کارت header-->
+            <div class="card-header border-0 pt-9 m-auto">
+                <!--begin::کارت Title-->
+                <div class="card-title m-0">
+                    <!--begin::Avatar-->
+                    <div class="symbol symbol-50px w-50px bg-light">
+                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+                    </div>
+                    <!--end::Avatar-->
+                </div>
+                <!--end::Car Title-->
+            
+            </div>
+            <!--end:: کارت header-->
+            <!--begin:: کارت body-->
+            <div class="card-body p-9">
+                <!--begin::نام-->
+                <div class="fs-3 fw-bold text-dark">   رصد های اولیه </div>
+                <!--end::نام-->
+                <!--begin::توضیحات-->
+                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
+                   تایید یا رد رصد ها
+                </p>
+                <!--end::توضیحات-->
+                <!--begin::Info-->
+                <div class="d-flex flex-wrap mb-5 justify-center">
+                    <!--begin::Due-->
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">123</div>
+                        <div class="fw-semibold text-gray-400"> رصد ها </div>
+                    </div>
+                    <!--end::Due-->
+                    <!--begin::بودجه-->
+                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">3</div>
+                        <div class="fw-semibold text-gray-400">  در انتظار تایید</div>
+                    </div>
+                    <!--end::بودجه-->
+                </div>
+                <!--end::Info-->
+                <!--begin::پردازش-->
+                <div class=" mb-5" >
+                    <a href="#" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
+                </div>
+                <!--end::پردازش-->
+            
+            </div>
+            <!--end:: کارت body-->
+        </div>
+        <!--end::کارت-->
+    </div>
+    <!--end::Col-->
+    <!--begin::Col-->
+    <div class="col-md-6 col-xl-4">
+        <!--begin::کارت-->
+        <div  class="card border-hover-primary text-center">
+            <!--begin::کارت header-->
+            <div class="card-header border-0 pt-9 m-auto">
+                <!--begin::کارت Title-->
+                <div class="card-title m-0">
+                    <!--begin::Avatar-->
+                    <div class="symbol symbol-50px w-50px bg-light">
+                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+                    </div>
+                    <!--end::Avatar-->
+                </div>
+                <!--end::Car Title-->
+            
+            </div>
+            <!--end:: کارت header-->
+            <!--begin:: کارت body-->
+            <div class="card-body p-9">
+                <!--begin::نام-->
+                <div class="fs-3 fw-bold text-dark">
+                   انتخاب بازنویس 
+                                    </div>
+                <!--end::نام-->
+                <!--begin::توضیحات-->
+                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
+                    انتخاب شخص بازنویس 
+
+                </p>
+                <!--end::توضیحات-->
+                <!--begin::Info-->
+                <div class="d-flex flex-wrap mb-5 justify-center">
+                    <!--begin::Due-->
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">12</div>
+                        <div class="fw-semibold text-gray-400">  در حال بازنویسی</div>
+                    </div>
+                    <!--end::Due-->
+                    <!--begin::بودجه-->
+                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">3</div>
+                        <div class="fw-semibold text-gray-400">  در انتظار </div>
+                    </div>
+                    <!--end::بودجه-->
+                </div>
+                <!--end::Info-->
+                <!--begin::پردازش-->
+                <div class=" mb-5" >
+                    <a href="#" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
+                </div>
+                <!--end::پردازش-->
+            
+            </div>
+            <!--end:: کارت body-->
+        </div>
+        <!--end::کارت-->
+    </div>
+    <!--end::Col-->
+    
+        <!--begin::Col-->
+    <div class="col-md-6 col-xl-4">
+        <!--begin::کارت-->
+        <div  class="card border-hover-primary text-center">
+            <!--begin::کارت header-->
+            <div class="card-header border-0 pt-9 m-auto">
+                <!--begin::کارت Title-->
+                <div class="card-title m-0">
+                    <!--begin::Avatar-->
+                    <div class="symbol symbol-50px w-50px bg-light">
+                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+                    </div>
+                    <!--end::Avatar-->
+                </div>
+                <!--end::Car Title-->
+            
+            </div>
+            <!--end:: کارت header-->
+            <!--begin:: کارت body-->
+            <div class="card-body p-9">
+                <!--begin::نام-->
+                <div class="fs-3 fw-bold text-dark">   تایید بازنویسی ها </div>
+                <!--end::نام-->
+                <!--begin::توضیحات-->
+                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
+                    چک کردن بازنویسی های انجام شده
+                </p>
+                <!--end::توضیحات-->
+                <!--begin::Info-->
+                <div class="d-flex flex-wrap mb-5 justify-center">
+                    <!--begin::Due-->
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">123</div>
+                        <div class="fw-semibold text-gray-400">  تایید شده ها</div>
+                    </div>
+                    <!--end::Due-->
+                    <!--begin::بودجه-->
+                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">3</div>
+                        <div class="fw-semibold text-gray-400">  در انتظار تایید</div>
+                    </div>
+                    <!--end::بودجه-->
+                </div>
+                <!--end::Info-->
+                <!--begin::پردازش-->
+                <div class=" mb-5" >
+                    <a href="#" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
+                </div>
+                <!--end::پردازش-->
+            
+            </div>
+            <!--end:: کارت body-->
+        </div>
+        <!--end::کارت-->
+    </div>
+    <!--end::Col-->
+    <!--begin::Col-->
+    <div class="col-md-6 col-xl-4">
+        <!--begin::کارت-->
+        <div  class="card border-hover-primary text-center">
+            <!--begin::کارت header-->
+            <div class="card-header border-0 pt-9 m-auto">
+                <!--begin::کارت Title-->
+                <div class="card-title m-0">
+                    <!--begin::Avatar-->
+                    <div class="symbol symbol-50px w-50px bg-light">
+                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+                    </div>
+                    <!--end::Avatar-->
+                </div>
+                <!--end::Car Title-->
+            
+            </div>
+            <!--end:: کارت header-->
+            <!--begin:: کارت body-->
+            <div class="card-body p-9">
+                <!--begin::نام-->
+                <div class="fs-3 fw-bold text-dark">   تایید رصد ها </div>
+                <!--end::نام-->
+                <!--begin::توضیحات-->
+                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
+                    انتخاب مکان و زبان انتشار
+                </p>
+                <!--end::توضیحات-->
+                <!--begin::Info-->
+                <div class="d-flex flex-wrap mb-5 justify-center">
+                    <!--begin::Due-->
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">123</div>
+                        <div class="fw-semibold text-gray-400">  کل رصد ها</div>
+                    </div>
+                    <!--end::Due-->
+                    <!--begin::بودجه-->
+                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold">3</div>
+                        <div class="fw-semibold text-gray-400">  در انتظار تایید</div>
+                    </div>
+                    <!--end::بودجه-->
+                </div>
+                <!--end::Info-->
+                <!--begin::پردازش-->
+                <div class=" mb-5" >
+                    <a href="#" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
+                </div>
+                <!--end::پردازش-->
+            
+            </div>
+            <!--end:: کارت body-->
+        </div>
+        <!--end::کارت-->
+    </div>
+    <!--end::Col-->
+
+</div>
+
+
+
+
+
+
 
 
 

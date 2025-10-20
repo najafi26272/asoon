@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\ManageNews;
+namespace App\Livewire\ManageNews\MonitoringNews;
 
 use Livewire\Component;
 use App\Models\{News,NewsStep};
@@ -38,6 +38,6 @@ class CreateNewsComponent extends Component
 
     public function render()
     {
-        return view('livewire.manage-news.create-news-component');
+        return view('livewire.manage-news.monitoring-news.create-news-component');
     }
 }

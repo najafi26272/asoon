@@ -96,8 +96,12 @@ Route::view('/aboutUs', 'admin.pages.about')->name('aboutUs');
             Route::view('access/{id}', 'admin.pages.user.users-access-manager')->name('userAccess');
         });
 
-        Route::view('news', 'admin.pages.news.news-list')->name('news');
-        Route::view('news/review', 'admin.pages.news.review.review-news-list')->name('newsReview');
+        Route::group(['prefix' => 'news'], function () {
+            Route::view('menu', 'admin.pages.news.news-menu')->name('newsMenu');
+            Route::view('monitoring', 'admin.pages.news.monitoring.monitoring-news-list')->name('monitoringNews');
+            Route::view('review', 'admin.pages.news.review.review-news-list')->name('reviewNews');
+            Route::view('addInfo', 'admin.pages.news.monitoring.monitoring-news-list')->name('addInfoNews');
+        });
 
         Route::view('example', 'admin.pages.news')->name('example');
     });

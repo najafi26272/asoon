@@ -5,11 +5,11 @@
 @endpush
 
 @section('content')
-    <livewire:manage-news.news-list-component/>
-    <livewire:manage-news.create-news-component/>
-    <livewire:manage-news.delete-news-component/>
-    <livewire:manage-news.edit-news-component/>
-    <livewire:manage-news.add-info-component/>
+    <livewire:manage-news.monitoring-news.news-list-component/>
+    <livewire:manage-news.monitoring-news.create-news-component/>
+    <livewire:manage-news.monitoring-news.delete-news-component/>
+    <livewire:manage-news.monitoring-news.edit-news-component/>
+    <livewire:manage-news.monitoring-news.add-info-component/>
 @endsection
 
 @push('scripts')

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\ManageReview;
+namespace App\Livewire\ManageNews\ReviewNews;
 
 use Livewire\Component;
 use App\Models\{News,NewsStep,EditNews};
@@ -52,6 +52,6 @@ class EditReviewComponent extends Component
     }
     public function render()
     {
-        return view('livewire.manage-review.edit-review-component');
+        return view('livewire.manage-news.review-news.edit-review-component');
     }
 }

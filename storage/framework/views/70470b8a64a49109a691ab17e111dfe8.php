@@ -231,45 +231,26 @@
                 </div>
                 <!--end:Menu item-->
 
-               <!--begin:Menu item-->
-								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-									<!--begin:Menu link-->
-									<span class="menu-link">
-										<span class="menu-icon">
-											<i class="ki-duotone ki-black-left fs-2"></i>
-										</span>
-										<span class="menu-title">رصد اخبار</span>
-										<span class="menu-arrow"></span>
-									</span>
-									<!--end:Menu link-->
-									<!--begin:Menu sub-->
-									<div class="menu-sub menu-sub-accordion">
-										<!--begin:Menu item-->
-										<div class="menu-item">
-											<!--begin:Menu link-->
-											<a class="menu-link" href="<?php echo e(route('news')); ?>" target="_blank" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<span class="menu-title">اخبار رصدشده</span>
-											</a>
-                                            <a class="menu-link" href="<?php echo e(route('newsReview')); ?>" target="_blank" title="" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<span class="menu-title">بازنویسی ها</span>
-											</a>
-											<!--end:Menu link-->
-										</div>
-										<!--end:Menu item-->
-									
-									</div>
-									<!--end:Menu sub-->
-								</div>
-								<!--end:Menu item-->
-
-
-
+                <!--begin:Menu item-->
+                <div class="menu-item  <?php if(Request::segment(2) == "newsMenu" ): ?> here active <?php endif; ?> menu-accordion">
+                    <!--begin:Menu link-->
+                    <span class="menu-link">
+                    <span class="menu-icon">
+                        <i class="ki-duotone ki-black-left fs-2"></i>
+                    </span>
+                    <a href="<?php echo e(route('newsMenu')); ?>" class="menu-title"
+                    <?php if(Request::segment(2) == "newsMenu"): ?> style=" font-weight: bold" <?php endif; ?>>رصد اخبار</a>
+                    <span>
+                        <?php if(Request::segment(2) == "newsMenu"): ?>
+                            <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
+                        <?php else: ?>
+                            <i class="fa fa-chevron-left" style="font-size: 10px"></i>
+                        <?php endif; ?>
+                    </span>
+                    </span>
+                    <!--end:Menu link-->
+                </div>
+               <!--end:Menu item-->
             </div>
             <!--end::Menu-->
         </div>

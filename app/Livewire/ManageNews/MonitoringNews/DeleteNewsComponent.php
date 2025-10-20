@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\ManageNews;
+namespace App\Livewire\ManageNews\MonitoringNews;
 use App\Models\News;
 use Livewire\Component;
 
@@ -21,6 +21,6 @@ class DeleteNewsComponent extends Component
     }
     public function render()
     {
-        return view('livewire.manage-news.delete-news-component');
+        return view('livewire.manage-news.monitoring-news.delete-news-component');
     }
 }

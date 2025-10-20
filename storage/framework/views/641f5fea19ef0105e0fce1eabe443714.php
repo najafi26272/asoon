@@ -7,7 +7,7 @@
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
-[$__name, $__params] = $__split('manage-review.review-list-component', []);
+[$__name, $__params] = $__split('manage-news.review-news.review-list-component', []);
 
 $__html = app('livewire')->mount($__name, $__params, 'lw-2471014533-0', $__slots ?? [], get_defined_vars());
 
@@ -23,7 +23,7 @@ if (isset($__slots)) unset($__slots);
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
-[$__name, $__params] = $__split('manage-review.review-details-component', []);
+[$__name, $__params] = $__split('manage-news.review-news.review-details-component', []);
 
 $__html = app('livewire')->mount($__name, $__params, 'lw-2471014533-1', $__slots ?? [], get_defined_vars());
 
@@ -39,7 +39,7 @@ if (isset($__slots)) unset($__slots);
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
-[$__name, $__params] = $__split('manage-review.edit-review-component', []);
+[$__name, $__params] = $__split('manage-news.review-news.edit-review-component', []);
 
 $__html = app('livewire')->mount($__name, $__params, 'lw-2471014533-2', $__slots ?? [], get_defined_vars());
 

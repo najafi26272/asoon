@@ -1,5 +1,5 @@
 <?php
-namespace App\Livewire\ManageNews;
+namespace App\Livewire\ManageNews\MonitoringNews;
 use Livewire\Component;
 use App\Models\{News,NewsStep};
 use Livewire\WithPagination;
@@ -84,29 +84,25 @@ class NewsListComponent extends Component
     {
         $this->processSelected(2);
     }
-    
-    // public function addDetails($id)  // step_id 3
-    // {
-    //     $step = NewsStep::create([
-    //         'news_id' => $id,
-    //         'step_id' => 4, // or 2 for reject
-    //         'creator_id' => Auth::user()->id,
-    //         'description' => $this->description
-    //     ]);
-    //     News::findOrFail($id)->update(['status' => $step->id, 'channel'=>$this->channel, 'need_cover'=>$this->need_cover, 'language'=>$this->language, 'priority'=>$this->priority]);
-    //     // Title::create(['news_id'=>$id,'ch'])
-    // }
+
     public function render()
     {
         $searchTerm = '%'.$this->char.'%';
-        $items = News::with('step.stepDefinition')
+
+        $query = News::with('step.stepDefinition')
         ->where('title', 'LIKE', $searchTerm)
         ->orWhere('link', 'LIKE', $searchTerm)
-        ->orWhere('topic', 'LIKE', $searchTerm)
-        ->latest()
-        ->paginate($this->pageNumber);
+        ->orWhere('topic', 'LIKE', $searchTerm);
 
-        return view('livewire.manage-news.news-list-component', [
+        if(request()->routeIs('addInfoNews')) {
+            $query->whereHas('step.stepDefinition', function($q) {
+                $q->where('id', '!=', 2);
+            });
+        }
+
+        $items = $query->latest()->paginate($this->pageNumber ?: 15);
+
+        return view('livewire.manage-news.monitoring-news.news-list-component', [
             'items' => $items,
         ]);
     }

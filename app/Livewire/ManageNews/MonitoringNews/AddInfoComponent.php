@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\ManageNews;
+namespace App\Livewire\ManageNews\MonitoringNews;
 
 use Livewire\Component;
 use App\Models\{News,NewsStep,User,Title};
@@ -79,7 +79,7 @@ class AddInfoComponent extends Component
 
     public function render()
     {
-        return view('livewire.manage-news.add-info-component', [
+        return view('livewire.manage-news.monitoring-news.add-info-component', [
             'siteTitrs' => User::whereIn('id', [45])->get(),
             'socialMediaTitrs' => User::whereIn('id', [35])->get()
         ]);

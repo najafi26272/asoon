@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\ManageReview;
+namespace App\Livewire\ManageNews\ReviewNews;
 use Livewire\Component;
 use App\Models\News;
 use Livewire\WithPagination;
@@ -48,7 +48,7 @@ class ReviewListComponent extends Component
         })->with(['assignedEditors' => function ($q) use ($editorId) {
             $q->where('editor_id', $editorId);
         }])->latest()->paginate($this->pageNumber);
-        return view('livewire.manage-review.review-list-component', [
+        return view('livewire.manage-news.review-news.review-list-component', [
             'items' => $items,
         ]);
     }

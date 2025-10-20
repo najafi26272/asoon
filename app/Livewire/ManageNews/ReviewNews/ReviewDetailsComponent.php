@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\ManageReview;
+namespace App\Livewire\ManageNews\ReviewNews;
 
 use Livewire\Component;
 use App\Models\{News,NewsStep,EditNews};
@@ -27,6 +27,6 @@ class ReviewDetailsComponent extends Component
 
     public function render()
     {
-        return view('livewire.manage-review.review-details-component');
+        return view('livewire.manage-news.review-news.review-details-component');
     }
 }

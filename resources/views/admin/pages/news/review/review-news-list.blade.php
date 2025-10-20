@@ -5,9 +5,9 @@
 @endpush
 
 @section('content')
-    <livewire:manage-review.review-list-component/>
-    <livewire:manage-review.review-details-component/>
-    <livewire:manage-review.edit-review-component/>
+    <livewire:manage-news.review-news.review-list-component/>
+    <livewire:manage-news.review-news.review-details-component/>
+    <livewire:manage-news.review-news.edit-review-component/>
 @endsection
 
 @push('scripts')

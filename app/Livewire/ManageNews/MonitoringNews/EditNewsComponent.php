@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\ManageNews;
+namespace App\Livewire\ManageNews\MonitoringNews;
 
 use Livewire\Component;
 use App\Models\News;
@@ -43,6 +43,6 @@ class EditNewsComponent extends Component
     }
     public function render()
     {
-        return view('livewire.manage-news.edit-news-component');
+        return view('livewire.manage-news.monitoring-news.edit-news-component');
     }
 }
