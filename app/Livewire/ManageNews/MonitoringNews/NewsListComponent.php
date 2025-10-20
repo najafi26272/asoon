@@ -1,11 +1,8 @@
 <?php
 namespace App\Livewire\ManageNews\MonitoringNews;
-use Livewire\Component;
 use App\Models\{News,NewsStep};
-use Livewire\WithPagination;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
+use Livewire\{Component, WithPagination};
+use Illuminate\Support\Facades\{Auth,Validator,DB};
 
 class NewsListComponent extends Component
 {
@@ -17,10 +14,26 @@ class NewsListComponent extends Component
     public $char = '';
     public $title, $link, $content, $summary, $agency, $topic, $reason, $goals, $description;
     public $pageNumber = 10;
-    protected $listeners = [
-        '$_news_refresh' => 'refresh',
-    ];
+    public $path = false;
+    protected $listeners = ['$_news_refresh' => 'refresh'];
 
+    public function mount()
+    {
+        $this->path = request()->is('*addInfo*');
+    }
+
+    private function getBaseQuery()
+    {
+        return News::with('step.stepDefinition')
+            ->when($this->path, fn($q) => $q->whereHas('step.stepDefinition', 
+                fn($q) => $q->where('step_id', '!=', 2)
+            ))
+            ->where(function ($q) {
+                $search = "%{$this->char}%";
+                $q->whereAny(['title', 'link', 'topic'], 'LIKE', $search);
+            });
+    }
+    
     public function addInfo($id)
     {
         $this->dispatch('$_info_add', $id);
@@ -29,13 +42,7 @@ class NewsListComponent extends Component
 
     public function refresh()
     {
-        $searchTerm = '%'.$this->char.'%';
-        $items = News::with('step.stepDefinition')
-            ->where('title', 'LIKE', $searchTerm)
-            ->orWhere('link', 'LIKE', $searchTerm)
-            ->orWhere('topic', 'LIKE', $searchTerm)
-            ->latest()
-            ->paginate($this->pageNumber);
+        $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);
     }
     public function delete($id)
     {
@@ -55,27 +62,25 @@ class NewsListComponent extends Component
             'rejectDescription' => $stepId === 2 ? 'nullable|string|max:500' : ''
         ]);
 
+        DB::transaction(function () use ($stepId) {
             foreach ($this->selectedIds as $id) {
                 $step = NewsStep::create([
                     'news_id' => $id,
                     'step_id' => $stepId,
-                    'creator_id' => Auth::id(),
+                    'creator_id' => auth()->id(),
                     'description' => $this->rejectDescription
                 ]);
                 
-                News::findOrFail($id)->update([
-                    'status' => $step->id
-                ]);
+                News::find($id)->update(['status' => $step->id]);
             }
+        });
 
-            $this->reset(['selectedIds', 'rejectDescription']);
-            $this->dispatch('$_alert_message', ['message' => $stepId === 2 
+        $this->reset(['selectedIds', 'rejectDescription', 'selectAll']);
+        $this->dispatch('$_alert_message', ['message' => $stepId === 2 
                     ? 'موارد انتخابی رد شدند' 
                     : 'موارد انتخابی تأیید شدند']);   
-            $this->dispatch('news-rejected'); 
-            $this->selectAll = false;
+        $this->dispatch('news-rejected'); 
     }
-
     public function approveSelected()
     {
         $this->processSelected(3);
@@ -87,20 +92,7 @@ class NewsListComponent extends Component
 
     public function render()
     {
-        $searchTerm = '%'.$this->char.'%';
-
-        $query = News::with('step.stepDefinition')
-        ->where('title', 'LIKE', $searchTerm)
-        ->orWhere('link', 'LIKE', $searchTerm)
-        ->orWhere('topic', 'LIKE', $searchTerm);
-
-        if(request()->routeIs('addInfoNews')) {
-            $query->whereHas('step.stepDefinition', function($q) {
-                $q->where('id', '!=', 2);
-            });
-        }
-
-        $items = $query->latest()->paginate($this->pageNumber ?: 15);
+        $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);
 
         return view('livewire.manage-news.monitoring-news.news-list-component', [
             'items' => $items,
