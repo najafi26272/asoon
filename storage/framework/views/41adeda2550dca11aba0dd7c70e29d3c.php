@@ -1,13 +1,13 @@
 
-@push("style")
+<?php $__env->startPush("style"); ?>
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.0.0/ckeditor5.css" />
 
-@endpush
+<?php $__env->stopPush(); ?>
 <div class="card mb-5 mb-xl-10">
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold fs-3 mb-1">{{ $path ? 'لیست اخبار تاییدشده' : 'لیست اخبار رصدشده' }}</span>
+            <span class="card-label fw-bold fs-3 mb-1"><?php echo e($path ? 'لیست اخبار تاییدشده' : 'لیست اخبار رصدشده'); ?></span>
         </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
@@ -43,11 +43,11 @@
                     <!--end::Form-->
                 </div>
              
-                @if(!$path && count($items))
+                <!--[if BLOCK]><![endif]--><?php if(!$path && count($items)): ?>
                 <a class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal"
                     data-bs-target="#kt_modal_new_news">
                         <i class="ki-duotone ki-plus fs-2"></i>رصد جدید</a>
-                @endif
+                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             </div>
     </div>
     <!--end::Header-->
@@ -55,19 +55,19 @@
     <div class="card-body py-3">
         <!--begin::Table container-->
         <div class="table-responsive">
-            @if(count($items) == 0)
+            <!--[if BLOCK]><![endif]--><?php if(count($items) == 0): ?>
                 <div class="py-10 text-center">
-                    <img src="{{asset("assets/media/svg/illustrations/easy/2.svg")}}" class=" w-200px"
+                    <img src="<?php echo e(asset("assets/media/svg/illustrations/easy/2.svg")); ?>" class=" w-200px"
                          alt="">
                     <p class="m-5">در حال حاضر رصدی  برای شما ثبت نشده است.</p>
-                    @unless($path)
+                    <!--[if BLOCK]><![endif]--><?php if (! ($path)): ?>
                     <a class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
                        data-bs-target="#kt_modal_new_news">رصد جدید
                         <i class="fa fa-plus"></i>
                     </a>
-                    @endunless
+                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
-            @else
+            <?php else: ?>
                 <!--begin::Table-->
                 <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
                     <!--begin::Table head-->
@@ -99,29 +99,31 @@
                     <!--end::Table head-->
                     <!--begin::Table body-->
                     <tbody>
-                    @foreach($items as $item)
+                    <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
                             <td>
                                 <input 
                                 type="checkbox" 
                                 wire:model="selectedIds" 
-                                value="{{ $item->id }}" 
+                                value="<?php echo e($item->id); ?>" 
                                 class="form-check-input item-checkbox"
                             >
                             </td>
                             <td class="">
-                                {{$item->title}}
+                                <?php echo e($item->title); ?>
+
                             </td>
                             
-                                <td>{{ Str::limit($item->link, 30) }}</td>
+                                <td><?php echo e(Str::limit($item->link, 30)); ?></td>
                             
                             <td>
                                 <p class="text-dark fw-bold text-hover-primary d-block fs-6">
-                                    {{$item->created_at? verta($item->created_at)->format('Y/m/d'): ''}}
+                                    <?php echo e($item->created_at? verta($item->created_at)->format('Y/m/d'): ''); ?>
+
                                 </p>
                             </td>
                             <td>
-                                <div class="badge badge-light-primary">{{ $item->step->stepDefinition->title }}</div>                                    
+                                <div class="badge badge-light-primary"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
                             </td>
                             <td>
                                 <div class="d-flex justify-content-start flex-shrink-0">
@@ -135,8 +137,8 @@
                                         </i>
                                     </span>
                                     </a>
-                                    @if($item->step->stepDefinition->id == 3)
-                                    <a wire:click="addInfo({{$item->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
+                                    <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 3): ?>
+                                    <a wire:click="addInfo(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <span class="ms-1" data-bs-toggle="tooltip" title="افزودن اطلاعات">
                                         <i class="ki-duotone ki-switch fs-2">
@@ -145,8 +147,8 @@
                                         </i>
                                     </span>
                                     </a>
-                                    @endif
-                                    <a wire:click="update({{$item->id}})"
+                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                    <a wire:click="update(<?php echo e($item->id); ?>)"
                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
 
                                     <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
@@ -157,7 +159,7 @@
 										</i>
 									</span>
                                     </a>
-                                    <a wire:click="delete({{$item->id}})"
+                                    <a wire:click="delete(<?php echo e($item->id); ?>)"
                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
                                          <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
                                      <i class="ki-duotone ki-trash fs-2">
@@ -195,31 +197,32 @@
                                 <!--end::Menu-->
                             </td>
                         </tr>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                     </tbody>
                     <!--end::Table body-->
                 </table>
                 <!--end::Table-->
                 <!-- Action Buttons -->
                 <div class="d-flex justify-content-start mt-5">
-                    @unless ($path)
+                    <!--[if BLOCK]><![endif]--><?php if (! ($path)): ?>
                         <button wire:click="approveSelected" class="btn btn-success me-3"
-                            @if(count($selectedIds) == 0) disabled @endif >
+                            <?php if(count($selectedIds) == 0): ?> disabled <?php endif; ?> >
                             تأیید انتخاب‌ها
                         </button>
-                    @endunless
+                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal"
-                        @if(count($selectedIds) == 0) disabled @endif >
+                        <?php if(count($selectedIds) == 0): ?> disabled <?php endif; ?> >
                         رد انتخاب‌ها
                     </button>
                 </div>
-            @endif
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             
-            @if(count($items))
+            <?php if(count($items)): ?>
                 <div class="custom-paginate clearfix" style="margin-top: 10px;margin-right:10px">
-                    {{ $items->links() }}
+                    <?php echo e($items->links()); ?>
+
                 </div>
-            @endif
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
         </div>
         <!--end::Table container-->
     </div>
@@ -245,7 +248,14 @@
                         rows="4"
                         placeholder="در صورت نیاز دلیل رد کردن را وارد کنید..."
                     ></textarea>
-                    @error('rejectDescription') <span class="text-danger">{{ $message }}</span> @enderror
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['rejectDescription'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-danger"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
                 <div class="modal-footer">
                     <button 
@@ -333,14 +343,14 @@
 </div>
 
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
     <script>
         // مدیریت انتخاب تمامی آیتم‌ها
         $('#selectAll').on('change', function() {
             const isChecked = $(this).prop('checked');
             $('.item-checkbox').prop('checked', isChecked);
             const ids = $('.item-checkbox:checked').map((i, el) => el.value).get();
-            @this.set('selectedIds', ids);
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedIds', ids);
         });
 
         // مدیریت تغییرات تک تک آیتم‌ها
@@ -348,18 +358,18 @@
             const allChecked = $('.item-checkbox:checked').length === $('.item-checkbox').length;
             $('#selectAll').prop('checked', allChecked);
             const ids = $('.item-checkbox:checked').map((i, el) => el.value).get();
-            @this.set('selectedIds', ids);
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedIds', ids);
         });
     
         $('#searching').on('keyup', function (e) {
             let data = $(this).val();
-            @this.set('char', data);
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('char', data);
         });
 
     </script>
 
-{{-- textEditor --}}
-<script src="{{asset("assets/plugins/custom/tinymce/tinymce.bundle.js")}}"></script>
+
+<script src="<?php echo e(asset("assets/plugins/custom/tinymce/tinymce.bundle.js")); ?>"></script>
 
 <script>
     // start textEditor
@@ -379,4 +389,4 @@
     // end textEditor
 </script>
 
-@endpush
+<?php $__env->stopPush(); ?><?php /**PATH D:\project\asou\asoon\resources\views/livewire/manage-news/monitoring-news/news-list-component.blade.php ENDPATH**/ ?>

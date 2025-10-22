@@ -21,6 +21,8 @@
 <script src="{{asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.js")}}"></script>
 
     <script>
+        
+        
         document.addEventListener('show-delete-news-modal', event => {
             $("#kt_modal_delete_news").modal('show');
         });
