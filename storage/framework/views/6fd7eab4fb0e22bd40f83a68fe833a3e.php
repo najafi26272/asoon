@@ -7,7 +7,15 @@
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold fs-3 mb-1"><?php echo e($path ? 'لیست اخبار تاییدشده' : 'لیست اخبار رصدشده'); ?></span>
+            <span class="card-label fw-bold fs-3 mb-1">
+                <!--[if BLOCK]><![endif]--><?php if($pathIsAddInfo): ?>
+                لیست اخبار تاییدشده
+                <?php elseif($pathIsTitle): ?>
+                لیست اخبار در مرحله تیترزدن
+                <?php else: ?>
+                لیست اخبار رصدشده
+                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+            </span>
         </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
@@ -43,7 +51,7 @@
                     <!--end::Form-->
                 </div>
              
-                <!--[if BLOCK]><![endif]--><?php if(!$path && count($items)): ?>
+                <!--[if BLOCK]><![endif]--><?php if(!$pathIsAddInfo && !$pathIsTitle && count($items)): ?>
                 <a class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal"
                     data-bs-target="#kt_modal_new_news">
                         <i class="ki-duotone ki-plus fs-2"></i>رصد جدید</a>
@@ -60,7 +68,7 @@
                     <img src="<?php echo e(asset("assets/media/svg/illustrations/easy/2.svg")); ?>" class=" w-200px"
                          alt="">
                     <p class="m-5">در حال حاضر رصدی  برای شما ثبت نشده است.</p>
-                    <!--[if BLOCK]><![endif]--><?php if (! ($path)): ?>
+                    <!--[if BLOCK]><![endif]--><?php if(!$pathIsAddInfo && !$pathIsTitle): ?>
                     <a class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
                        data-bs-target="#kt_modal_new_news">رصد جدید
                         <i class="fa fa-plus"></i>
@@ -72,25 +80,35 @@
                 <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
                     <!--begin::Table head-->
                     <thead>
-                    <tr class="fw-bold text-muted">
+                    <tr class="fw-bold text-muted ">
                         <th class="min-w-50px">
                             <input type="checkbox" id="selectAll" wire:model="selectAll" class="form-check-input">
                         </th>
                         <th class="min-w-200px">
                             عنوان
                         </th>
-                        <th class="min-w-150px">
-                            لینک  
-                        </th>  
-                        <th class="min-w-100px">
-                            تاریخ ثبت  
-                        </th>                      
+                        <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
+                            <th class="min-w-150px">
+                                تیتر پیشنهادی
+                            </th>
+                        <?php else: ?>
+                            <th class="min-w-150px">
+                                لینک  
+                            </th>  
+                            <th class="min-w-100px">
+                                تاریخ ثبت  
+                            </th>       
+                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                       
                         <th class="min-w-100px">
                             وضعیت
                         </th>   
-                        <th class="min-w-100px text-end">
+                        <th class="min-w-100px ">
                             عملیات
-                        </th>                        
+                        </th> 
+                        <th>
+                        وضعیت انتشار    
+                        </th>                       
                     </tr>
                     </thead>
                     <!--end::Table head-->
@@ -110,20 +128,34 @@
                                 <?php echo e($item->title); ?>
 
                             </td>
-                            <td class="">
+                            <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
+                                <td><?php echo e(Str::limit($item->latestWebTitle, 50)); ?></td>
+                            <?php else: ?>
                                 <td><?php echo e(Str::limit($item->link, 30)); ?></td>
-                            </td>
-                            <td>
-                                <p class="text-dark fw-bold text-hover-primary d-block fs-6">
-                                    <?php echo e($item->created_at? verta($item->created_at)->format('Y/m/d'): ''); ?>
+                                
+                                <td>
+                                    <p class="text-dark fw-bold text-hover-primary d-block fs-6">
+                                        <?php echo e($item->created_at? verta($item->created_at)->format('Y/m/d'): ''); ?>
 
-                                </p>
-                            </td>
+                                    </p>
+                                </td>
+                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+
                             <td>
                                 <div class="badge badge-light-primary"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
                             </td>
                             <td>
-                                <div class="d-flex justify-content-end flex-shrink-0">
+                                <div class="d-flex justify-content-start flex-shrink-0">
+
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_add_title_news"
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="افزودن تیتر">
+                                        <i class="ki-duotone ki-switch fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    </a>
                                     <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 3): ?>
                                     <a wire:click="addInfo(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
@@ -160,6 +192,29 @@
                                     </a>
                                 </div>
                             </td>
+                            <td class="text-start">
+                                <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">ثبت وضعیت
+                                <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                <!--begin::Menu-->
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3">در انتظار انتشار</a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3">منتشر شده  </a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3" >عدم انتشار</a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                </div>
+                                <!--end::Menu-->
+                            </td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                     </tbody>
@@ -168,16 +223,31 @@
                 <!--end::Table-->
                 <!-- Action Buttons -->
                 <div class="d-flex justify-content-start mt-5">
-                    <!--[if BLOCK]><![endif]--><?php if (! ($path)): ?>
-                        <button wire:click="approveSelected" class="btn btn-success me-3"
+                    
+                    <!--[if BLOCK]><![endif]--><?php if(!$pathIsTitle): ?>
+                        <!--[if BLOCK]><![endif]--><?php if (! ($pathIsAddInfo)): ?>
+                            <button wire:click="approveSelected" class="btn btn-success me-3"
+                                <?php if(count($selectedIds) == 0): ?> disabled <?php endif; ?> >
+                                تأیید انتخاب‌ها
+                            </button>
+                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal"
                             <?php if(count($selectedIds) == 0): ?> disabled <?php endif; ?> >
-                            تأیید انتخاب‌ها
+                            رد انتخاب‌ها
                         </button>
                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal"
-                        <?php if(count($selectedIds) == 0): ?> disabled <?php endif; ?> >
-                        رد انتخاب‌ها
-                    </button>
+
+                    
+                    <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
+                        <button wire:click="approveSelectedTitrs" class="btn btn-success me-3"
+                            <?php if(count($selectedIds) == 0): ?> disabled <?php endif; ?> >
+                                تأیید انتخاب‌ها
+                        </button>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectTitrModal"
+                            <?php if(count($selectedIds) == 0): ?> disabled <?php endif; ?> >
+                            رد انتخاب‌ها
+                        </button>
+                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             
@@ -233,7 +303,114 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
         </div>
     </div>
 
+        <!-- Reject Titr Modal -->
+        <div class="modal fade" id="rejectTitrModal" tabindex="-1" wire:ignore.self>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">رد موارد انتخاب شده</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea 
+                            wire:model="rejectDescription"
+                            class="form-control"
+                            rows="4"
+                            placeholder="در صورت نیاز دلیل رد کردن را وارد کنید..."
+                        ></textarea>
+                        <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['rejectDescription'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-danger"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
+                    </div>
+                    <div class="modal-footer">
+                        <button 
+                            wire:click="rejectSelectedTitrs"
+                            class="btn btn-danger"
+                        >
+                            تأیید رد
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div wire:ignore.self class="modal fade" id="kt_modal_add_title_news" tabindex="-1" aria-hidden="true">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Form Start -->
+                    <!-- Modal Header -->
+                    <div class="modal-header" id="kt_modal_new_mosavabe_header">
+                        <h2>افزودن تیتر</h2>
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                            <i class="ki-duotone ki-cross fs-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </div>
+                    </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body py-10 px-lg-17">
+                        <div class="scroll-y me-n7 pe-7" id="kt_modal_new_mosavabe_scroll" data-kt-scroll="true"
+                             data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
+                             data-kt-scroll-dependencies="#kt_modal_new_address_header"
+                             data-kt-scroll-wrappers="#kt_modal_new_address_scroll" data-kt-scroll-offset="300px">
+    
+                           
+                                <!--begin::Input group-->
+                            <div class="row g-9 mb-8">
+                                <!--begin::Col-->
+                                <div class="col-12 fv-row">
+                                    <!--begin::Input group-->
+                                    <div wire:ignore class="d-flex flex-column mb-8 fv-row">
+                                        <!--begin::Tags-->
+                                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class=""> تیتر خبر</span>
+                                            <span class="ms-1" data-bs-toggle="tooltip"
+                                                  title="تیتر مناسب با خبر را بنویسید">
+                                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                                            <span class="path1"></span>
+                                                            <span class="path2"></span>
+                                                            <span class="path3"></span>
+                                                        </i>
+                                                    </span>
+                                        </label>
+                                        <!--end::Tags-->
+                                       <input type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                           
+                        </div>
+                    </div>
+    
+                    <!--end::Modal body-->
+                    <!--begin::Modal footer-->
+                    <div class="modal-footer flex-center">
+                        <!--begin::Button-->
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">لغو</button>
+                        <!--end::Button-->
+                        <!--begin::Button-->
+                        <button wire:click="addInfo" class="btn btn-primary">
+                            <span class="indicator-label">ثبت</span>
+                        </button>
+                        <!--end::Button-->
+                    </div>
+                    <!--end::Modal footer-->
+            </div>
+        </div>
+    </div>
+    
 </div>
+
 
 <?php $__env->startPush('scripts'); ?>
     <script>

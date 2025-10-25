@@ -3,6 +3,7 @@ namespace App\Livewire\ManageNews\MonitoringNews;
 use App\Models\{News,NewsStep};
 use Livewire\{Component, WithPagination};
 use Illuminate\Support\Facades\{Auth,Validator,DB};
+use Illuminate\Database\Eloquent\Builder;
 
 class NewsListComponent extends Component
 {
@@ -14,23 +15,39 @@ class NewsListComponent extends Component
     public $char = '';
     public $title, $link, $content, $summary, $agency, $topic, $reason, $goals, $description;
     public $pageNumber = 10;
-    public $path = false;
+    public $pathIsAddInfo = false, $pathIsTitle = false;
     protected $listeners = ['$_news_refresh' => 'refresh'];
 
     public function mount()
     {
-        $this->path = request()->is('*addInfo*');
+        $this->pathIsAddInfo = request()->is('*news/addInfo*');
+        $this->pathIsTitle = request()->is('*news/title*');
     }
 
-    private function getBaseQuery()
+    public function getBaseQuery(): Builder
     {
-        return News::with('step.stepDefinition')
-            ->when($this->path, fn($q) => $q->whereHas('step.stepDefinition', 
-                fn($q) => $q->where('step_id', '!=', 2)
-            ))
-            ->where(function ($q) {
-                $search = "%{$this->char}%";
-                $q->whereAny(['title', 'link', 'topic'], 'LIKE', $search);
+        $pathIsAddInfo = $this->pathIsAddInfo ?? false;
+        $pathIsTitle   = $this->pathIsTitle ?? false;
+        $char            = $this->char ?? '';
+
+        return News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle'])
+            ->when($pathIsAddInfo, function (Builder $q) {
+                $q->whereHas('step.stepDefinition', function (Builder $q2) {
+                    $q2->where('step_id', 3);
+                });
+            })
+            ->when($pathIsTitle, function (Builder $q) {
+                $q->whereHas('step.stepDefinition', function (Builder $q2) {
+                    $q2->whereIn('step_id', [4, 5, 6, 7]);
+                });
+            })
+            ->where(function (Builder $query) use ($char) {
+                $search = "%{$char}%";
+                $query->where(function (Builder $q2) use ($search) {
+                    $q2->where('title', 'LIKE', $search)
+                       ->orWhere('link', 'LIKE', $search)
+                       ->orWhere('topic', 'LIKE', $search);
+                });
             });
     }
     

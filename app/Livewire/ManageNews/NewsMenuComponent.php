@@ -35,6 +35,28 @@ class NewsMenuComponent extends Component
                     ->latest()
                     ->take(1);
             })->count(),
+
+            'waitingForTitrsCount' => News::whereHas('step', function($query) {
+                $query->where('step_id', 4)
+                    ->latest()
+                    ->take(1);
+            })->count(),
+            'waitingForApproveTitrsCount' => News::whereHas('step', function($query) {
+                $query->where('step_id', 5)
+                    ->latest()
+                    ->take(1);
+            })->count(),
+            'approvedTitrsCount' => News::whereHas('step', function($query) {
+                $query->where('step_id', 6)
+                    ->latest()
+                    ->take(1);
+            })->count(),
+            'rejectedTitrsCount' => News::whereHas('step', function($query) {
+                $query->where('step_id', 7)
+                    ->latest()
+                    ->take(1);
+            })->count(),
+
             'reviewNewsCount' => News::whereHas('step', function($query) {
                 $query->whereIn('step_id',[6,8,9,10,11])
                     ->latest()

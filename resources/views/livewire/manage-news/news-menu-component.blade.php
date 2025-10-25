@@ -143,25 +143,25 @@
                 <div class="d-flex flex-wrap mb-5 justify-center">
                     <!--begin::Due-->
                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">123</div>
+                        <div class="fs-6 text-gray-800 fw-bold">{{$waitingForTitrsCount}}</div>
                         <div class="fw-semibold text-gray-400">در انتظار تیتر</div>
                     </div>
                     <!--end::Due-->
                     <!--begin::بودجه-->
                     <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">3</div>
+                        <div class="fs-6 text-gray-800 fw-bold">{{$waitingForApproveTitrsCount}}</div>
                         <div class="fw-semibold text-gray-400">درانتظار بررسی تیتر</div>
                     </div>
                     <!--end::بودجه-->
                         <!--begin::Due-->
                         <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">123</div>
+                        <div class="fs-6 text-gray-800 fw-bold">{{$approvedTitrsCount}}</div>
                         <div class="fw-semibold text-gray-400">تایید تیتر</div>
                     </div>
                     <!--end::Due-->
                     <!--begin::بودجه-->
                     <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">3</div>
+                        <div class="fs-6 text-gray-800 fw-bold">{{$rejectedTitrsCount}}</div>
                         <div class="fw-semibold text-gray-400">عدم تایید تیتر و درانتظار تیترمجدد</div>
                     </div>
                     <!--end::بودجه-->
@@ -169,7 +169,7 @@
                 <!--end::Info-->
                 <!--begin::پردازش-->
                 <div class=" mb-5" >
-                    <a href="#" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
+                    <a target="_blank" href="{{route('newsTitle')}}" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
                 </div>
                 <!--end::پردازش-->
             </div>

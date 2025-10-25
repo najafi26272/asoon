@@ -7,7 +7,15 @@
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold fs-3 mb-1">{{ $path ? 'لیست اخبار تاییدشده' : 'لیست اخبار رصدشده' }}</span>
+            <span class="card-label fw-bold fs-3 mb-1">
+                @if($pathIsAddInfo)
+                لیست اخبار تاییدشده
+                @elseif($pathIsTitle)
+                لیست اخبار در مرحله تیترزدن
+                @else
+                لیست اخبار رصدشده
+                @endif
+            </span>
         </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
@@ -43,7 +51,7 @@
                     <!--end::Form-->
                 </div>
              
-                @if(!$path && count($items))
+                @if(!$pathIsAddInfo && !$pathIsTitle && count($items))
                 <a class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal"
                     data-bs-target="#kt_modal_new_news">
                         <i class="ki-duotone ki-plus fs-2"></i>رصد جدید</a>
@@ -60,12 +68,12 @@
                     <img src="{{asset("assets/media/svg/illustrations/easy/2.svg")}}" class=" w-200px"
                          alt="">
                     <p class="m-5">در حال حاضر رصدی  برای شما ثبت نشده است.</p>
-                    @unless($path)
+                    @if(!$pathIsAddInfo && !$pathIsTitle)
                     <a class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
                        data-bs-target="#kt_modal_new_news">رصد جدید
                         <i class="fa fa-plus"></i>
                     </a>
-                    @endunless
+                    @endif
                 </div>
             @else
                 <!--begin::Table-->
@@ -79,12 +87,19 @@
                         <th class="min-w-200px">
                             عنوان
                         </th>
-                        <th class="min-w-150px">
-                            لینک  
-                        </th>  
-                        <th class="min-w-100px">
-                            تاریخ ثبت  
-                        </th>                      
+                        @if($pathIsTitle)
+                            <th class="min-w-150px">
+                                تیتر پیشنهادی
+                            </th>
+                        @else
+                            <th class="min-w-150px">
+                                لینک  
+                            </th>  
+                            <th class="min-w-100px">
+                                تاریخ ثبت  
+                            </th>       
+                        @endif
+                                       
                         <th class="min-w-100px">
                             وضعیت
                         </th>   
@@ -112,14 +127,18 @@
                             <td class="">
                                 {{$item->title}}
                             </td>
-                            
+                            @if($pathIsTitle)
+                                <td>{{ Str::limit($item->latestWebTitle, 50) }}</td>
+                            @else
                                 <td>{{ Str::limit($item->link, 30) }}</td>
-                            
-                            <td>
-                                <p class="text-dark fw-bold text-hover-primary d-block fs-6">
-                                    {{$item->created_at? verta($item->created_at)->format('Y/m/d'): ''}}
-                                </p>
-                            </td>
+                                
+                                <td>
+                                    <p class="text-dark fw-bold text-hover-primary d-block fs-6">
+                                        {{$item->created_at? verta($item->created_at)->format('Y/m/d'): ''}}
+                                    </p>
+                                </td>
+                            @endif
+
                             <td>
                                 <div class="badge badge-light-primary">{{ $item->step->stepDefinition->title }}</div>                                    
                             </td>
@@ -202,16 +221,31 @@
                 <!--end::Table-->
                 <!-- Action Buttons -->
                 <div class="d-flex justify-content-start mt-5">
-                    @unless ($path)
-                        <button wire:click="approveSelected" class="btn btn-success me-3"
+                    {{-- برای تایید و رد اولیه --}}
+                    @if(!$pathIsTitle)
+                        @unless ($pathIsAddInfo)
+                            <button wire:click="approveSelected" class="btn btn-success me-3"
+                                @if(count($selectedIds) == 0) disabled @endif >
+                                تأیید انتخاب‌ها
+                            </button>
+                        @endunless
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal"
                             @if(count($selectedIds) == 0) disabled @endif >
-                            تأیید انتخاب‌ها
+                            رد انتخاب‌ها
                         </button>
-                    @endunless
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal"
-                        @if(count($selectedIds) == 0) disabled @endif >
-                        رد انتخاب‌ها
-                    </button>
+                    @endif
+
+                    {{-- برای تایید و رد تیتر --}}
+                    @if($pathIsTitle)
+                        <button wire:click="approveSelectedTitrs" class="btn btn-success me-3"
+                            @if(count($selectedIds) == 0) disabled @endif >
+                                تأیید انتخاب‌ها
+                        </button>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectTitrModal"
+                            @if(count($selectedIds) == 0) disabled @endif >
+                            رد انتخاب‌ها
+                        </button>
+                    @endif
                 </div>
             @endif
             
@@ -259,6 +293,34 @@
         </div>
     </div>
 
+        <!-- Reject Titr Modal -->
+        <div class="modal fade" id="rejectTitrModal" tabindex="-1" wire:ignore.self>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">رد موارد انتخاب شده</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea 
+                            wire:model="rejectDescription"
+                            class="form-control"
+                            rows="4"
+                            placeholder="در صورت نیاز دلیل رد کردن را وارد کنید..."
+                        ></textarea>
+                        @error('rejectDescription') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="modal-footer">
+                        <button 
+                            wire:click="rejectSelectedTitrs"
+                            class="btn btn-danger"
+                        >
+                            تأیید رد
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     <div wire:ignore.self class="modal fade" id="kt_modal_add_title_news" tabindex="-1" aria-hidden="true">

@@ -81,5 +81,29 @@ class News extends Model
     {
         return $this->hasOne(EditNews::class);
     }
-   
+
+    public function webTitle()
+    {
+        return $this->hasMany(Title::class)->where('channel', 'web');
+    }
+
+    public function socialTitle()
+    {
+        return $this->hasMany(Title::class)->where('channel', 'socialMedia');
+    }
+
+    public function latestWebTitle()
+    {
+        return $this->hasOne(Title::class)
+                    ->where('channel', 'web')
+                    ->latestOfMany('created_at');
+    }
+
+    public function latestSocialTitle()
+    {
+        return $this->hasOne(Title::class)
+                    ->where('channel', 'socialMedia')
+                    ->latestOfMany('created_at');
+    }
+
 }

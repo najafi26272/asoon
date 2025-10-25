@@ -37,7 +37,7 @@ class AddInfoComponent extends Component
             ]);
 
             $news->update([
-                'status_id' => $newsStep->id,
+                'status' => $newsStep->id,
                 'priority' => $this->priority,
                 'channels' => $this->getChannels(),
                 'languages' => $this->selectedLanguages,
