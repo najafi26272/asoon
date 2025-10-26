@@ -74,7 +74,10 @@
                             تاریخ ثبت خبر  
                         </th>                      
                         <th class="min-w-100px">
-                            وضعیت
+                            وضعیت خبر
+                        </th>   
+                        <th class="min-w-100px">
+                            وضعیت بازنویسی
                         </th>   
                         <th class="min-w-100px text-end">
                             عملیات
@@ -101,6 +104,9 @@
                                 </p>
                             </td>
                             <td>
+                                <div class="badge badge-light-primary"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
+                            </td>
+                            <td>
                                 <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 7): ?>
                                     <div class="badge badge-light-warning"> در انتظار بازنویسی</div>
                                 <?php else: ?>
@@ -125,7 +131,7 @@
                                          </i>
                                      </span>
                                      </a>
-                                     <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 7 or $item->editNews->status == "waiting"): ?>
+                                     <!--[if BLOCK]><![endif]--><?php if($item->editNews->status == "waiting"): ?>
                                      <a wire:click="update(<?php echo e($item->id); ?>)"
                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                      <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
@@ -146,7 +152,13 @@
                 </table>
                 <!--end::Table-->
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-            
+
+            <?php if(count($items)): ?>
+                <div class="custom-paginate clearfix" style="margin-top: 10px;margin-right:10px">
+                    <?php echo e($items->links()); ?>
+
+                </div>
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
         </div>
         <!--end::Table container-->
     </div>

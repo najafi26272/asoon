@@ -79,7 +79,16 @@ class News extends Model
 
     public function editNews()
     {
-        return $this->hasOne(EditNews::class);
+        return $this->hasOne(EditNews::class)->latestOfMany('created_at');;
+    }
+    public function reviews()
+    {
+        return $this->hasMany(EditNews::class);
+    }
+
+    public function titles()
+    {
+        return $this->hasMany(Title::class);
     }
 
     public function webTitle()

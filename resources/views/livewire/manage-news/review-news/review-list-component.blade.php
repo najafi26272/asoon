@@ -74,7 +74,10 @@
                             تاریخ ثبت خبر  
                         </th>                      
                         <th class="min-w-100px">
-                            وضعیت
+                            وضعیت خبر
+                        </th>   
+                        <th class="min-w-100px">
+                            وضعیت بازنویسی
                         </th>   
                         <th class="min-w-100px text-end">
                             عملیات
@@ -96,6 +99,9 @@
                                 <p class="text-dark fw-bold text-hover-primary d-block fs-6">
                                     {{$item->created_at? verta($item->created_at)->format('Y/m/d'): ''}}
                                 </p>
+                            </td>
+                            <td>
+                                <div class="badge badge-light-primary">{{ $item->step->stepDefinition->title }}</div>                                    
                             </td>
                             <td>
                                 @if($item->step->stepDefinition->id == 7)
@@ -122,7 +128,7 @@
                                          </i>
                                      </span>
                                      </a>
-                                     @if($item->step->stepDefinition->id == 7 or $item->editNews->status == "waiting")
+                                     @if($item->editNews->status == "waiting")
                                      <a wire:click="update({{$item->id}})"
                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                      <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
@@ -143,11 +149,12 @@
                 </table>
                 <!--end::Table-->
             @endif
-            {{-- @if(count($items) != 0)
+
+            @if(count($items))
                 <div class="custom-paginate clearfix" style="margin-top: 10px;margin-right:10px">
                     {{ $items->links() }}
                 </div>
-            @endif --}}
+            @endif
         </div>
         <!--end::Table container-->
     </div>

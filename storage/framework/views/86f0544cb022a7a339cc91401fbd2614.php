@@ -397,21 +397,33 @@
                 <div class="d-flex flex-wrap mb-5 justify-center">
                     <!--begin::Due-->
                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">123</div>
-                        <div class="fw-semibold text-gray-400">  تایید شده ها</div>
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForMyTitrsCount); ?></div>
+                        <div class="fw-semibold text-gray-400">در انتظار تیتر</div>
                     </div>
                     <!--end::Due-->
                     <!--begin::بودجه-->
                     <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">3</div>
-                        <div class="fw-semibold text-gray-400">  در انتظار تایید</div>
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForApproveMyTitrsCount); ?></div>
+                        <div class="fw-semibold text-gray-400">درانتظار بررسی تیتر</div>
+                    </div>
+                    <!--end::بودجه-->
+                        <!--begin::Due-->
+                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($approvedMyTitrsCount); ?></div>
+                        <div class="fw-semibold text-gray-400">تاییدشده</div>
+                    </div>
+                    <!--end::Due-->
+                    <!--begin::بودجه-->
+                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($rejectedMyTitrsCount); ?></div>
+                        <div class="fw-semibold text-gray-400">رد شده</div>
                     </div>
                     <!--end::بودجه-->
                 </div>
                 <!--end::Info-->
                 <!--begin::پردازش-->
                 <div class=" mb-5" >
-                    <a href="#" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
+                    <a target="_blank" href="<?php echo e(route('newsMyTitle')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
                 </div>
                 <!--end::پردازش-->
             </div>
@@ -450,31 +462,27 @@
                 <!--end::توضیحات-->
                 <!--begin::Info-->
                 <div class="d-flex flex-wrap mb-5 justify-center">
-                    <!--begin::Due-->
                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">123</div>
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($approvedMyReviewNewsCount); ?></div>
                         <div class="fw-semibold text-gray-400">تاییدشده</div>
                     </div>
-                    <!--end::Due-->
-                    <!--begin::بودجه-->
                     <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">3</div>
-                        <div class="fw-semibold text-gray-400">ردشده و درانتظار بازنویسی مجدد</div>
-                    </div>
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">3</div>
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForMyReviewNewsCount); ?></div>
                         <div class="fw-semibold text-gray-400">در انتظار بازنویسی</div>
                     </div>
                     <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">3</div>
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForCheckingMyReviewNewsCount); ?></div>
                         <div class="fw-semibold text-gray-400">در انتظار بررسی بازنویسی</div>
                     </div>
-                    <!--end::بودجه-->
+                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($rejectedMyReviewNewsCount); ?></div>
+                        <div class="fw-semibold text-gray-400">ردشده</div>
+                    </div>
                 </div>
                 <!--end::Info-->
                 <!--begin::پردازش-->
                 <div class=" mb-5" >
-                    <a target="_blank" href="<?php echo e(route('reviewNews')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
+                    <a target="_blank" href="<?php echo e(route('myReviewNews')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
                 </div>
                 <!--end::پردازش-->
             </div>
