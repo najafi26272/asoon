@@ -12,6 +12,8 @@
                 لیست اخبار تاییدشده
                 @elseif($pathIsTitle)
                 لیست اخبار در مرحله تیترزدن
+                @elseif($pathIsFinal)
+                لیست اخبار نهایی
                 @else
                 لیست اخبار رصدشده
                 @endif
@@ -51,7 +53,7 @@
                     <!--end::Form-->
                 </div>
              
-                @if(!$pathIsAddInfo && !$pathIsTitle && count($items))
+                @if(!$pathIsAddInfo && !$pathIsTitle && !$pathIsFinal && count($items))
                 <a class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal"
                     data-bs-target="#kt_modal_new_news">
                         <i class="ki-duotone ki-plus fs-2"></i>رصد جدید</a>
@@ -68,7 +70,7 @@
                     <img src="{{asset("assets/media/svg/illustrations/easy/2.svg")}}" class=" w-200px"
                          alt="">
                     <p class="m-5">در حال حاضر رصدی  برای شما ثبت نشده است.</p>
-                    @if(!$pathIsAddInfo && !$pathIsTitle)
+                    @if(!$pathIsAddInfo && !$pathIsTitle && !$pathIsFinal)
                     <a class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
                        data-bs-target="#kt_modal_new_news">رصد جدید
                         <i class="fa fa-plus"></i>
@@ -81,9 +83,11 @@
                     <!--begin::Table head-->
                     <thead>
                     <tr class="fw-bold text-muted ">
+                        @if(!$pathIsTitle && !$pathIsFinal)
                         <th class="min-w-50px">
                             <input type="checkbox" id="selectAll" wire:model="selectAll" class="form-check-input">
                         </th>
+                        @endif
                         <th class="min-w-200px">
                             عنوان
                         </th>
@@ -105,10 +109,7 @@
                         </th>   
                         <th class="min-w-100px ">
                             عملیات
-                        </th> 
-                        <th>
-                        وضعیت انتشار    
-                        </th>                       
+                        </th>                  
                     </tr>
                     </thead>
                     <!--end::Table head-->
@@ -116,6 +117,7 @@
                     <tbody>
                     @foreach($items as $item)
                         <tr>
+                            @if(!$pathIsTitle && !$pathIsFinal)
                             <td>
                                 <input 
                                 type="checkbox" 
@@ -124,6 +126,7 @@
                                 class="form-check-input item-checkbox"
                             >
                             </td>
+                            @endif
                             <td class="">
                                 {{$item->title}}
                             </td>
@@ -139,9 +142,32 @@
                                 </td>
                             @endif
 
+                            @if($pathIsFinal && $item->step->stepDefinition->id == 11)
+                            <td class="text-start">
+                            <div class="dropdown d-inline-block">
+                                <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="quickSelectDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                  درانتظار انتشار
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="quickSelectDropdown">
+                                  <li>
+                                    <a class="dropdown-item" href="#" wire:click.prevent="changeStatus({{$item->id}},12)">
+                                      منتشرشده
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a class="dropdown-item" href="#" wire:click.prevent="changeStatus({{$item->id}},13)">
+                                      عدم انتشار
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
+                            @else
                             <td>
                                 <div class="badge badge-light-primary">{{ $item->step->stepDefinition->title }}</div>                                    
                             </td>
+                            @endif
+
                             <td>
                                 <div class="d-flex justify-content-start flex-shrink-0">
 
@@ -190,29 +216,6 @@
                                     </a>
                                 </div>
                             </td>
-                            <td class="text-start">
-                                <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">ثبت وضعیت
-                                <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-                                <!--begin::Menu-->
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3">در انتظار انتشار</a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3">منتشر شده  </a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3" >عدم انتشار</a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                </div>
-                                <!--end::Menu-->
-                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -222,7 +225,7 @@
                 <!-- Action Buttons -->
                 <div class="d-flex justify-content-start mt-5">
                     {{-- برای تایید و رد اولیه --}}
-                    @if(!$pathIsTitle)
+                    @if(!$pathIsTitle && !$pathIsFinal)
                         @unless ($pathIsAddInfo)
                             <button wire:click="approveSelected" class="btn btn-success me-3"
                                 @if(count($selectedIds) == 0) disabled @endif >

@@ -25,6 +25,7 @@ class NewsMenuComponent extends Component
                     ->latest()
                     ->take(1);
             })->count(),
+
             'waitingForAddInfoNewsCount' => News::whereHas('step', function($query) {
                 $query->where('step_id', 3)
                     ->latest()
@@ -87,6 +88,23 @@ class NewsMenuComponent extends Component
                     ->latest()
                     ->take(1);
             })->count(),
+
+            'waitingForPublishedCount' => News::whereHas('step', function($query) {
+                $query->where('step_id', 11)
+                    ->latest()
+                    ->take(1);
+            })->count(),
+            'publishedCount' => News::whereHas('step', function($query) {
+                $query->where('step_id', 12)
+                    ->latest()
+                    ->take(1);
+            })->count(),
+            'notPublishedCount' => News::whereHas('step', function($query) {
+                $query->where('step_id', 13)
+                    ->latest()
+                    ->take(1);
+            })->count(),
+
         ]);
     }
 }

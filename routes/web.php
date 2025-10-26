@@ -102,6 +102,7 @@ Route::view('/aboutUs', 'admin.pages.about')->name('aboutUs');
             Route::view('review', 'admin.pages.news.review.review-news-list')->name('reviewNews');
             Route::view('addInfo', 'admin.pages.news.monitoring.monitoring-news-list')->name('addInfoNews');
             Route::view('title', 'admin.pages.news.monitoring.monitoring-news-list')->name('newsTitle');
+            Route::view('final', 'admin.pages.news.monitoring.monitoring-news-list')->name('finalNews');
         });
 
         Route::view('example', 'admin.pages.news')->name('example');

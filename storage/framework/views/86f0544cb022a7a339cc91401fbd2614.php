@@ -273,19 +273,19 @@
                 <div class="d-flex flex-wrap mb-5 justify-center">
                     <!--begin::Due-->
                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">123</div>
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($publishedCount); ?></div>
                         <div class="fw-semibold text-gray-400">منتشرشده</div>
                     </div>
                     <!--end::Due-->
                     <!--begin::بودجه-->
                     <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">3</div>
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForPublishedCount); ?></div>
                         <div class="fw-semibold text-gray-400">درانتظار انتشار</div>
                     </div>
                     <!--end::بودجه-->
                      <!--begin::Due-->
                      <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">123</div>
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($notPublishedCount); ?></div>
                         <div class="fw-semibold text-gray-400">عدم انتشار</div>
                     </div>
                     <!--end::Due-->
@@ -293,7 +293,7 @@
                 <!--end::Info-->
                 <!--begin::پردازش-->
                 <div class=" mb-5" >
-                    <a href="#" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
+                    <a target="_blank" href="<?php echo e(route('finalNews')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
                 </div>
                 <!--end::پردازش-->
             </div>

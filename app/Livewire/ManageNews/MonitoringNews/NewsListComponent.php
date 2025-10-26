@@ -15,19 +15,21 @@ class NewsListComponent extends Component
     public $char = '';
     public $title, $link, $content, $summary, $agency, $topic, $reason, $goals, $description;
     public $pageNumber = 10;
-    public $pathIsAddInfo = false, $pathIsTitle = false;
+    public $pathIsAddInfo = false, $pathIsTitle = false, $pathIsFinal;
     protected $listeners = ['$_news_refresh' => 'refresh'];
 
     public function mount()
     {
         $this->pathIsAddInfo = request()->is('*news/addInfo*');
         $this->pathIsTitle = request()->is('*news/title*');
+        $this->pathIsFinal = request()->is('*news/final*');
     }
 
     public function getBaseQuery(): Builder
     {
         $pathIsAddInfo = $this->pathIsAddInfo ?? false;
         $pathIsTitle   = $this->pathIsTitle ?? false;
+        $pathIsFinal   = $this->pathIsFinal ?? false;
         $char            = $this->char ?? '';
 
         return News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle'])
@@ -41,6 +43,11 @@ class NewsListComponent extends Component
                     $q2->whereIn('step_id', [4, 5, 6, 7]);
                 });
             })
+            ->when($pathIsFinal, function (Builder $q) {
+                $q->whereHas('step.stepDefinition', function (Builder $q2) {
+                    $q2->whereIn('step_id', [11,12,13]);
+                });
+            })
             ->where(function (Builder $query) use ($char) {
                 $search = "%{$char}%";
                 $query->where(function (Builder $q2) use ($search) {
@@ -50,7 +57,19 @@ class NewsListComponent extends Component
                 });
             });
     }
-    
+
+    public function changeStatus($id,$status)
+    {
+        $step = NewsStep::create([
+            'news_id' => $id,
+            'step_id' => $status,
+            'creator_id' => auth()->id(),
+        ]);
+            
+        News::find($id)->update(['status' => $step->id]);
+        $this->dispatch('$_alert_message',['message' => 'وضعیت با موفقیت تغییر کرد.']);
+    }
+
     public function addInfo($id)
     {
         $this->dispatch('$_info_add', $id);
