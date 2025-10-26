@@ -15,22 +15,25 @@ class NewsListComponent extends Component
     public $char = '';
     public $title, $link, $content, $summary, $agency, $topic, $reason, $goals, $description;
     public $pageNumber = 10;
-    public $pathIsAddInfo = false, $pathIsTitle = false, $pathIsFinal;
+    public $pathIsTitle = false, $pathIsAddInfo = false, $pathIsFinal = false, $pathIsMyMonitoring = false;
     protected $listeners = ['$_news_refresh' => 'refresh'];
 
     public function mount()
     {
         $this->pathIsAddInfo = request()->is('*news/addInfo*');
-        $this->pathIsTitle = request()->is('*news/title*');
         $this->pathIsFinal = request()->is('*news/final*');
+        $this->pathIsMyMonitoring = request()->is('*news/myMonitoring*');
+        $this->pathIsTitle = request()->is('*news/title*');
     }
 
     public function getBaseQuery(): Builder
     {
         $pathIsAddInfo = $this->pathIsAddInfo ?? false;
-        $pathIsTitle   = $this->pathIsTitle ?? false;
-        $pathIsFinal   = $this->pathIsFinal ?? false;
-        $char            = $this->char ?? '';
+        $pathIsFinal = $this->pathIsFinal ?? false;
+        $pathIsMyMonitoring = $this->pathIsMyMonitoring ?? false;
+        $pathIsTitle = $this->pathIsTitle ?? false;
+
+        $char = $this->char ?? '';
 
         return News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle'])
             ->when($pathIsAddInfo, function (Builder $q) {
@@ -43,10 +46,13 @@ class NewsListComponent extends Component
                     $q2->whereIn('step_id', [4, 5, 6, 7]);
                 });
             })
-            ->when($pathIsFinal, function (Builder $q) {
+            ->when($pathIsAddInfo, function (Builder $q) {
                 $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id', [11,12,13]);
+                    $q2->where('step_id', 3);
                 });
+            })
+            ->when($pathIsMyMonitoring, function (Builder $q) {
+                $q->where('creator_id', Auth::user()->id);
             })
             ->where(function (Builder $query) use ($char) {
                 $search = "%{$char}%";

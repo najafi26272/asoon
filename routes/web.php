@@ -103,6 +103,10 @@ Route::view('/aboutUs', 'admin.pages.about')->name('aboutUs');
             Route::view('addInfo', 'admin.pages.news.monitoring.monitoring-news-list')->name('addInfoNews');
             Route::view('title', 'admin.pages.news.monitoring.monitoring-news-list')->name('newsTitle');
             Route::view('final', 'admin.pages.news.monitoring.monitoring-news-list')->name('finalNews');
+        
+            Route::view('myMonitoring', 'admin.pages.news.monitoring.monitoring-news-list')->name('myMonitoringNews');
+
+        
         });
 
         Route::view('example', 'admin.pages.news')->name('example');

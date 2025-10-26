@@ -30,7 +30,7 @@
                 <div class="d-flex flex-wrap mb-5 justify-center">
                     <!--begin::Due-->
                     <div class="border border-gray-300 border-dashed rounded min-w-120px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForapproveMonitoringNewsCount); ?></div>
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForApproveMonitoringNewsCount); ?></div>
                         <div class="fw-semibold text-gray-400">درانتظار تایید</div>
                     </div>
                     <!--end::Due-->
@@ -336,21 +336,27 @@
                 <div class="d-flex flex-wrap mb-5 justify-center">
                     <!--begin::Due-->
                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">12</div>
-                        <div class="fw-semibold text-gray-400">  در حال بازنویسی</div>
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForApproveMyMonitoringNewsCount); ?></div>
+                        <div class="fw-semibold text-gray-400">درانتظار تایید</div>
                     </div>
                     <!--end::Due-->
                     <!--begin::بودجه-->
                     <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold">3</div>
-                        <div class="fw-semibold text-gray-400">  در انتظار </div>
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($approvedMyMonitoringNewsCount); ?></div>
+                        <div class="fw-semibold text-gray-400">تایید شده</div>
+                    </div>
+                    <!--end::بودجه-->
+                    <!--begin::بودجه-->
+                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($rejectedMyMonitoringNewsCount); ?> </div>
+                        <div class="fw-semibold text-gray-400">رد شده</div>
                     </div>
                     <!--end::بودجه-->
                 </div>
                 <!--end::Info-->
                 <!--begin::پردازش-->
                 <div class=" mb-5" >
-                    <a href="#" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
+                    <a target="_blank" href="<?php echo e(route('myMonitoringNews')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
                 </div>
                 <!--end::پردازش-->
             </div>

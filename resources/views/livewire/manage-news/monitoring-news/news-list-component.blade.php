@@ -14,6 +14,8 @@
                 لیست اخبار در مرحله تیترزدن
                 @elseif($pathIsFinal)
                 لیست اخبار نهایی
+                @elseif($pathIsMyMonitoring)
+                لیست رصدهای من
                 @else
                 لیست اخبار رصدشده
                 @endif
@@ -83,7 +85,7 @@
                     <!--begin::Table head-->
                     <thead>
                     <tr class="fw-bold text-muted ">
-                        @if(!$pathIsTitle && !$pathIsFinal)
+                        @if(!$pathIsTitle && !$pathIsFinal && !$pathIsMyMonitoring)
                         <th class="min-w-50px">
                             <input type="checkbox" id="selectAll" wire:model="selectAll" class="form-check-input">
                         </th>
@@ -117,7 +119,7 @@
                     <tbody>
                     @foreach($items as $item)
                         <tr>
-                            @if(!$pathIsTitle && !$pathIsFinal)
+                            @if(!$pathIsTitle && !$pathIsFinal && !$pathIsMyMonitoring)
                             <td>
                                 <input 
                                 type="checkbox" 
@@ -225,7 +227,7 @@
                 <!-- Action Buttons -->
                 <div class="d-flex justify-content-start mt-5">
                     {{-- برای تایید و رد اولیه --}}
-                    @if(!$pathIsTitle && !$pathIsFinal)
+                    @if(!$pathIsTitle && !$pathIsFinal && !$pathIsMyMonitoring) 
                         @unless ($pathIsAddInfo)
                             <button wire:click="approveSelected" class="btn btn-success me-3"
                                 @if(count($selectedIds) == 0) disabled @endif >

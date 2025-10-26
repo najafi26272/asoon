@@ -14,6 +14,8 @@
                 لیست اخبار در مرحله تیترزدن
                 <?php elseif($pathIsFinal): ?>
                 لیست اخبار نهایی
+                <?php elseif($pathIsMyMonitoring): ?>
+                لیست رصدهای من
                 <?php else: ?>
                 لیست اخبار رصدشده
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
@@ -83,7 +85,7 @@
                     <!--begin::Table head-->
                     <thead>
                     <tr class="fw-bold text-muted ">
-                        <!--[if BLOCK]><![endif]--><?php if(!$pathIsTitle && !$pathIsFinal): ?>
+                        <!--[if BLOCK]><![endif]--><?php if(!$pathIsTitle && !$pathIsFinal && !$pathIsMyMonitoring): ?>
                         <th class="min-w-50px">
                             <input type="checkbox" id="selectAll" wire:model="selectAll" class="form-check-input">
                         </th>
@@ -117,7 +119,7 @@
                     <tbody>
                     <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <!--[if BLOCK]><![endif]--><?php if(!$pathIsTitle && !$pathIsFinal): ?>
+                            <!--[if BLOCK]><![endif]--><?php if(!$pathIsTitle && !$pathIsFinal && !$pathIsMyMonitoring): ?>
                             <td>
                                 <input 
                                 type="checkbox" 
@@ -227,7 +229,7 @@
                 <!-- Action Buttons -->
                 <div class="d-flex justify-content-start mt-5">
                     
-                    <!--[if BLOCK]><![endif]--><?php if(!$pathIsTitle && !$pathIsFinal): ?>
+                    <!--[if BLOCK]><![endif]--><?php if(!$pathIsTitle && !$pathIsFinal && !$pathIsMyMonitoring): ?> 
                         <!--[if BLOCK]><![endif]--><?php if (! ($pathIsAddInfo)): ?>
                             <button wire:click="approveSelected" class="btn btn-success me-3"
                                 <?php if(count($selectedIds) == 0): ?> disabled <?php endif; ?> >
