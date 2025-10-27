@@ -172,16 +172,6 @@
 
                             <td>
                                 <div class="d-flex justify-content-start flex-shrink-0">
-
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_add_title_news"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="افزودن تیتر">
-                                        <i class="ki-duotone ki-switch fs-2">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                        </i>
-                                    </span>
-                                    </a>
                                     @if($item->step->stepDefinition->id == 3)
                                     <a wire:click="addInfo({{$item->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
@@ -326,76 +316,6 @@
                 </div>
             </div>
         </div>
-
-
-    <div wire:ignore.self class="modal fade" id="kt_modal_add_title_news" tabindex="-1" aria-hidden="true">
-        <!-- Modal Dialog -->
-        <div class="modal-dialog modal-dialog-centered mw-650px">
-            <!-- Modal Content -->
-            <div class="modal-content">
-                <!-- Form Start -->
-                    <!-- Modal Header -->
-                    <div class="modal-header" id="kt_modal_new_mosavabe_header">
-                        <h2>افزودن تیتر</h2>
-                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                            <i class="ki-duotone ki-cross fs-1">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
-                        </div>
-                    </div>
-                    <!-- Modal Body -->
-                    <div class="modal-body py-10 px-lg-17">
-                        <div class="scroll-y me-n7 pe-7" id="kt_modal_new_mosavabe_scroll" data-kt-scroll="true"
-                             data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
-                             data-kt-scroll-dependencies="#kt_modal_new_address_header"
-                             data-kt-scroll-wrappers="#kt_modal_new_address_scroll" data-kt-scroll-offset="300px">
-    
-                           
-                                <!--begin::Input group-->
-                            <div class="row g-9 mb-8">
-                                <!--begin::Col-->
-                                <div class="col-12 fv-row">
-                                    <!--begin::Input group-->
-                                    <div wire:ignore class="d-flex flex-column mb-8 fv-row">
-                                        <!--begin::Tags-->
-                                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class=""> تیتر خبر</span>
-                                            <span class="ms-1" data-bs-toggle="tooltip"
-                                                  title="تیتر مناسب با خبر را بنویسید">
-                                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
-                                                            <span class="path1"></span>
-                                                            <span class="path2"></span>
-                                                            <span class="path3"></span>
-                                                        </i>
-                                                    </span>
-                                        </label>
-                                        <!--end::Tags-->
-                                       <input type="text" class="form-control"/>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                           
-                        </div>
-                    </div>
-    
-                    <!--end::Modal body-->
-                    <!--begin::Modal footer-->
-                    <div class="modal-footer flex-center">
-                        <!--begin::Button-->
-                        <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">لغو</button>
-                        <!--end::Button-->
-                        <!--begin::Button-->
-                        <button wire:click="addInfo" class="btn btn-primary">
-                            <span class="indicator-label">ثبت</span>
-                        </button>
-                        <!--end::Button-->
-                    </div>
-                    <!--end::Modal footer-->
-            </div>
-        </div>
-    </div>
     
 </div>
 

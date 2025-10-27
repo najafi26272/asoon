@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('news_id')->constrained('news')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('editor_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('edited_content')->nullable();
-            $table->enum('status', ['waiting', 'reject', 'accept']);
+            $table->enum('status', ['waiting', 'progressing', 'reject', 'accept']);
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

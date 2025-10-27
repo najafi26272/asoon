@@ -108,7 +108,9 @@
                                     <div class="badge badge-light-warning"> در انتظار بازنویسی</div>
                                 @else
                                     @if($item->editNews->status == "waiting")
-                                        <div class="badge badge-light-warning"> در انتظار بررسی</div>
+                                        <div class="badge badge-light-warning">در انتظار بازنویسی</div>
+                                    @elseif($item->editNews->status == "progressing")
+                                        <div class="badge badge-light-warning">در انتظار بررسی بازنویسی</div>
                                     @elseif($item->editNews->status == "accept")
                                         <div class="badge badge-light-success">تایید شده</div>
                                     @elseif($item->editNews->status == "reject")
@@ -128,7 +130,7 @@
                                          </i>
                                      </span>
                                      </a>
-                                     @if($item->editNews->status == "waiting")
+                                     @if($item->editNews->status == "waiting" or $item->editNews->status == "progressing")
                                      <a wire:click="update({{$item->id}})"
                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                      <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">

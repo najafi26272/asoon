@@ -8,7 +8,7 @@
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold fs-3 mb-1">لیست بازبینی های من </span>
+            <span class="card-label fw-bold fs-3 mb-1">لیست تیترهای من </span>
         </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
@@ -56,7 +56,7 @@
                 <div class="py-10 text-center">
                     <img src="<?php echo e(asset("assets/media/svg/illustrations/easy/2.svg")); ?>" class=" w-200px"
                          alt="">
-                    <p class="m-5">در حال حاضر بازبینی  برای شما ثبت نشده است.</p>
+                    <p class="m-5">در حال حاضر تیتر  برای شما ثبت نشده است.</p>
                 </div>
             <?php else: ?>
                 <!--begin::Table-->
@@ -65,10 +65,10 @@
                     <thead>
                     <tr class="fw-bold text-muted">
                         <th class="min-w-200px">
-                            عنوان
+                            عنوان خبر
                         </th>
                         <th class="min-w-150px">
-                            لینک  
+                            تیتر پیشنهادی من  
                         </th>  
                         <th class="min-w-100px">
                             تاریخ ثبت خبر  
@@ -77,7 +77,7 @@
                             وضعیت خبر
                         </th>   
                         <th class="min-w-100px">
-                            وضعیت بازنویسی
+                            وضعیت تیتر
                         </th>   
                         <th class="min-w-100px text-end">
                             عملیات
@@ -90,11 +90,11 @@
                     <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
                             <td class="">
-                            <?php echo e($item->title); ?>
+                                <?php echo e($item->title); ?>
 
                             </td>
                             <td class="">
-                                <?php echo e($item->link); ?>
+                                <?php echo e($item->titr->title); ?>
 
                             </td>
                             <td>
@@ -110,13 +110,13 @@
                                 <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 7): ?>
                                     <div class="badge badge-light-warning"> در انتظار بازنویسی</div>
                                 <?php else: ?>
-                                    <!--[if BLOCK]><![endif]--><?php if($item->editNews->status == "waiting"): ?>
-                                        <div class="badge badge-light-warning">در انتظار بازنویسی</div>
-                                    <?php elseif($item->editNews->status == "progressing"): ?>
-                                        <div class="badge badge-light-warning">در انتظار بررسی بازنویسی</div>
-                                    <?php elseif($item->editNews->status == "accept"): ?>
+                                    <!--[if BLOCK]><![endif]--><?php if($item->titr->status == "waiting"): ?>
+                                        <div class="badge badge-light-warning">در انتظار تیتر</div>
+                                    <?php elseif($item->titr->status == "progressing"): ?>
+                                        <div class="badge badge-light-success">در انتظار بررسی</div>
+                                    <?php elseif($item->titr->status == "accept"): ?>
                                         <div class="badge badge-light-success">تایید شده</div>
-                                    <?php elseif($item->editNews->status == "reject"): ?>
+                                    <?php elseif($item->titr->status == "reject"): ?>
                                         <div class="badge badge-light-danger">رد شده</div>
                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
@@ -133,7 +133,7 @@
                                          </i>
                                      </span>
                                      </a>
-                                     <!--[if BLOCK]><![endif]--><?php if($item->editNews->status == "waiting" or $item->editNews->status == "progressing"): ?>
+                                     <!--[if BLOCK]><![endif]--><?php if($item->titr->status == "waiting" or $item->titr->status == "progressing"): ?>
                                      <a wire:click="update(<?php echo e($item->id); ?>)"
                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                      <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
@@ -179,25 +179,4 @@
         });
     </script>
 
-
-<script src="<?php echo e(asset("assets/plugins/custom/tinymce/tinymce.bundle.js")); ?>"></script>
-
-<script>
-    // start textEditor
-    var options = {selector: "#editor", height : "480"};
-
-    if ( KTThemeMode.getMode() === "dark" ) {
-        options["skin"] = "oxide-dark";
-        options["content_css"] = "dark";
-    }
-
-    tinymce.init({
-        selector: "#editor",
-        height : "480",
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link code',    plugins : "advlist autolink link image lists charmap print preview",
-        menubar: false 
-    });
-    // end textEditor
-</script>
-
-<?php $__env->stopPush(); ?><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/review-news/review-list-component.blade.php ENDPATH**/ ?>
+<?php $__env->stopPush(); ?><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/news-title/title-list-component.blade.php ENDPATH**/ ?>
