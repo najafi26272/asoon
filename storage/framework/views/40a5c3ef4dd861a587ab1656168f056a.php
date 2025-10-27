@@ -113,7 +113,7 @@
                                     <!--[if BLOCK]><![endif]--><?php if($item->titr->status == "waiting"): ?>
                                         <div class="badge badge-light-warning">در انتظار تیتر</div>
                                     <?php elseif($item->titr->status == "progressing"): ?>
-                                        <div class="badge badge-light-success">در انتظار بررسی</div>
+                                        <div class="badge badge-light-warning">در انتظار بررسی</div>
                                     <?php elseif($item->titr->status == "accept"): ?>
                                         <div class="badge badge-light-success">تایید شده</div>
                                     <?php elseif($item->titr->status == "reject"): ?>
