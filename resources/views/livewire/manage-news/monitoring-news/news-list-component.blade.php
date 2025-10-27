@@ -12,6 +12,8 @@
                 لیست اخبار تاییدشده
                 @elseif($pathIsTitle)
                 لیست اخبار در مرحله تیترزدن
+                @elseif($pathIsReview)
+                لیست اخبار در مرحله بازنویسی
                 @elseif($pathIsFinal)
                 لیست اخبار نهایی
                 @elseif($pathIsMyMonitoring)
@@ -55,7 +57,7 @@
                     <!--end::Form-->
                 </div>
              
-                @if(!$pathIsAddInfo && !$pathIsTitle && !$pathIsFinal && count($items))
+                @if(!$pathIsAddInfo && !$pathIsTitle && !$pathIsFinal && !$pathIsReview && count($items))
                 <a class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal"
                     data-bs-target="#kt_modal_new_news">
                         <i class="ki-duotone ki-plus fs-2"></i>رصد جدید</a>
@@ -71,8 +73,8 @@
                 <div class="py-10 text-center">
                     <img src="{{asset("assets/media/svg/illustrations/easy/2.svg")}}" class=" w-200px"
                          alt="">
-                    <p class="m-5">در حال حاضر رصدی  برای شما ثبت نشده است.</p>
-                    @if(!$pathIsAddInfo && !$pathIsTitle && !$pathIsFinal)
+                    <p class="m-5">در حال حاضر اطلاعاتی برای نمایش وجود ندارد.</p>
+                    @if(!$pathIsAddInfo && !$pathIsTitle && !$pathIsFinal && !$pathIsReview)
                     <a class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
                        data-bs-target="#kt_modal_new_news">رصد جدید
                         <i class="fa fa-plus"></i>
@@ -85,7 +87,7 @@
                     <!--begin::Table head-->
                     <thead>
                     <tr class="fw-bold text-muted ">
-                        @if(!$pathIsTitle && !$pathIsFinal && !$pathIsMyMonitoring)
+                        @if(!$pathIsFinal && !$pathIsMyMonitoring && !$pathIsReview)
                         <th class="min-w-50px">
                             <input type="checkbox" id="selectAll" wire:model="selectAll" class="form-check-input">
                         </th>
@@ -119,7 +121,7 @@
                     <tbody>
                     @foreach($items as $item)
                         <tr>
-                            @if(!$pathIsTitle && !$pathIsFinal && !$pathIsMyMonitoring)
+                            @if(!$pathIsFinal && !$pathIsMyMonitoring && !$pathIsReview)
                             <td>
                                 <input 
                                 type="checkbox" 
@@ -133,7 +135,7 @@
                                 {{$item->title}}
                             </td>
                             @if($pathIsTitle)
-                                <td>{{ Str::limit($item->latestWebTitle, 50) }}</td>
+                                <td>{{ Str::limit($item->latestWebTitle->title, 50) }}</td>
                             @else
                                 <td>{{ Str::limit($item->link, 30) }}</td>
                                 
@@ -217,7 +219,7 @@
                 <!-- Action Buttons -->
                 <div class="d-flex justify-content-start mt-5">
                     {{-- برای تایید و رد اولیه --}}
-                    @if(!$pathIsTitle && !$pathIsFinal && !$pathIsMyMonitoring) 
+                    @if(!$pathIsTitle && !$pathIsFinal && !$pathIsMyMonitoring && !$pathIsReview) 
                         @unless ($pathIsAddInfo)
                             <button wire:click="approveSelected" class="btn btn-success me-3"
                                 @if(count($selectedIds) == 0) disabled @endif >

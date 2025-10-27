@@ -15,7 +15,7 @@ class NewsListComponent extends Component
     public $char = '';
     public $title, $link, $content, $summary, $agency, $topic, $reason, $goals, $description;
     public $pageNumber = 10;
-    public $pathIsTitle = false, $pathIsAddInfo = false, $pathIsFinal = false, $pathIsMyMonitoring = false;
+    public $pathIsReview = false, $pathIsTitle = false, $pathIsAddInfo = false, $pathIsFinal = false, $pathIsMyMonitoring = false;
     protected $listeners = ['$_news_refresh' => 'refresh'];
 
     public function mount()
@@ -24,6 +24,7 @@ class NewsListComponent extends Component
         $this->pathIsFinal = request()->is('*news/final*');
         $this->pathIsMyMonitoring = request()->is('*news/myMonitoring*');
         $this->pathIsTitle = request()->is('*news/title*');
+        $this->pathIsReview = request()->is('*news/review*');
     }
 
     public function getBaseQuery(): Builder
@@ -32,6 +33,7 @@ class NewsListComponent extends Component
         $pathIsFinal = $this->pathIsFinal ?? false;
         $pathIsMyMonitoring = $this->pathIsMyMonitoring ?? false;
         $pathIsTitle = $this->pathIsTitle ?? false;
+        $pathIsReview = $this->pathIsReview ?? false;
 
         $char = $this->char ?? '';
 
@@ -43,12 +45,17 @@ class NewsListComponent extends Component
             })
             ->when($pathIsTitle, function (Builder $q) {
                 $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id', [4, 5, 6, 7]);
+                    $q2->whereIn('step_id', [4, 5, 7]);
                 });
             })
-            ->when($pathIsAddInfo, function (Builder $q) {
+            ->when($pathIsFinal, function (Builder $q) {
                 $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->where('step_id', 3);
+                    $q2->whereIn('step_id', [11, 12, 13]);
+                });
+            })
+            ->when($pathIsReview, function (Builder $q) {
+                $q->whereHas('step.stepDefinition', function (Builder $q2) {
+                    $q2->whereIn('step_id', [6, 8, 9, 10]);
                 });
             })
             ->when($pathIsMyMonitoring, function (Builder $q) {

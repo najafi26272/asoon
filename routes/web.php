@@ -99,7 +99,7 @@ Route::view('/aboutUs', 'admin.pages.about')->name('aboutUs');
         Route::group(['prefix' => 'news'], function () {
             Route::view('menu', 'admin.pages.news.news-menu')->name('newsMenu');
             Route::view('monitoring', 'admin.pages.news.monitoring.monitoring-news-list')->name('monitoringNews');
-            Route::view('review', 'admin.pages.news.review.review-news-list')->name('reviewNews');
+            Route::view('review', 'admin.pages.news.monitoring.monitoring-news-list')->name('reviewNews');
             Route::view('addInfo', 'admin.pages.news.monitoring.monitoring-news-list')->name('addInfoNews');
             Route::view('title', 'admin.pages.news.monitoring.monitoring-news-list')->name('newsTitle');
             Route::view('final', 'admin.pages.news.monitoring.monitoring-news-list')->name('finalNews');

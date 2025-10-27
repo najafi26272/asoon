@@ -95,12 +95,12 @@ class News extends Model
         return $this->hasMany(Title::class);
     }
 
-    public function webTitle()
+    public function webTitles()
     {
         return $this->hasMany(Title::class)->where('channel', 'web');
     }
 
-    public function socialTitle()
+    public function socialTitles()
     {
         return $this->hasMany(Title::class)->where('channel', 'socialMedia');
     }
