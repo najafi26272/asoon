@@ -1,0 +1,59 @@
+<div wire:ignore.self class="modal fade" id="kt_modal_news_details" tabindex="-1" aria-hidden="true">
+    <!-- Modal Dialog -->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!-- Modal Content -->
+        <div class="modal-content">
+            <!-- Form Start -->
+                <!-- Modal Header -->
+                <div class="modal-header" id="kt_modal_new_mosavabe_header">
+                    <h2>جزییات</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body py-10 px-lg-17">
+                    <!--begin::Scroll-->
+                    <div class="scroll-y me-n7 pe-7" id="kt_modal_new_mosavabe_scroll" data-kt-scroll="true"
+                         data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
+                         data-kt-scroll-dependencies="#kt_modal_new_address_header"
+                         data-kt-scroll-wrappers="#kt_modal_new_address_scroll" data-kt-scroll-offset="300px">
+                        
+                        
+                         <table class="table  table-row-dashed ">
+                            <tbody>
+                                <tr>
+                                    <td >عنوان</td>
+                                    <td>{{$title}}</td>
+                                </tr>
+                                <tr>
+                                    <td>لینک</td>
+                                    <td>{{$link}}</td>
+                                </tr>
+                                <tr>
+                                    <td >متن بازنویسی</td>
+                                    <td>{{$edited_content}}</td>
+                                </tr>
+                                <tr>
+                                    <td >اهداف</td>
+                                    <td>{{$goals}}</td>
+                                </tr>
+                                <tr>
+                                    <td>موضوع</td>
+                                    <td>{{$topic}}</td>
+                                </tr>
+                                <tr>
+                                    <td>خلاصه</td>
+                                    <td>{{$summary}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--end::Scroll-->
+                </div>
+        </div>
+    </div>
+</div>

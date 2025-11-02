@@ -258,29 +258,65 @@
                                     </span>
                                     </a>
                                     @endif
+                                    @if($pathIsMyMonitoring && $item->step->stepDefinition->id === 1)
                                     <a wire:click="update({{$item->id}})"
-                                       class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
-										<i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
-											<span class="path1"></span>
-											<span class="path2"></span>
-											<span class="path3"></span>
-										</i>
-									</span>
-                                    </a>
-                                    <a wire:click="delete({{$item->id}})"
-                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
-                                         <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
-                                     <i class="ki-duotone ki-trash fs-2">
-                                         <span class="path1"></span>
-                                         <span class="path2"></span>
-                                         <span class="path3"></span>
-                                         <span class="path4"></span>
-                                         <span class="path5"></span>
-                                     </i>
-                                    </span>
-                                    </a>
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+ 
+                                     <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
+                                         <i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
+                                             <span class="path1"></span>
+                                             <span class="path2"></span>
+                                             <span class="path3"></span>
+                                         </i>
+                                     </span>
+                                     </a>
+                                     <a wire:click="delete({{$item->id}})"
+                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
+                                          <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
+                                      <i class="ki-duotone ki-trash fs-2">
+                                          <span class="path1"></span>
+                                          <span class="path2"></span>
+                                          <span class="path3"></span>
+                                          <span class="path4"></span>
+                                          <span class="path5"></span>
+                                      </i>
+                                     </span>
+                                     </a>
+                                     @elseif(!$pathIsMyMonitoring)
+                                     <a wire:click="update({{$item->id}})"
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+ 
+                                     <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
+                                         <i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
+                                             <span class="path1"></span>
+                                             <span class="path2"></span>
+                                             <span class="path3"></span>
+                                         </i>
+                                     </span>
+                                     </a>
+                                     <a wire:click="delete({{$item->id}})"
+                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
+                                          <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
+                                      <i class="ki-duotone ki-trash fs-2">
+                                          <span class="path1"></span>
+                                          <span class="path2"></span>
+                                          <span class="path3"></span>
+                                          <span class="path4"></span>
+                                          <span class="path5"></span>
+                                      </i>
+                                     </span>
+                                     </a>
+                                    @endif
+                                    <a wire:click="details({{$item->id}})"
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                     <span class="ms-1" data-bs-toggle="tooltip" title="جزییات">
+                                         <i class="ki-duotone ki-eye fs-2 text-gray-500 fs-6">
+                                             <span class="path1"></span>
+                                             <span class="path2"></span>
+                                             <span class="path3"></span>
+                                         </i>
+                                     </span>
+                                     </a>
                                 </div>
                             </td>
                         </tr>

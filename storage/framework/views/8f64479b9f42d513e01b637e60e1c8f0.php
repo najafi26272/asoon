@@ -99,6 +99,22 @@ unset($__params);
 unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('manage-news.monitoring-news.news-details-component', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-1261632283-6', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
@@ -110,7 +126,9 @@ if (isset($__slots)) unset($__slots);
 <script src="<?php echo e(asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.js")); ?>"></script>
 
     <script>
-        
+        document.addEventListener('$_news_details', event => {
+            $("#kt_modal_news_details").modal('show');
+        });
         
         document.addEventListener('show-delete-news-modal', event => {
             $("#kt_modal_delete_news").modal('show');

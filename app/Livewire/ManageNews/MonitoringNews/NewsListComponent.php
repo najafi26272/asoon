@@ -230,6 +230,11 @@ class NewsListComponent extends Component
         $this->dispatch('newsTitle-rejected'); 
     }
 
+    public function details($id)
+    {
+        $this->dispatch('$_news_details', $id);
+    }
+
     public function render()
     {
         $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);

@@ -11,6 +11,7 @@
     <livewire:manage-news.monitoring-news.edit-news-component/>
     <livewire:manage-news.monitoring-news.add-info-component/>
     <livewire:manage-news.monitoring-news.add-editor-component/>
+    <livewire:manage-news.monitoring-news.news-details-component/>
 @endsection
 
 @push('scripts')
@@ -22,7 +23,9 @@
 <script src="{{asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.js")}}"></script>
 
     <script>
-        
+        document.addEventListener('$_news_details', event => {
+            $("#kt_modal_news_details").modal('show');
+        });
         
         document.addEventListener('show-delete-news-modal', event => {
             $("#kt_modal_delete_news").modal('show');
