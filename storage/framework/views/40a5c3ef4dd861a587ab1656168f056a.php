@@ -7,6 +7,25 @@
 <div class="card mb-5 mb-xl-10">
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
+        <!--begin::Nav group-->
+        <div class="d-flex flex-column" style="width: 100%">
+           <div class="nav-group nav-group-outline mx-auto mb-3" data-kt-buttons="true">
+               <button 
+                   class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 me-2 <?php if($activeTab === 'web'): ?> active <?php endif; ?>" 
+                   wire:click="setActiveTab('web')"
+                   data-kt-plan="web">
+                   سایت
+               </button>
+               <button 
+                   class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 <?php if($activeTab === 'socialMedia'): ?> active <?php endif; ?>" 
+                   wire:click="setActiveTab('socialMedia')"
+                   data-kt-plan="socialMedia">
+                   شبکه های اجتماعی
+               </button>
+           </div>
+        </div>
+       <!--end::Nav group-->
+
         <h3 class="card-title align-items-start flex-column">
             <span class="card-label fw-bold fs-3 mb-1">لیست تیترهای من </span>
         </h3>
@@ -64,7 +83,7 @@
                     <!--begin::Table head-->
                     <thead>
                     <tr class="fw-bold text-muted">
-                        <th class="min-w-200px">
+                        <th class="min-w-150px">
                             عنوان خبر
                         </th>
                         <th class="min-w-150px">
@@ -94,7 +113,11 @@
 
                             </td>
                             <td class="">
-                                <?php echo e($item->titr->title); ?>
+                                <?php
+                                $title = $activeTab === 'web' ? ($item->latestWebTitle ?? null) : ($item->latestSocialTitle ?? null);
+                                $myTitle =  $title?->title;
+                                ?>
+                                <?php echo e($myTitle); ?>
 
                             </td>
                             <td>
@@ -104,25 +127,34 @@
                                 </p>
                             </td>
                             <td>
-                                <div class="badge badge-light-primary"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
+                                <div class="badge badge-light-info"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
                             </td>
+                                
+                            <?php
+                                $title = $activeTab === 'web' ? ($item->latestWebTitle ?? null) : ($item->latestSocialTitle ?? null);
+                                $status = $title?->status;
+                                $label  = match ($title?->status) {
+                                    'accept'     => 'تایید شده',
+                                    'waiting'    => 'در انتظار تیتر',
+                                    'progressing'=> 'در انتظار بررسی تیتر',
+                                    default      => 'رد شده',
+                                };
+                            ?>
                             <td>
-                                <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 7): ?>
-                                    <div class="badge badge-light-warning"> در انتظار بازنویسی</div>
-                                <?php else: ?>
-                                    <!--[if BLOCK]><![endif]--><?php if($item->titr->status == "waiting"): ?>
-                                        <div class="badge badge-light-warning">در انتظار تیتر</div>
-                                    <?php elseif($item->titr->status == "progressing"): ?>
-                                        <div class="badge badge-light-warning">در انتظار بررسی</div>
-                                    <?php elseif($item->titr->status == "accept"): ?>
-                                        <div class="badge badge-light-success">تایید شده</div>
-                                    <?php elseif($item->titr->status == "reject"): ?>
-                                        <div class="badge badge-light-danger">رد شده</div>
-                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                <div class="badge badge-light-primary"><?php echo e($label ?? ''); ?></div>
                             </td>
+
                             <td>
                                 <div class="d-flex justify-content-end flex-shrink-0">
+                                    <a data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="تاریخچه تیترها">
+                                        <i class="ki-duotone ki-switch fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    </a>
                                     <a wire:click="details(<?php echo e($item->id); ?>)"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                      <span class="ms-1" data-bs-toggle="tooltip" title="جزییات">
@@ -133,7 +165,7 @@
                                          </i>
                                      </span>
                                      </a>
-                                     <!--[if BLOCK]><![endif]--><?php if($item->titr->status == "waiting" or $item->titr->status == "progressing"): ?>
+                                     <!--[if BLOCK]><![endif]--><?php if($status != "accept"): ?>
                                      <a wire:click="update(<?php echo e($item->id); ?>)"
                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                      <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">

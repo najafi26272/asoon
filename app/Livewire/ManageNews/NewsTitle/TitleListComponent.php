@@ -5,6 +5,7 @@ use Livewire\Component;
 use App\Models\News;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class TitleListComponent extends Component
 {
@@ -16,13 +17,44 @@ class TitleListComponent extends Component
     protected $listeners = [
         '$_title_refresh' => 'refresh'
     ];
+    public $activeTab = 'web';
+
+    public function setActiveTab($tab)
+    {
+        $this->activeTab = $tab;
+        $this->resetPage();
+    }
+    public function getBaseQuery(): Builder
+    {
+        $titleCreatorId = Auth::id();
+        $char = $this->char ?? '';
+
+        return News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle'])
+            ->when($this->activeTab, function ($query) use ($titleCreatorId) {
+                $query->where(function ($q) use ($titleCreatorId) {
+                    if ($this->activeTab === 'web') {
+                        $q->whereHas('latestWebTitle', function ($subQuery) use ($titleCreatorId) {
+                            $subQuery->where('creator_id', $titleCreatorId);
+                        });
+                    } elseif ($this->activeTab === 'socialMedia') {
+                        $q->whereHas('latestSocialTitle', function ($subQuery) use ($titleCreatorId) {
+                            $subQuery->where('creator_id', $titleCreatorId);
+                        });
+                    }
+                });
+            })
+            ->where(function (Builder $query) use ($char) {
+                $search = "%{$char}%";
+                $query->where(function (Builder $q2) use ($search) {
+                    $q2->where('title', 'LIKE', $search)
+                    ->orWhere('link', 'LIKE', $search)
+                    ->orWhere('topic', 'LIKE', $search);
+                });
+            });
+    }
     public function refresh()
     {
-        $searchTerm = '%'.$this->char.'%';
-        $titleCreatorId = Auth::id();
-        $items = News::with('titr')->where('title','LIKE',$searchTerm)->whereHas('titr', function ($query) use ($titleCreatorId) {
-            $query->where('creator_id', $titleCreatorId);
-        })->latest()->paginate($this->pageNumber);
+        $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);
     }
     public function delete($id)
     {
@@ -39,11 +71,8 @@ class TitleListComponent extends Component
     }
     public function render()
     {
-        $searchTerm = '%'.$this->char.'%';
-        $titleCreatorId = Auth::id();
-        $items = News::with('titr')->where('title','LIKE',$searchTerm)->whereHas('titr', function ($query) use ($titleCreatorId) {
-            $query->where('creator_id', $titleCreatorId);
-        })->latest()->paginate($this->pageNumber);
+        $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);
+
         return view('livewire.manage-news.news-title.title-list-component', [
             'items' => $items,
         ]);

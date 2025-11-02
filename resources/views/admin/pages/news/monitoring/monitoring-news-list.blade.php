@@ -51,6 +51,9 @@
         document.addEventListener('news-rejected', event => {
             $("#rejectModal").modal('hide');
         });
+        document.addEventListener('newsTitle-rejected', event => {
+            $("#rejectTitrModal").modal('hide');
+        });
     </script>
 @endpush
 

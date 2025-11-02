@@ -1,6 +1,6 @@
 <?php
 namespace App\Livewire\ManageNews\MonitoringNews;
-use App\Models\{News,NewsStep};
+use App\Models\{News,NewsStep,Title};
 use Livewire\{Component, WithPagination};
 use Illuminate\Support\Facades\{Auth,Validator,DB};
 use Illuminate\Database\Eloquent\Builder;
@@ -17,7 +17,13 @@ class NewsListComponent extends Component
     public $pageNumber = 10;
     public $pathIsReview = false, $pathIsTitle = false, $pathIsAddInfo = false, $pathIsFinal = false, $pathIsMyMonitoring = false;
     protected $listeners = ['$_news_refresh' => 'refresh'];
+    public $activeTab = 'web';
 
+    public function setActiveTab($tab)
+    {
+        $this->activeTab = $tab;
+        $this->resetPage();
+    }
     public function mount()
     {
         $this->pathIsAddInfo = request()->is('*news/addInfo*');
@@ -38,15 +44,25 @@ class NewsListComponent extends Component
         $char = $this->char ?? '';
 
         return News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle'])
-            ->when($pathIsAddInfo, function (Builder $q) {
+        ->when($pathIsAddInfo, function (Builder $q) {
                 $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->where('step_id', 3);
+                    $q2->whereIn('step_id',[3,4]);
                 });
             })
             ->when($pathIsTitle, function (Builder $q) {
+                // فیلتر بر اساس تعریف مرحله
                 $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id', [4, 5, 7]);
+                    $q2->whereIn('step_id', [4, 5, 6, 7]);
                 });
+
+                // وقتی تب web است فقط وجود latestWebTitle را بررسی کن
+                if ($this->activeTab === 'web') {
+                    $q->whereHas('latestWebTitle');
+                }
+                // وقتی تب socialMedia است فقط وجود latestSocialTitle را بررسی کن
+                elseif ($this->activeTab === 'socialMedia') {
+                    $q->whereHas('latestSocialTitle');
+                }
             })
             ->when($pathIsFinal, function (Builder $q) {
                 $q->whereHas('step.stepDefinition', function (Builder $q2) {
@@ -137,6 +153,75 @@ class NewsListComponent extends Component
     public function rejectSelected()
     {
         $this->processSelected(2);
+    }
+
+    public function approveSelectedTitrs()
+    {
+        // $this->validate([
+        //     'selectedIds' => 'required|array|min:1',
+        //     'selectedIds.*' => 'integer|exists:news,id',
+        // ]);
+
+        $this->processTitrsStatus('accept',6);
+    }
+
+    public function rejectSelectedTitrs()
+    {
+        // $this->validate([
+        //     'selectedIds' => 'required|array|min:1',
+        //     'selectedIds.*' => 'integer|exists:news,id',
+        //     'rejectDescription' => 'required|string|max:500'
+        // ]);
+
+        $this->processTitrsStatus('reject',7);
+    }
+
+    private function processTitrsStatus($status,$stepId)
+    {
+        DB::transaction(function () use ($status, $stepId) {
+            foreach ($this->selectedIds as $newsId) {
+                $news = News::findOrFail($newsId);
+                $totalStatus = true;
+        
+                $title = ($this->activeTab === 'web') 
+                    ? $news->latestWebTitle 
+                    : $news->latestSocialTitle;
+        
+                if ($title) {
+                    $title->update([
+                        'status' => $status,
+                        'reject_reason' => $status === 'reject' ? $this->rejectDescription : null
+                    ]);
+                }
+
+                if ($news->latestWebTitle && in_array($news->latestWebTitle->status, ['progressing', 'waiting'])) {
+                    $totalStatus = false;
+                }
+        
+                if ($news->latestSocialTitle && in_array($news->latestSocialTitle->status, ['progressing', 'waiting'])) {
+                    $totalStatus = false;
+                }
+        
+                if ($totalStatus) {
+                    $step = NewsStep::create([
+                        'news_id' => $newsId,
+                        'step_id' => $stepId,
+                        'creator_id' => auth()->id(),
+                        'description' => $this->rejectDescription
+                    ]);
+                    
+                    $news->update(['status' => $step->id]); 
+                }
+            }
+        });
+
+        $this->reset(['selectedIds', 'rejectDescription', 'selectAll']);
+        $this->dispatch('$_alert_message', [
+            'message' => $status === 'accept' 
+                ? 'تیترهای انتخابی با موفقیت تأیید شدند' 
+                : 'تیترهای انتخابی رد شدند'
+        ]);
+        $this->dispatch('newsTitle-rejected'); 
     }
 
     public function render()

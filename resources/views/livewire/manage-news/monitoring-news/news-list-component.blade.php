@@ -6,6 +6,27 @@
 <div class="card mb-5 mb-xl-10">
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
+        @if($pathIsTitle)
+         <!--begin::Nav group-->
+         <div class="d-flex flex-column" style="width: 100%">
+            <div class="nav-group nav-group-outline mx-auto mb-3" data-kt-buttons="true">
+                <button 
+                    class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 me-2 @if($activeTab === 'web') active @endif" 
+                    wire:click="setActiveTab('web')"
+                    data-kt-plan="web">
+                    سایت
+                </button>
+                <button 
+                    class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 @if($activeTab === 'socialMedia') active @endif" 
+                    wire:click="setActiveTab('socialMedia')"
+                    data-kt-plan="socialMedia">
+                    شبکه های اجتماعی
+                </button>
+            </div>
+         </div>
+        <!--end::Nav group-->
+        @endif
+
         <h3 class="card-title align-items-start flex-column">
             <span class="card-label fw-bold fs-3 mb-1">
                 @if($pathIsAddInfo)
@@ -89,7 +110,13 @@
                     <tr class="fw-bold text-muted ">
                         @if(!$pathIsFinal && !$pathIsMyMonitoring && !$pathIsReview)
                         <th class="min-w-50px">
-                            <input type="checkbox" id="selectAll" wire:model="selectAll" class="form-check-input">
+                            <input 
+                                type="checkbox" 
+                                id="selectAll" 
+                                wire:model="selectAll" 
+                                class="form-check-input"
+                                data-tab="{{ $activeTab }}"
+                            >
                         </th>
                         @endif
                         <th class="min-w-200px">
@@ -99,18 +126,20 @@
                             <th class="min-w-150px">
                                 تیتر پیشنهادی
                             </th>
+                            <th class="min-w-100px">
+                                وضعیت تیتر
+                            </th> 
                         @else
                             <th class="min-w-150px">
                                 لینک  
                             </th>  
                             <th class="min-w-100px">
                                 تاریخ ثبت  
-                            </th>       
-                        @endif
-                                       
-                        <th class="min-w-100px">
-                            وضعیت
-                        </th>   
+                            </th>   
+                            <th class="min-w-100px">
+                                وضعیت
+                            </th>      
+                        @endif                       
                         <th class="min-w-100px ">
                             عملیات
                         </th>                  
@@ -124,18 +153,26 @@
                             @if(!$pathIsFinal && !$pathIsMyMonitoring && !$pathIsReview)
                             <td>
                                 <input 
-                                type="checkbox" 
-                                wire:model="selectedIds" 
-                                value="{{ $item->id }}" 
-                                class="form-check-input item-checkbox"
-                            >
+                                    type="checkbox" 
+                                    wire:model="selectedIds" 
+                                    value="{{ $item->id }}" 
+                                    class="form-check-input item-checkbox"
+                                    data-tab="{{ $activeTab }}" 
+                                >
                             </td>
                             @endif
                             <td class="">
                                 {{$item->title}}
                             </td>
+
                             @if($pathIsTitle)
-                                <td>{{ Str::limit($item->latestWebTitle->title, 50) }}</td>
+                                <td>
+                                    @if($activeTab === 'web')
+                                        <span title = {{$item->latestWebTitle->title}}>{{ $item->latestWebTitle?->title ? Str::limit($item->latestWebTitle->title, 50) : '-' }}</span>
+                                    @else
+                                        <span title = {{$item->latestSocialTitle->title}}>{{ $item->latestSocialTitle?->title ? Str::limit($item->latestSocialTitle->title, 50) : '-' }}</span>
+                                    @endif
+                                </td>
                             @else
                                 <td>{{ Str::limit($item->link, 30) }}</td>
                                 
@@ -166,6 +203,20 @@
                                 </ul>
                               </div>
                             </td>
+                            @elseif($pathIsTitle)
+                            @php
+                                $title = $activeTab === 'web' ? ($item->latestWebTitle ?? null) : ($item->latestSocialTitle ?? null);
+                                $status = $title?->status;
+                                $label  = match ($title?->status) {
+                                    'accept'     => 'تایید شده',
+                                    'waiting'    => 'در انتظار تیتر',
+                                    'progressing'=> 'در انتظار بررسی تیتر',
+                                    default      => 'رد شده',
+                                };
+                            @endphp
+                            <td>
+                                <div class="badge badge-light-primary">{{ $label ?? '' }}</div>
+                            </td>
                             @else
                             <td>
                                 <div class="badge badge-light-primary">{{ $item->step->stepDefinition->title }}</div>                                    
@@ -174,7 +225,18 @@
 
                             <td>
                                 <div class="d-flex justify-content-start flex-shrink-0">
-                                    @if($item->step->stepDefinition->id == 3)
+                                    @if($pathIsTitle)
+                                    <a data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="تاریخچه تیترها">
+                                        <i class="ki-duotone ki-switch fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    </a>
+                                    @endif
+                                    @if($pathIsAddInfo)
                                     <a wire:click="addInfo({{$item->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <span class="ms-1" data-bs-toggle="tooltip" title="افزودن اطلاعات">
@@ -234,14 +296,22 @@
 
                     {{-- برای تایید و رد تیتر --}}
                     @if($pathIsTitle)
-                        <button wire:click="approveSelectedTitrs" class="btn btn-success me-3"
-                            @if(count($selectedIds) == 0) disabled @endif >
-                                تأیید انتخاب‌ها
-                        </button>
-                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectTitrModal"
-                            @if(count($selectedIds) == 0) disabled @endif >
-                            رد انتخاب‌ها
-                        </button>
+                    <button 
+                        wire:click="approveSelectedTitrs" 
+                        class="btn btn-success me-3"
+                        @if(count($selectedIds) == 0) disabled @endif
+                    >
+                        تأیید انتخاب‌ها
+                    </button>
+
+                    <button 
+                        class="btn btn-danger" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#rejectTitrModal"
+                        @if(count($selectedIds) == 0) disabled @endif
+                    >
+                        رد انتخاب‌ها
+                    </button>
                     @endif
                 </div>
             @endif
@@ -290,34 +360,35 @@
         </div>
     </div>
 
-        <!-- Reject Titr Modal -->
-        <div class="modal fade" id="rejectTitrModal" tabindex="-1" wire:ignore.self>
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">رد موارد انتخاب شده</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <textarea 
-                            wire:model="rejectDescription"
-                            class="form-control"
-                            rows="4"
-                            placeholder="در صورت نیاز دلیل رد کردن را وارد کنید..."
-                        ></textarea>
-                        @error('rejectDescription') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
-                    <div class="modal-footer">
-                        <button 
-                            wire:click="rejectSelectedTitrs"
-                            class="btn btn-danger"
-                        >
-                            تأیید رد
-                        </button>
-                    </div>
+    <!-- Reject Titr Modal -->
+    <div class="modal fade" id="rejectTitrModal" tabindex="-1" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">رد تیترهای انتخاب شده</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea 
+                        wire:model="rejectDescription"
+                        class="form-control"
+                        rows="4"
+                        placeholder="لطفاً دلیل رد تیترها را وارد کنید..."
+                        required
+                    ></textarea>
+                    @error('rejectDescription') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <div class="modal-footer">
+                    <button 
+                        wire:click="rejectSelectedTitrs"
+                        class="btn btn-danger"
+                    >
+                        تأیید رد
+                    </button>
                 </div>
             </div>
         </div>
+    </div>
     
 </div>
 
@@ -325,21 +396,24 @@
 @push('scripts')
     <script>
         // مدیریت انتخاب تمامی آیتم‌ها
-        $('#selectAll').on('change', function() {
-            const isChecked = $(this).prop('checked');
-            $('.item-checkbox').prop('checked', isChecked);
-            const ids = $('.item-checkbox:checked').map((i, el) => el.value).get();
-            @this.set('selectedIds', ids);
-        });
+$('#selectAll').on('change', function() {
+    const isChecked = $(this).prop('checked');
+    const currentTab = $(this).data('tab'); // دریافت تب فعال
+    $('.item-checkbox[data-tab="' + currentTab + '"]').prop('checked', isChecked);
+    const ids = $('.item-checkbox[data-tab="' + currentTab + '"]:checked').map((i, el) => el.value).get();
+    @this.set('selectedIds', ids);
+});
 
-        // مدیریت تغییرات تک تک آیتم‌ها
-        $(document).on('change', '.item-checkbox', function() {
-            const allChecked = $('.item-checkbox:checked').length === $('.item-checkbox').length;
-            $('#selectAll').prop('checked', allChecked);
-            const ids = $('.item-checkbox:checked').map((i, el) => el.value).get();
-            @this.set('selectedIds', ids);
-        });
-    
+// مدیریت تغییرات تک تک آیتم‌ها
+$(document).on('change', '.item-checkbox', function() {
+    const currentTab = $(this).data('tab'); // دریافت تب فعال
+    const allChecked = $('.item-checkbox[data-tab="' + currentTab + '"]:checked').length === 
+                      $('.item-checkbox[data-tab="' + currentTab + '"]').length;
+    $('#selectAll[data-tab="' + currentTab + '"]').prop('checked', allChecked);
+    const ids = $('.item-checkbox[data-tab="' + currentTab + '"]:checked').map((i, el) => el.value).get();
+    @this.set('selectedIds', ids);
+});
+
         $('#searching').on('keyup', function (e) {
             let data = $(this).val();
             @this.set('char', data);

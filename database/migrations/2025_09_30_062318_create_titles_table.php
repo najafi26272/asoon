@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title', 500)->nullable();
             $table->foreignId('news_id')->constrained('news')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('creator_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('reviewer_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('reviewer_id')->constrained('users')->cascadeOnUpdate()->nullOnDelete()->nullable();
             $table->enum('channel', ['web', 'socialMedia']);
             $table->enum('status', ['waiting','progressing', 'reject', 'accept']);
             $table->text('description')->nullable();

@@ -105,18 +105,18 @@ class News extends Model
         return $this->hasMany(Title::class)->where('channel', 'socialMedia');
     }
 
+    // ارتباطات مربوط به کانال وب
     public function latestWebTitle()
     {
         return $this->hasOne(Title::class)
-                    ->where('channel', 'web')
-                    ->latestOfMany('created_at');
+                    ->where('channel', 'web')->latest()->take(1);
     }
 
+    // ارتباطات مربوط به شبکه‌های اجتماعی
     public function latestSocialTitle()
     {
         return $this->hasOne(Title::class)
-                    ->where('channel', 'socialMedia')
-                    ->latestOfMany('created_at');
+                    ->where('channel', 'socialMedia')->latest()->take(1);
     }
 
 }
