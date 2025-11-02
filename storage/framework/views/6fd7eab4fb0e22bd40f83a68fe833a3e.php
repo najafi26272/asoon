@@ -249,6 +249,17 @@
                                     </span>
                                     </a>
                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                    <!--[if BLOCK]><![endif]--><?php if($pathIsReview && in_array($item->step->stepDefinition->id, [6, 8])): ?>
+                                    <a wire:click="addEditor(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_editor"
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="ارجاع به بازنویس">
+                                        <i class="ki-duotone ki-switch fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    </a>
+                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                     <a wire:click="update(<?php echo e($item->id); ?>)"
                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
 

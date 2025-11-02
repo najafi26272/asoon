@@ -10,6 +10,7 @@
     <livewire:manage-news.monitoring-news.delete-news-component/>
     <livewire:manage-news.monitoring-news.edit-news-component/>
     <livewire:manage-news.monitoring-news.add-info-component/>
+    <livewire:manage-news.monitoring-news.add-editor-component/>
 @endsection
 
 @push('scripts')
@@ -35,6 +36,14 @@
             $("#kt_modal_add-info-news").modal('hide');
         });
 
+        document.addEventListener('show-add-editor-news-modal', event => {
+            $("#kt_modal_add-editor-news").modal('show');
+        });
+
+        document.addEventListener('editor-added', event => {
+            $("#kt_modal_add-editor-news").modal('hide');
+        });
+        
         document.addEventListener('$_news_editable', event => {
             $("#kt_modal_edit_news").modal('show');
         });

@@ -83,6 +83,22 @@ unset($__params);
 unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('manage-news.monitoring-news.add-editor-component', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-1261632283-5', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
@@ -108,6 +124,14 @@ if (isset($__slots)) unset($__slots);
             $("#kt_modal_add-info-news").modal('hide');
         });
 
+        document.addEventListener('show-add-editor-news-modal', event => {
+            $("#kt_modal_add-editor-news").modal('show');
+        });
+
+        document.addEventListener('editor-added', event => {
+            $("#kt_modal_add-editor-news").modal('hide');
+        });
+        
         document.addEventListener('$_news_editable', event => {
             $("#kt_modal_edit_news").modal('show');
         });

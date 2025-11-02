@@ -105,6 +105,12 @@ class NewsListComponent extends Component
         $this->dispatch('show-add-info-news-modal');
     }
 
+    public function addEditor($id)
+    {
+        $this->dispatch('$_editor_add', $id);
+        $this->dispatch('show-add-editor-news-modal');
+    }
+
     public function refresh()
     {
         $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);

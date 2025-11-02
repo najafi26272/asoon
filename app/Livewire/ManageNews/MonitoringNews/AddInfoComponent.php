@@ -4,9 +4,7 @@ namespace App\Livewire\ManageNews\MonitoringNews;
 
 use Livewire\Component;
 use App\Models\{News,NewsStep,User,Title};
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\{Auth,Validator,DB};
 
 class AddInfoComponent extends Component
 {
