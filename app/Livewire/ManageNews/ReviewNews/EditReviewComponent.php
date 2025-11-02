@@ -33,7 +33,7 @@ class EditReviewComponent extends Component
         ]);
         $newsStep = NewsStep::create([
             'news_id'    => $this->newsId,
-            'step_id'    => 8,
+            'step_id'    => 9,
             'creator_id' => Auth::id(),
         ]);
         News::findOrFail($this->newsId)->update(['status' => $newsStep->id]);
@@ -43,7 +43,7 @@ class EditReviewComponent extends Component
                 'news_id' => $this->newsId,
                 'edited_content' => $this->edited_content,
                 'editor_id'      => Auth::id(),
-                'status'         => 'waiting',
+                'status'         => 'progressing',
             ]
         );
         $this->dispatch('$_review_refresh');
