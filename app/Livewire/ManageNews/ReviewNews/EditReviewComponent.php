@@ -31,21 +31,32 @@ class EditReviewComponent extends Component
         $this->validate([
             'edited_content' => 'required',
         ]);
-        $newsStep = NewsStep::create([
-            'news_id'    => $this->newsId,
-            'step_id'    => 9,
-            'creator_id' => Auth::id(),
-        ]);
-        News::findOrFail($this->newsId)->update(['status' => $newsStep->id]);
-        EditNews::updateOrCreate(
-            ['id' => $this->reviewId],
-            [
+
+        $news = News::findOrFail($this->newsId);
+    
+        $canCreateNewEdit = !in_array($news->editNews?->status, ['progressing', 'waiting']);
+    
+        if ($canCreateNewEdit) {
+            $editNews = EditNews::create([
                 'news_id' => $this->newsId,
                 'edited_content' => $this->edited_content,
-                'editor_id'      => Auth::id(),
-                'status'         => 'progressing',
-            ]
-        );
+                'editor_id' => auth()->id(),
+                'status' => 'progressing'
+            ]);
+    
+            $editStep = NewsStep::create([
+                'news_id' => $this->newsId,
+                'step_id' => 9,
+                'creator_id' => auth()->id()
+            ]);
+    
+            $news->update(['status' => $editStep->id]);
+        } else {
+            EditNews::where('id', $this->reviewId)->update([
+                'edited_content' => $this->edited_content,
+                'status' => 'progressing'
+            ]);
+        }
         $this->dispatch('$_review_refresh');
         $this->dispatch('review_edited');
         $this->dispatch('$_success_full_message');

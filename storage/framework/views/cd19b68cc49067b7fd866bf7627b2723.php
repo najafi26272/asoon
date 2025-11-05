@@ -133,17 +133,17 @@
                                          </i>
                                      </span>
                                      </a>
-                                     <!--[if BLOCK]><![endif]--><?php if($item->editNews->status == "waiting" or $item->editNews->status == "progressing"): ?>
+                                     <!--[if BLOCK]><![endif]--><?php if($item->editNews->status != "waiting"): ?>
                                      <a wire:click="update(<?php echo e($item->id); ?>)"
-                                       class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                     <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
-										<i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
-											<span class="path1"></span>
-											<span class="path2"></span>
-											<span class="path3"></span>
-										</i>
-									 </span>
-                                     </a>
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                      <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
+                                         <i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
+                                             <span class="path1"></span>
+                                             <span class="path2"></span>
+                                             <span class="path3"></span>
+                                         </i>
+                                      </span>
+                                      </a>
                                      <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                 </div>
                             </td>                           
