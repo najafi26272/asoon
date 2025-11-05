@@ -1,496 +1,800 @@
-<div class="row g-6 g-xl-9">
-    <!--begin::Col-->
-    <div class="col-md-6 col-xl-4">
-        <!--begin::کارت-->
-        <div  class="card border-hover-primary text-center">
-            <!--begin::کارت header-->
-            <div class="card-header border-0 pt-9 m-auto">
-                <!--begin::کارت Title-->
-                <div class="card-title m-0">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-50px w-50px bg-light">
-                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+<div>
+    <div class="row gy-5 mb-20 g-xl-10">
+        <!--begin::Col-->
+        <div class="col-xl-4">
+            <!--begin::مخلوط Widget 14-->
+            <div class="card card-xxl-stretch mb-5 mb-xl-10 theme-dark-bg-body" style="background-color: #CBD4F4">
+                <!--begin::Body-->
+                <div class="card-body d-flex flex-column">
+                    <!--begin::Wrapper-->
+                    <div class="d-flex flex-column mb-7">
+                        <!--begin::Title-->
+                        <a target="_blank" href="<?php echo e(route('monitoringNews')); ?>" class="text-dark text-hover-primary fw-bold fs-3">اخبار رصدشده</a>
+                        <!--end::Title-->
                     </div>
-                    <!--end::Avatar-->
+                    <!--end::Wrapper-->
+                    <!--begin::Row-->
+                    <div class="row g-0">
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-42 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($approvedMonitoringNewsCount); ?></div>
+                                    <div class="fs-7 text-gray-600 fw-bold">تاییدشده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 ms-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-45 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($rejectedMonitoringNewsCount); ?></div>
+                                    <div class="fs-7 text-gray-600 fw-bold">رد شده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-12">
+                            <div class="d-flex align-items-center me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForApproveMonitoringNewsCount); ?></div>
+                                    <div class="fs-7 text-gray-600 fw-bold">درانتظار بررسی</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
                 </div>
-                <!--end::Car Title-->
             </div>
-            <!--end:: کارت header-->
-            <!--begin:: کارت body-->
-            <div class="card-body p-9">
-                <!--begin::نام-->
-                <div class="fs-3 fw-bold text-dark">اخبار رصدشده</div>
-                <!--end::نام-->
-                <!--begin::توضیحات-->
-                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
-                    لیست اخبار رصدشده
-                </p>
-                <!--end::توضیحات-->
-                <!--begin::Info-->
-                <div class="d-flex flex-wrap mb-5 justify-center">
-                    <!--begin::Due-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-120px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForApproveMonitoringNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">درانتظار تایید</div>
-                    </div>
-                    <!--end::Due-->
-                    <!--begin::Due-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-120px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($approvedMonitoringNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">تایید شده</div>
-                    </div>
-                    <!--end::Due-->
-                    <!--begin::-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-120px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($rejectedMonitoringNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">رد شده</div>
-                    </div>
-                    <!--end::-->
-                </div>
-                <!--end::Info-->
-                <!--begin::پردازش-->
-                <div class=" mb-5" >
-                    <a target="_blank" href="<?php echo e(route('monitoringNews')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
-                </div>
-                <!--end::پردازش-->
-            </div>
-            <!--end:: کارت body-->
+            <!--end::مخلوط Widget 14-->
         </div>
-        <!--end::کارت-->
-    </div>
-    <!--end::Col-->
-
-    <!--begin::Col-->
-    <div class="col-md-6 col-xl-4">
-        <!--begin::کارت-->
-        <div  class="card border-hover-primary text-center">
-            <!--begin::کارت header-->
-            <div class="card-header border-0 pt-9 m-auto">
-                <!--begin::کارت Title-->
-                <div class="card-title m-0">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-50px w-50px bg-light">
-                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col-xl-4">
+            <!--begin::مخلوط Widget 14-->
+            <div class="card card-xxl-stretch mb-5 mb-xl-10 theme-dark-bg-body" style="background-color: #F7D9E3">
+                <!--begin::Body-->
+                <div class="card-body d-flex flex-column">
+                    <!--begin::Wrapper-->
+                    <div class="d-flex flex-column mb-7">
+                        <!--begin::Title-->
+                        <a target="_blank" href="<?php echo e(route('addInfoNews')); ?>" class="text-dark text-hover-primary fw-bold fs-3">افزودن اطلاعات</a>
+                        <!--end::Title-->
                     </div>
-                    <!--end::Avatar-->
+                    <!--end::Wrapper-->
+                    <!--begin::Row-->
+                    <div class="row g-0">
+                         <!--begin::Col-->
+                         <div class="col-12">
+                            <div class="d-flex align-items-center mb-9 me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-42 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForAddInfoNewsCount); ?></div>
+                                    <div class="fs-7 text-gray-600 fw-bold">در انتظار افزودن اطلاعات</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-12">
+                            <div class="d-flex align-items-center me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($addedInfoNewsCount); ?></div>
+                                    <div class="fs-7 text-gray-600 fw-bold">اطلاعات ثبت شده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
                 </div>
-                <!--end::Car Title-->
             </div>
-            <!--end:: کارت header-->
-            <div class="card-body p-9">
-                <!--begin::نام-->
-                <div class="fs-3 fw-bold text-dark">اخبار تاییدشده</div>
-                <!--end::نام-->
-                <!--begin::توضیحات-->
-                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
-                 لیست اخبار تاییدشده برای تکمیل محل انتشار، زبان و ...
-                </p>
-                <!--end::توضیحات-->
-                <!--begin::Info-->
-                <div class="d-flex flex-wrap mb-5 justify-center">
-                    <!--begin::Due-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForAddInfoNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">در انتظار افزودن اطلاعات</div>
-                    </div>
-                    <!--end::Due-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($addedInfoNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">اطلاعات ثبت شده</div>
-                    </div>
-                </div>
-                <!--end::Info-->
-                <!--begin::پردازش-->
-                <div class=" mb-5" >
-                    <a target="_blank" href="<?php echo e(route('addInfoNews')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
-                </div>
-                <!--end::پردازش-->
-            </div>
-            <!--begin:: کارت body-->
+            <!--end::مخلوط Widget 14-->
         </div>
-        <!--end::کارت-->
-    </div>
-    <!--end::Col-->
-
-    <!--begin::Col-->
-    <div class="col-md-6 col-xl-4">
-        <!--begin::کارت-->
-        <div  class="card border-hover-primary text-center">
-            <!--begin::کارت header-->
-            <div class="card-header border-0 pt-9 m-auto">
-                <!--begin::کارت Title-->
-                <div class="card-title m-0">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-50px w-50px bg-light">
-                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col-xl-4">
+            <!--begin::مخلوط Widget 14-->
+            <div class="card card-xxl-stretch mb-5 mb-xl-10 theme-dark-bg-body" style="background-color: #CBF0F4">
+                <!--begin::Body-->
+                <div class="card-body d-flex flex-column">
+                    <!--begin::Wrapper-->
+                    <div class="d-flex flex-column mb-7">
+                        <!--begin::Title-->
+                        <a target="_blank" href="<?php echo e(route('newsTitle')); ?>" class="text-dark text-hover-primary fw-bold fs-3">تیتر اخبار</a>
+                        <!--end::Title-->
                     </div>
-                    <!--end::Avatar-->
+                    <!--end::Wrapper-->
+                    <!--begin::Row-->
+                    <div class="row g-0">
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-42 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForTitrsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">درانتظار تیتر</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 ms-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-45 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForApproveTitrsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">در انتظار بررسی</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($approvedTitrsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">تاییدشده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($rejectedTitrsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">رد شده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
                 </div>
-                <!--end::Car Title-->
             </div>
-            <!--end:: کارت header-->
-            <!--begin:: کارت body-->
-            <div class="card-body p-9">
-                <!--begin::نام-->
-                <div class="fs-3 fw-bold text-dark">تیتر اخبار</div>
-                <!--end::نام-->
-                <!--begin::توضیحات-->
-                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
-                    لیست اخبار تاییدشده برای تیتر زدن
-                </p>
-                <!--end::توضیحات-->
-                <!--begin::Info-->
-                <div class="d-flex flex-wrap mb-5 justify-center">
-                    <!--begin::Due-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForTitrsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">در انتظار تیتر</div>
-                    </div>
-                    <!--end::Due-->
-                    <!--begin::بودجه-->
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForApproveTitrsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">درانتظار بررسی تیتر</div>
-                    </div>
-                    <!--end::بودجه-->
-                        <!--begin::Due-->
-                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($approvedTitrsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">تایید تیتر</div>
-                    </div>
-                    <!--end::Due-->
-                    <!--begin::بودجه-->
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($rejectedTitrsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">عدم تایید تیتر و درانتظار تیترمجدد</div>
-                    </div>
-                    <!--end::بودجه-->
-                </div>
-                <!--end::Info-->
-                <!--begin::پردازش-->
-                <div class=" mb-5" >
-                    <a target="_blank" href="<?php echo e(route('newsTitle')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
-                </div>
-                <!--end::پردازش-->
-            </div>
-            <!--end:: کارت body-->
+            <!--end::مخلوط Widget 14-->
         </div>
-        <!--end::کارت-->
-    </div>
-    <!--end::Col-->
-
-    <!--begin::Col-->
-    <div class="col-md-6 col-xl-4">
-        <!--begin::کارت-->
-        <div  class="card border-hover-primary text-center">
-            <!--begin::کارت header-->
-            <div class="card-header border-0 pt-9 m-auto">
-                <!--begin::کارت Title-->
-                <div class="card-title m-0">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-50px w-50px bg-light">
-                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col-xl-4">
+            <!--begin::مخلوط Widget 14-->
+            <div class="card card-xxl-stretch mb-5 mb-xl-10 theme-dark-bg-body" style="background-color: #F7D9E3">
+                <!--begin::Body-->
+                <div class="card-body d-flex flex-column">
+                    <!--begin::Wrapper-->
+                    <div class="d-flex flex-column mb-7">
+                        <!--begin::Title-->
+                        <a target="_blank" href="<?php echo e(route('reviewNews')); ?>" class="text-dark text-hover-primary fw-bold fs-3">بازنویسی ها</a>
+                        <!--end::Title-->
                     </div>
-                    <!--end::Avatar-->
+                    <!--end::Wrapper-->
+                    <!--begin::Row-->
+                    <div class="row g-0">
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-42 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($approvedReviewNewsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">تاییدشده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 ms-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-45 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForAssignReviewNewsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">در انتظار ارجاع</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForReviewNewsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">درانتظار بازنویسی</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForCheckingReviewNewsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">درانتظار بررسی</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                         <!--begin::Col-->
+                         <div class="col-12">
+                            <div class="d-flex align-items-center me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($rejectedReviewNewsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">رد شده و انتظار بازنویسی مجدد</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
                 </div>
-                <!--end::Car Title-->
             </div>
-            <!--end:: کارت header-->
-            <!--begin:: کارت body-->
-            <div class="card-body p-9">
-                <!--begin::نام-->
-                <div class="fs-3 fw-bold text-dark">بازنویسی ها</div>
-                <!--end::نام-->
-                <!--begin::توضیحات-->
-                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
-                    لیست اخبار تایید و تکمیل شده برای بازنویسی
-                </p>
-                <!--end::توضیحات-->
-                <!--begin::Info-->
-                <div class="d-flex flex-wrap mb-5 justify-center">
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($approvedReviewNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">تاییدشده</div>
-                    </div>
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForAssignReviewNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">در انتظار ارجاع به بازنویس</div>
-                    </div>
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForReviewNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">در انتظار بازنویسی</div>
-                    </div>
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForCheckingReviewNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">در انتظار بررسی بازنویسی</div>
-                    </div>
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($rejectedReviewNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">ردشده و درانتظار بازنویسی مجدد</div>
-                    </div>
-                </div>
-                <!--end::Info-->
-                <!--begin::پردازش-->
-                <div class=" mb-5" >
-                    <a target="_blank" href="<?php echo e(route('reviewNews')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
-                </div>
-                <!--end::پردازش-->
-            </div>
-            <!--end:: کارت body-->
+            <!--end::مخلوط Widget 14-->
         </div>
-        <!--end::کارت-->
-    </div>
-    <!--end::Col-->
-    
-    <!--begin::Col-->
-    <div class="col-md-6 col-xl-4">
-        <!--begin::کارت-->
-        <div  class="card border-hover-primary text-center">
-            <!--begin::کارت header-->
-            <div class="card-header border-0 pt-9 m-auto">
-                <!--begin::کارت Title-->
-                <div class="card-title m-0">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-50px w-50px bg-light">
-                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col-xl-4">
+            <!--begin::مخلوط Widget 14-->
+            <div class="card card-xxl-stretch mb-5 mb-xl-10 theme-dark-bg-body" style="background-color: #CBF0F4">
+                <!--begin::Body-->
+                <div class="card-body d-flex flex-column">
+                    <!--begin::Wrapper-->
+                    <div class="d-flex flex-column mb-7">
+                        <!--begin::Title-->
+                        <a target="_blank" href="<?php echo e(route('finalNews')); ?>" class="text-dark text-hover-primary fw-bold fs-3">اخبار نهایی</a>
+                        <!--end::Title-->
                     </div>
-                    <!--end::Avatar-->
+                    <!--end::Wrapper-->
+                    <!--begin::Row-->
+                    <div class="row g-0">
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-42 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($publishedCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">منتشر شده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 ms-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-45 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForPublishedCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">در انتظار انتشار</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-12">
+                            <div class="d-flex align-items-center me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($notPublishedCount); ?></div>
+                                    <div class="fs-7 text-gray-600 fw-bold">عدم انتشار</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
                 </div>
-                <!--end::Car Title-->
             </div>
-            <!--end:: کارت header-->
-            <!--begin:: کارت body-->
-            <div class="card-body p-9">
-                <!--begin::نام-->
-                <div class="fs-3 fw-bold text-dark">اخبار نهایی</div>
-                <!--end::نام-->
-                <!--begin::توضیحات-->
-                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
-                    لیست نهایی و تکمیل شده اخبار
-                </p>
-                <!--end::توضیحات-->
-                <!--begin::Info-->
-                <div class="d-flex flex-wrap mb-5 justify-center">
-                    <!--begin::Due-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($publishedCount); ?></div>
-                        <div class="fw-semibold text-gray-400">منتشرشده</div>
-                    </div>
-                    <!--end::Due-->
-                    <!--begin::بودجه-->
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForPublishedCount); ?></div>
-                        <div class="fw-semibold text-gray-400">درانتظار انتشار</div>
-                    </div>
-                    <!--end::بودجه-->
-                     <!--begin::Due-->
-                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($notPublishedCount); ?></div>
-                        <div class="fw-semibold text-gray-400">عدم انتشار</div>
-                    </div>
-                    <!--end::Due-->
-                </div>
-                <!--end::Info-->
-                <!--begin::پردازش-->
-                <div class=" mb-5" >
-                    <a target="_blank" href="<?php echo e(route('finalNews')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
-                </div>
-                <!--end::پردازش-->
-            </div>
-            <!--end:: کارت body-->
+            <!--end::مخلوط Widget 14-->
         </div>
-        <!--end::کارت-->
+        <!--end::Col-->
     </div>
-    <!--end::Col-->
- 
-    <!--begin::Col-->
-    <div class="col-md-6 col-xl-4">
-        <!--begin::کارت-->
-        <div  class="card border-hover-primary text-center">
-            <!--begin::کارت header-->
-            <div class="card-header border-0 pt-9 m-auto">
-                <!--begin::کارت Title-->
-                <div class="card-title m-0">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-50px w-50px bg-light">
-                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+    <!--end::Row-->
+    <div class="row gy-5 g-xl-10">
+        <!--begin::Col-->
+        <div class="col-xl-4">
+            <!--begin::مخلوط Widget 14-->
+            <div class="card card-xxl-stretch mb-5 mb-xl-10 theme-dark-bg-body" style="background-color: #CBD4F4">
+                <!--begin::Body-->
+                <div class="card-body d-flex flex-column">
+                    <!--begin::Wrapper-->
+                    <div class="d-flex flex-column mb-7">
+                        <!--begin::Title-->
+                        <a target="_blank" href="<?php echo e(route('myMonitoringNews')); ?>" class="text-dark text-hover-primary fw-bold fs-3">رصدهای من</a>
+                        <!--end::Title-->
                     </div>
-                    <!--end::Avatar-->
+                    <!--end::Wrapper-->
+                    <!--begin::Row-->
+                    <div class="row g-0">
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-42 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($approvedMyMonitoringNewsCount); ?></div>
+                                    <div class="fs-7 text-gray-600 fw-bold">تاییدشده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 ms-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-45 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($rejectedMyMonitoringNewsCount); ?></div>
+                                    <div class="fs-7 text-gray-600 fw-bold">ردشده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-12">
+                            <div class="d-flex align-items-center me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForApproveMyMonitoringNewsCount); ?></div>
+                                    <div class="fs-7 text-gray-600 fw-bold">درانتظار بررسی</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
                 </div>
-                <!--end::Car Title-->
             </div>
-            <!--end:: کارت header-->
-            <!--begin:: کارت body-->
-            <div class="card-body p-9">
-                <!--begin::نام-->
-                <div class="fs-3 fw-bold text-dark">
-                   رصدهای من
-                </div>
-                <!--end::نام-->
-                <!--begin::توضیحات-->
-                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
-                 لیست اخبار رصدشده من 
-                </p>
-                <!--end::توضیحات-->
-                <!--begin::Info-->
-                <div class="d-flex flex-wrap mb-5 justify-center">
-                    <!--begin::Due-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForApproveMyMonitoringNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">درانتظار تایید</div>
-                    </div>
-                    <!--end::Due-->
-                    <!--begin::بودجه-->
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($approvedMyMonitoringNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">تایید شده</div>
-                    </div>
-                    <!--end::بودجه-->
-                    <!--begin::بودجه-->
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($rejectedMyMonitoringNewsCount); ?> </div>
-                        <div class="fw-semibold text-gray-400">رد شده</div>
-                    </div>
-                    <!--end::بودجه-->
-                </div>
-                <!--end::Info-->
-                <!--begin::پردازش-->
-                <div class=" mb-5" >
-                    <a target="_blank" href="<?php echo e(route('myMonitoringNews')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
-                </div>
-                <!--end::پردازش-->
-            </div>
-            <!--end:: کارت body-->
+            <!--end::مخلوط Widget 14-->
         </div>
-        <!--end::کارت-->
-    </div>
-    <!--end::Col-->
-
-    <!--begin::Col-->
-    <div class="col-md-6 col-xl-4">
-        <!--begin::کارت-->
-        <div  class="card border-hover-primary text-center">
-            <!--begin::کارت header-->
-            <div class="card-header border-0 pt-9 m-auto">
-                <!--begin::کارت Title-->
-                <div class="card-title m-0">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-50px w-50px bg-light">
-                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col-xl-4">
+            <!--begin::مخلوط Widget 14-->
+            <div class="card card-xxl-stretch mb-5 mb-xl-10 theme-dark-bg-body" style="background-color: #F7D9E3">
+                <!--begin::Body-->
+                <div class="card-body d-flex flex-column">
+                    <!--begin::Wrapper-->
+                    <div class="d-flex flex-column mb-7">
+                        <!--begin::Title-->
+                        <a target="_blank" href="<?php echo e(route('newsMyTitle')); ?>" class="text-dark text-hover-primary fw-bold fs-3">تیترهای من</a>
+                        <!--end::Title-->
                     </div>
-                    <!--end::Avatar-->
+                    <!--end::Wrapper-->
+                    <!--begin::Row-->
+                    <div class="row g-0">
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-42 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForMyTitrsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">در انتظار تیتر</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForApproveMyTitrsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">درانتظار بررسی</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-42 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($approvedMyTitrsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">تاییدشده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($rejectedMyTitrsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">ردشده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
                 </div>
-                <!--end::Car Title-->
             </div>
-            <!--end:: کارت header-->
-            <!--begin:: کارت body-->
-            <div class="card-body p-9">
-                <!--begin::نام-->
-                <div class="fs-3 fw-bold text-dark">تیترهای من</div>
-                <!--end::نام-->
-                <!--begin::توضیحات-->
-                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
-                    لیست اخبار تیتر زده شده توسط من
-                </p>
-                <!--end::توضیحات-->
-                <!--begin::Info-->
-                <div class="d-flex flex-wrap mb-5 justify-center">
-                    <!--begin::Due-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForMyTitrsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">در انتظار تیتر</div>
-                    </div>
-                    <!--end::Due-->
-                    <!--begin::بودجه-->
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForApproveMyTitrsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">درانتظار بررسی تیتر</div>
-                    </div>
-                    <!--end::بودجه-->
-                        <!--begin::Due-->
-                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($approvedMyTitrsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">تاییدشده</div>
-                    </div>
-                    <!--end::Due-->
-                    <!--begin::بودجه-->
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($rejectedMyTitrsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">رد شده</div>
-                    </div>
-                    <!--end::بودجه-->
-                </div>
-                <!--end::Info-->
-                <!--begin::پردازش-->
-                <div class=" mb-5" >
-                    <a target="_blank" href="<?php echo e(route('newsMyTitle')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
-                </div>
-                <!--end::پردازش-->
-            </div>
-            <!--end:: کارت body-->
+            <!--end::مخلوط Widget 14-->
         </div>
-        <!--end::کارت-->
-    </div>
-    <!--end::Col-->
-   
-    <!--begin::Col-->
-    <div class="col-md-6 col-xl-4">
-        <!--begin::کارت-->
-        <div  class="card border-hover-primary text-center">
-            <!--begin::کارت header-->
-            <div class="card-header border-0 pt-9 m-auto">
-                <!--begin::کارت Title-->
-                <div class="card-title m-0">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-50px w-50px bg-light">
-                        <img src="<?php echo e(asset("assets/img/rasad.png")); ?>"  alt="image" class="p-3">
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col-xl-4">
+            <!--begin::مخلوط Widget 14-->
+            <div class="card card-xxl-stretch mb-5 mb-xl-10 theme-dark-bg-body" style="background-color: #CBF0F4">
+                <!--begin::Body-->
+                <div class="card-body d-flex flex-column">
+                    <!--begin::Wrapper-->
+                    <div class="d-flex flex-column mb-7">
+                        <!--begin::Title-->
+                        <a target="_blank" href="<?php echo e(route('myReviewNews')); ?>" class="text-dark text-hover-primary fw-bold fs-3">بازنویسی های من</a>
+                        <!--end::Title-->
                     </div>
-                    <!--end::Avatar-->
+                    <!--end::Wrapper-->
+                    <!--begin::Row-->
+                    <div class="row g-0">
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-42 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForMyReviewNewsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">درانتظار بازنویسی</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-9 ms-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-45 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($waitingForCheckingMyReviewNewsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">در انتظار بررسی</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($approvedMyReviewNewsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">تاییدشده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <div class="d-flex align-items-center me-2">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-3">
+                                    <div class="symbol-label bg-light">
+                                        <i class="ki-duotone ki-abstract-21 fs-1 text-dark">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Title-->
+                                <div>
+                                    <div class="fs-5 text-dark fw-bold lh-1"><?php echo e($rejectedMyReviewNewsCount); ?></div>
+                                    <div class="fs-9 text-gray-600 fw-bold">رد شده</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
                 </div>
-                <!--end::Car Title-->
             </div>
-            <!--end:: کارت header-->
-            <!--begin:: کارت body-->
-            <div class="card-body p-9">
-                <!--begin::نام-->
-                <div class="fs-3 fw-bold text-dark">بازنویسی های من</div>
-                <!--end::نام-->
-                <!--begin::توضیحات-->
-                <p class="text-gray-400 fw-semibold fs-5 mt-1 mb-7">
-                   لیست اخبار ارجاع شده به من برای بازنویسی
-                </p>
-                <!--end::توضیحات-->
-                <!--begin::Info-->
-                <div class="d-flex flex-wrap mb-5 justify-center">
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($approvedMyReviewNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">تاییدشده</div>
-                    </div>
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForMyReviewNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">در انتظار بازنویسی</div>
-                    </div>
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($waitingForCheckingMyReviewNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">در انتظار بررسی بازنویسی</div>
-                    </div>
-                    <div class="border border-danger border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bold"><?php echo e($rejectedMyReviewNewsCount); ?></div>
-                        <div class="fw-semibold text-gray-400">ردشده</div>
-                    </div>
-                </div>
-                <!--end::Info-->
-                <!--begin::پردازش-->
-                <div class=" mb-5" >
-                    <a target="_blank" href="<?php echo e(route('myReviewNews')); ?>" class="btn btn-primary  w-full" style="width: 100%">مشاهده</a>
-                </div>
-                <!--end::پردازش-->
-            </div>
-            <!--end:: کارت body-->
+            <!--end::مخلوط Widget 14-->
         </div>
-        <!--end::کارت-->
+        <!--end::Col-->
     </div>
-    <!--end::Col-->
-    
-</div>
-<?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/news-menu-component.blade.php ENDPATH**/ ?>
+    <!--end::Row-->
+</div><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/news-menu-component.blade.php ENDPATH**/ ?>
