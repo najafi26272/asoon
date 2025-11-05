@@ -18,16 +18,20 @@ class AddInfoComponent extends Component
     public $selectedSocialMediaAuthor = 35;
     public $priority = 'medium';
     public $need_cover = false;
+    public $rate;
 
     public function saveData($id){
         $this->newsId = $id;
     }
 
+
     public function addInfo()
     {
+
+        dd($this->rate);
         DB::transaction(function () {
             $news = News::findOrFail($this->newsId);
-            
+
             $newsStep = $news->step()->create([
                 'news_id' => $this->newsId,
                 'step_id' => 4,
