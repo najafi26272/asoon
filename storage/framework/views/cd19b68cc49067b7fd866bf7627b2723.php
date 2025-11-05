@@ -8,7 +8,7 @@
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold fs-3 mb-1">لیست بازبینی های من </span>
+            <span class="card-label fw-bold fs-3 mb-1">لیست بازنویسی های من </span>
         </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
@@ -56,7 +56,7 @@
                 <div class="py-10 text-center">
                     <img src="<?php echo e(asset("assets/media/svg/illustrations/easy/2.svg")); ?>" class=" w-200px"
                          alt="">
-                    <p class="m-5">در حال حاضر بازبینی  برای شما ثبت نشده است.</p>
+                    <p class="m-5">در حال حاضر بازنویسی  برای شما ثبت نشده است.</p>
                 </div>
             <?php else: ?>
                 <!--begin::Table-->
