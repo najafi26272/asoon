@@ -51,7 +51,7 @@
 
         .rating > label:before {
             margin: 5px;
-            font-size: 2em;
+            font-size: 20px;
             font-family: FontAwesome;
             content: "\f005";
             display: inline-block;
