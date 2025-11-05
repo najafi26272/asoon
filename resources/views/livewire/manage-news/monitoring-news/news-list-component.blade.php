@@ -282,7 +282,7 @@
                                       </i>
                                      </span>
                                      </a>
-                                     @elseif(!$pathIsMyMonitoring)
+                                     @elseif(!$pathIsMyMonitoring && !$pathIsFinal)
                                      <a wire:click="update({{$item->id}})"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
  
