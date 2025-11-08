@@ -5,6 +5,8 @@
     }
 </style>
 @endpush
+
+
 <div class="card mb-5 mb-xl-10">
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
@@ -49,7 +51,7 @@
          <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
             @if(\Illuminate\Support\Facades\Auth::user()->accesses->report_access)
-                <div wire:ignore class="me-3 mb-2" >
+                <div wire:ignore class="me-3 mb-2 w-100 w-lg-auto" >
                     <select id="selectedUserReport" class="select-filter form-select form-select-solid "     data-placeholder="فیلتر کاربران" data-hide-search="true">
                         @foreach($users as $user)
                             <option @if($user->id == Auth::user()->id) selected @endif value="{{$user->id}}">{{$user->name .' '.$user->family}}</option>
@@ -58,12 +60,13 @@
                 </div>
             @endif
              
-           
+            
 
             <!--begin::Input-->
                 <div wire:ignore class="range-date-item position-relative d-flex align-items-center me-3 mb-2">
                     <input wire:model="selectedDate" wire:change="changeDate()" type="text" class="form-control  form-control-solid" placeholder="فیلتر تاریخ" id="flatpickr-range">
                 </div>
+
             <!--end::Input-->
             
             <a href="#" class="btn btn-lg btn-bg-light btn-active-color-primary me-3 mb-2" data-bs-toggle="modal"
@@ -83,7 +86,7 @@
         </div>
 
         
-        
+    </div>
     <!--end::Header-->
 
 

@@ -8,7 +8,7 @@
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold fs-3 mb-1">لیست بازبینی های من </span>
+            <span class="card-label fw-bold fs-3 mb-1">لیست بازنویسی های من </span>
         </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
@@ -56,7 +56,7 @@
                 <div class="py-10 text-center">
                     <img src="<?php echo e(asset("assets/media/svg/illustrations/easy/2.svg")); ?>" class=" w-200px"
                          alt="">
-                    <p class="m-5">در حال حاضر بازبینی  برای شما ثبت نشده است.</p>
+                    <p class="m-5">در حال حاضر بازنویسی  برای شما ثبت نشده است.</p>
                 </div>
             <?php else: ?>
                 <!--begin::Table-->
@@ -74,7 +74,10 @@
                             تاریخ ثبت خبر  
                         </th>                      
                         <th class="min-w-100px">
-                            وضعیت
+                            وضعیت خبر
+                        </th>   
+                        <th class="min-w-100px">
+                            وضعیت بازنویسی
                         </th>   
                         <th class="min-w-100px text-end">
                             عملیات
@@ -101,11 +104,16 @@
                                 </p>
                             </td>
                             <td>
+                                <div class="badge badge-light-primary"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
+                            </td>
+                            <td>
                                 <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 7): ?>
                                     <div class="badge badge-light-warning"> در انتظار بازنویسی</div>
                                 <?php else: ?>
                                     <!--[if BLOCK]><![endif]--><?php if($item->editNews->status == "waiting"): ?>
-                                        <div class="badge badge-light-warning"> در انتظار بررسی</div>
+                                        <div class="badge badge-light-warning">در انتظار بازنویسی</div>
+                                    <?php elseif($item->editNews->status == "progressing"): ?>
+                                        <div class="badge badge-light-warning">در انتظار بررسی بازنویسی</div>
                                     <?php elseif($item->editNews->status == "accept"): ?>
                                         <div class="badge badge-light-success">تایید شده</div>
                                     <?php elseif($item->editNews->status == "reject"): ?>
@@ -125,17 +133,17 @@
                                          </i>
                                      </span>
                                      </a>
-                                     <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 7 or $item->editNews->status == "waiting"): ?>
+                                     <!--[if BLOCK]><![endif]--><?php if($item->editNews->status != "waiting"): ?>
                                      <a wire:click="update(<?php echo e($item->id); ?>)"
-                                       class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                     <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
-										<i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
-											<span class="path1"></span>
-											<span class="path2"></span>
-											<span class="path3"></span>
-										</i>
-									 </span>
-                                     </a>
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                      <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
+                                         <i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
+                                             <span class="path1"></span>
+                                             <span class="path2"></span>
+                                             <span class="path3"></span>
+                                         </i>
+                                      </span>
+                                      </a>
                                      <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                 </div>
                             </td>                           
@@ -146,7 +154,13 @@
                 </table>
                 <!--end::Table-->
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-            
+
+            <?php if(count($items)): ?>
+                <div class="custom-paginate clearfix" style="margin-top: 10px;margin-right:10px">
+                    <?php echo e($items->links()); ?>
+
+                </div>
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
         </div>
         <!--end::Table container-->
     </div>

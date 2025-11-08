@@ -16,51 +16,51 @@
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
                 
-            @if(Auth::user()->level == 'admin' || Auth::user()->id == 20)
-                <div wire:ignore style="margin-left: 5px; height:100% !important;">
-                    <select  wire:model="selectedUser" id="selectedUserProject" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر کاربران" data-hide-search="true" data-close-on-select="false">
-                        <option value="all">تمام کاربران</option>
-                        @foreach($users as $user)
-                            <option value="{{$user->id}}">{{$user->name .' '.$user->family}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            @endif
-                  <!--begin::جستجو-->
-            <div id="kt_header_search" class="header-search d-flex align-items-center w-lg-250px me-3" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-search-responsive="lg" data-kt-menu-trigger="auto" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end">
-                
-                <!--begin::Fیاm(use d-none d-lg-block classes for responsive search)-->
-                <div wire:ignore data-kt-search-element="form" class="searching-div d-block d-lg-block w-100 position-relative mb-2 mb-lg-0" autocomplete="true">
-                    <!--end::Hidden input-->
-                    <!--begin::Icon-->
-                    <i class="ki-duotone ki-magnifier fs-2 text-gray-700 position-absolute top-50 translate-middle-y ms-4">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                    </i>
-                    <!--end::Icon-->
-                    <!--begin::Input-->
-                    <input type="text" id="searching" class="searching-input form-control bg-transparent ps-13 fs-7 " style="border-radius:0.3rem;padding-top: calc(0.55rem + 1px);padding-top: calc(0.55rem + 1px);" name="search" placeholder="جستجوی عنوان" data-kt-search-element="input" />
-                    <!--end::Input-->
-                    <!--begin::Spinner-->
-                    <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5" data-kt-search-element="spinner">
-						<span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
-					</span>
-                    <!--end::Spinner-->
-                    <!--begin::ریست-->
-                    <span class="btn btn-flush btn-active-color-primary position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-4" data-kt-search-element="clear">
-						<i class="ki-duotone ki-cross fs-2 fs-lg-1 me-0">
-							<span class="path1"></span>
-							<span class="path2"></span>
-						</i>
-					</span>
-                    <!--end::ریست-->
-                </div>
-                <!--end::Form-->
-            </div>
-                @if(\Illuminate\Support\Facades\Auth::user()->accesses->project_access)
-                <a href="#" class="btn btn-sm btn-light btn-active-primary"  data-bs-toggle="modal" data-bs-target="#kt_modal_new_project">
-                    <i class="ki-duotone ki-plus fs-2"></i>پروژه جدید</a>
+                @if(Auth::user()->level == 'admin' || Auth::user()->id == 20)
+                    <div wire:ignore style="margin-left: 5px; height:100% !important;">
+                        <select  wire:model="selectedUser" id="selectedUserProject" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر کاربران" data-hide-search="true" data-close-on-select="false">
+                            <option value="all">تمام کاربران</option>
+                            @foreach($users as $user)
+                                <option value="{{$user->id}}">{{$user->name .' '.$user->family}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 @endif
+                  <!--begin::جستجو-->
+                    <div id="kt_header_search" class="header-search d-flex align-items-center w-lg-250px me-3" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-search-responsive="lg" data-kt-menu-trigger="auto" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end">
+                        
+                        <!--begin::Fیاm(use d-none d-lg-block classes for responsive search)-->
+                        <div wire:ignore data-kt-search-element="form" class="searching-div d-block d-lg-block w-100 position-relative mb-2 mb-lg-0" autocomplete="true">
+                            <!--end::Hidden input-->
+                            <!--begin::Icon-->
+                            <i class="ki-duotone ki-magnifier fs-2 text-gray-700 position-absolute top-50 translate-middle-y ms-4">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                            <!--end::Icon-->
+                            <!--begin::Input-->
+                            <input type="text" id="searching" class="searching-input form-control bg-transparent ps-13 fs-7 " style="border-radius:0.3rem;padding-top: calc(0.55rem + 1px);padding-top: calc(0.55rem + 1px);" name="search" placeholder="جستجوی عنوان" data-kt-search-element="input" />
+                            <!--end::Input-->
+                            <!--begin::Spinner-->
+                            <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5" data-kt-search-element="spinner">
+                                <span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
+                            </span>
+                            <!--end::Spinner-->
+                            <!--begin::ریست-->
+                            <span class="btn btn-flush btn-active-color-primary position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-4" data-kt-search-element="clear">
+                                <i class="ki-duotone ki-cross fs-2 fs-lg-1 me-0">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <!--end::ریست-->
+                        </div>
+                        <!--end::Form-->
+                    </div>
+                        @if(\Illuminate\Support\Facades\Auth::user()->accesses->project_access)
+                        <a href="#" class="btn btn-sm btn-light btn-active-primary"  data-bs-toggle="modal" data-bs-target="#kt_modal_new_project">
+                            <i class="ki-duotone ki-plus fs-2"></i>پروژه جدید</a>
+                        @endif
 
             </div>
     </div>

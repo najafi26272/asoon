@@ -72,4 +72,4 @@
         </div>
     </div>
 </div>
-<?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/monitoring-news/add-editor-component.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\project\asou\asoon\resources\views/livewire/manage-news/monitoring-news/add-editor-component.blade.php ENDPATH**/ ?>
