@@ -99,6 +99,12 @@ class NewsListComponent extends Component
         $this->dispatch('$_alert_message',['message' => 'وضعیت با موفقیت تغییر کرد.']);
     }
 
+    public function reviewHistory($id)
+    {
+        $this->dispatch('$_review_history', $id);
+        $this->dispatch('show-review-history-modal');
+    }
+
     public function addInfo($id)
     {
         $this->dispatch('$_info_add', $id);

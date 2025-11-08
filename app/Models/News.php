@@ -83,6 +83,7 @@ class News extends Model
     }
     public function reviews()
     {
+        // return $this->hasMany(EditNews::class)->where((new EditNews)->getTable().'.status', 'reject');
         return $this->hasMany(EditNews::class);
     }
 

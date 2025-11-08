@@ -12,6 +12,7 @@
     <livewire:manage-news.monitoring-news.add-info-component/>
     <livewire:manage-news.monitoring-news.add-editor-component/>
     <livewire:manage-news.monitoring-news.news-details-component/>
+    <livewire:manage-news.monitoring-news.review-history-component/>
 @endsection
 
 @push('scripts')
@@ -25,6 +26,10 @@
     <script>
         document.addEventListener('$_news_details', event => {
             $("#kt_modal_news_details").modal('show');
+        });
+
+        document.addEventListener('$_review_history', event => {
+            $("#kt_modal_review_history").modal('show');
         });
         
         document.addEventListener('show-delete-news-modal', event => {

@@ -1,7 +1,17 @@
 
 <?php $__env->startPush("style"); ?>
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.0.0/ckeditor5.css" />
-
+<style>
+    .fade {
+        transition: opacity 0.5s ease;
+        opacity: 0;
+        display: none; /* مخفی کردن اولیه */
+    }
+    .fade.show {
+        opacity: 1;
+        display: block; /* نمایش هنگام فعال شدن */
+    }
+</style>
 <?php $__env->stopPush(); ?>
 <div class="card mb-5 mb-xl-10">
     <!--begin::Header-->
@@ -44,6 +54,7 @@
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             </span>
         </h3>
+        
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
                
@@ -139,7 +150,12 @@
                             <th class="min-w-100px">
                                 وضعیت
                             </th>      
-                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->                       
+                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->     
+                        <!--[if BLOCK]><![endif]--><?php if($pathIsReview): ?> 
+                            <th class="min-w-100px">
+                                 محتوای خبر
+                            </th>
+                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->                 
                         <th class="min-w-100px ">
                             عملیات
                         </th>                  
@@ -235,7 +251,16 @@
                                 <div class="badge badge-light-primary"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
                             </td>
                             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-
+                            <!--[if BLOCK]><![endif]--><?php if($pathIsReview): ?> 
+                                <td class="min-w-100px">
+                                    <a data-bs-toggle="modal" data-bs-target="#contentModal"
+                                        class=" text-center cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                        <span class="ms-1 text-center text-gray-400" data-bs-toggle="tooltip" title="محتوای خبر بازنویسی شده ">
+                                            ...
+                                        </span>
+                                    </a>
+                                </td>
+                            <?php endif; ?><!--[if ENDBLOCK]><![endif]--> 
                             <td>
                                 <div class="d-flex justify-content-start flex-shrink-0">
                                     <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
@@ -260,11 +285,22 @@
                                     </span>
                                     </a>
                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                    <!--[if BLOCK]><![endif]--><?php if($pathIsReview): ?>
+                                    <a wire:click="reviewHistory(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_review_history"
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="تاریخچه بازنویسی">
+                                        <i class="ki-duotone ki-switch fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    </a>
+                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                     <!--[if BLOCK]><![endif]--><?php if($pathIsReview && in_array($item->step->stepDefinition->id, [6, 8])): ?>
                                     <a wire:click="addEditor(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_editor"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <span class="ms-1" data-bs-toggle="tooltip" title="ارجاع به بازنویس">
-                                        <i class="ki-duotone ki-switch fs-2">
+                                        <i class="ki-duotone ki-send fs-2">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
                                         </i>
@@ -391,6 +427,62 @@
             color:#3da5a5 !important;
         }
     </style>
+
+    <!-- Content Modal -->
+    <div class="modal fade  " id="contentModal" tabindex="-1" wire:ignore.self >
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> 
+                        محتوای بازنویسی شده
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                        <textarea 
+                            id="editor_content"
+                            wire:model="content"
+                            class="form-control w-100"
+                            rows="4"
+                            value="test"
+                        ></textarea>
+                        
+                        </div>
+
+                    </div>
+                    <div class="row  mt-5 notice bg-light-primary rounded border-primary border border-dashed min-w-lg-600px p-6">
+                        <div class="col-2 mb-8 fv-row">
+                            <label>وضعیت: </label>
+                        </div>
+                        <div class=" col-10 d-flex  mb-8 fv-row">
+            
+                            <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+
+                                <input class="form-check-input w-45px h-30px" type="checkbox" id="accept" checked="checked">
+                                <label class="form-check-label" for="allowmarketing">تایید</label>
+                            </div>
+                            
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                        
+                        <input type="text" class="form-control form-control-sm  min-w-100px mt-1 " id="reasonInput" placeholder="دلیل رد شدن"/>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button 
+                        wire:click=""
+                        class="btn btn-danger"
+                    >
+                        ثبت
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Reject Modal -->
     <div class="modal fade" id="rejectModal" tabindex="-1" wire:ignore.self>
@@ -551,7 +643,23 @@ $(document).on('change', '.item-checkbox', function() {
         toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link code',    plugins : "advlist autolink link image lists charmap print preview",
         menubar: false 
     });
+    tinymce.init({
+        selector: "#editor_content",
+        height : "480",
+        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link code',    plugins : "advlist autolink link image lists charmap print preview",
+        menubar: false 
+    });
     // end textEditor
+
+    $(document).ready(function() {
+        $('#accept').change(function() {
+            if (!this.checked) {
+                $('#reasonInput').addClass('show'); // اضافه کردن کلاس برای نمایش
+            } else {
+                $('#reasonInput').removeClass('show'); // حذف کلاس برای پنهان کردن
+            }
+        });
+    });
 </script>
 
 <?php $__env->stopPush(); ?><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/monitoring-news/news-list-component.blade.php ENDPATH**/ ?>
