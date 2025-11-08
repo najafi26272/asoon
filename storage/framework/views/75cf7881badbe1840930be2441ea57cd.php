@@ -21,7 +21,7 @@
                          data-kt-scroll-dependencies="#kt_modal_new_address_header"
                          data-kt-scroll-wrappers="#kt_modal_new_address_scroll" data-kt-scroll-offset="300px">
 
-                       
+
                             <!--begin::Input group-->
                         <div class="row g-9 mb-8">
                             <!--begin::Col-->
@@ -46,10 +46,11 @@
 
                                             <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $siteTitrs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $siteTitr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($siteTitr->id); ?>">
-                                                <?php echo e($siteTitr->name . ' '.$siteTitr->family); ?> 
+                                                <?php echo e($siteTitr->name . ' '.$siteTitr->family); ?>
+
                                             </option>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-                                            <option value="0"> 
+                                            <option value="0">
                                                 عدم انتشار در سایت
                                             </option>
                                     </select>
@@ -78,10 +79,11 @@
 
                                         <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $socialMediaTitrs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $socialMediaTitr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($socialMediaTitr->id); ?>">
-                                            <?php echo e($socialMediaTitr->name . ' '.$socialMediaTitr->family); ?> 
+                                            <?php echo e($socialMediaTitr->name . ' '.$socialMediaTitr->family); ?>
+
                                         </option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-                                        <option value="0"> 
+                                        <option value="0">
                                             عدم انتشار در شبکه های اجتماعی
                                         </option>
                                     </select>
@@ -90,7 +92,7 @@
                             </div>
                         </div>
                         <div class="row g-9 mb-8">
-                            
+
                             <!--begin::Col-->
                             <div class="col-md-6 fv-row">
                                 <!--begin::Input group-->
@@ -108,7 +110,7 @@
                                     </span>
                                     </label>
                                     <!--end::Tags-->
-                                    
+
                                     <select id="priority" class="form-select form-select-solid" wire:model="priority" data-placeholder="یک مورد را انتخاب کنید" name="priority">
                                         <option class="text-warning" value="low">کم</option>
                                         <option class="text-primary" selected value="medium">متوسط</option>
@@ -145,7 +147,7 @@
                             </div>
                         </div>
 
-                        <div class="row g-9 mb-8">
+                        <div class="row g-9">
                             <div class="col-md-6 fv-row">
                                 <!--begin::Input group-->
                                 <div wire:ignore class="d-flex flex-column mb-8 fv-row">
@@ -171,9 +173,27 @@
                                     </div>
                                 </div>
                             </div>
-                           
+
                         </div>
-                         
+
+                        <label class="d-flex align-items-center fs-6 fw-semibold">
+                            <span class="">امتیاز دهی</span>
+                        </label>
+
+                        <div class="rating">
+
+                            <input type="radio" wire:model="rate" id="star5" name="rating" value="5" />
+                            <label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
+                            <input type="radio" wire:model="rate"  id="star4" name="rating" value="4" />
+                            <label class="star" for="star4" title="Great" aria-hidden="true"></label>
+                            <input type="radio" wire:model="rate"  id="star3" name="rating" value="3" />
+                            <label class="star" for="star3" title="Very good" aria-hidden="true"></label>
+                            <input type="radio" wire:model="rate" id="star2" name="rating" value="2" />
+                            <label class="star" for="star2" title="Good" aria-hidden="true"></label>
+                            <input type="radio" wire:model="rate" id="star1" name="rating" value="1" />
+                            <label class="star" for="star1" title="Bad" aria-hidden="true"></label>
+                        </div>
+
                     </div>
                 </div>
 
@@ -205,4 +225,5 @@
         window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedLanguages', data);
         });
     </script>
-<?php $__env->stopPush(); ?><?php /**PATH D:\project\asou\asoon\resources\views/livewire/manage-news/monitoring-news/add-info-component.blade.php ENDPATH**/ ?>
+<?php $__env->stopPush(); ?>
+<?php /**PATH D:\project\asou\asoon\resources\views/livewire/manage-news/monitoring-news/add-info-component.blade.php ENDPATH**/ ?>

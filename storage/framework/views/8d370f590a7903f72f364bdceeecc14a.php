@@ -1,1 +1,0 @@
-<?php /**PATH /home/asougrou/core/resources/views/pages/inbox/compose.blade.php ENDPATH**/ ?>
