@@ -167,11 +167,32 @@
                             </td>
 
                             <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
+                            <?php
+                                $title = $activeTab === 'web' ? ($item->latestWebTitle ?? null) : ($item->latestSocialTitle ?? null);
+                                $status = $title?->status;
+                                $label  = match ($title?->status) {
+                                    'accept'     => 'تایید شده',
+                                    'waiting'    => 'در انتظار تیتر',
+                                    'progressing'=> 'در انتظار بررسی تیتر',
+                                    default      => 'رد شده',
+                                };
+                            ?>
                                 <td>
                                     <!--[if BLOCK]><![endif]--><?php if($activeTab === 'web'): ?>
                                         <span title = <?php echo e($item->latestWebTitle->title); ?>><?php echo e($item->latestWebTitle?->title ? Str::limit($item->latestWebTitle->title, 50) : '-'); ?></span>
                                     <?php else: ?>
                                         <span title = <?php echo e($item->latestSocialTitle->title); ?>><?php echo e($item->latestSocialTitle?->title ? Str::limit($item->latestSocialTitle->title, 50) : '-'); ?></span>
+                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                    <!--[if BLOCK]><![endif]--><?php if($label != 'رد شده'): ?>
+                                    <a data-bs-toggle="modal" data-bs-target="#kt_modal_reject_title"
+                                        class="cursor-pointer btn btn-icon btn-color-danger  btn-active-color-danger btn-sm me-1">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="رد کردن تیتر">
+                                        <i class="ki-duotone ki-abstract-11 fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    </a>
                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                 </td>
                             <?php else: ?>
@@ -206,18 +227,8 @@
                               </div>
                             </td>
                             <?php elseif($pathIsTitle): ?>
-                            <?php
-                                $title = $activeTab === 'web' ? ($item->latestWebTitle ?? null) : ($item->latestSocialTitle ?? null);
-                                $status = $title?->status;
-                                $label  = match ($title?->status) {
-                                    'accept'     => 'تایید شده',
-                                    'waiting'    => 'در انتظار تیتر',
-                                    'progressing'=> 'در انتظار بررسی تیتر',
-                                    default      => 'رد شده',
-                                };
-                            ?>
                             <td>
-                                <div class="badge badge-light-primary"><?php echo e($label ?? ''); ?></div>
+                                <div class="badge <?php if($label == 'رد شده'): ?> badge-light-danger <?php else: ?> badge-light-primary <?php endif; ?> "><?php echo e($label ?? ''); ?></div>
                             </td>
                             <?php else: ?>
                             <td>
@@ -445,6 +456,43 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
                 <div class="modal-footer">
                     <button 
                         wire:click="rejectSelectedTitrs"
+                        class="btn btn-danger"
+                    >
+                        تأیید رد
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject one Titr Modal -->
+    <div class="modal fade" id="kt_modal_reject_title" tabindex="-1" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">رد تیتر انتخاب شده</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea 
+                        wire:model="rejectDescription"
+                        class="form-control"
+                        rows="4"
+                        placeholder="لطفاً دلیل رد تیتر انتخابی را وارد کنید..."
+                        required
+                    ></textarea>
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['rejectDescription'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-danger"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
+                </div>
+                <div class="modal-footer">
+                    <button 
+                        wire:click="rejectSelectedTitr(<?php echo e($item->id); ?>)"
                         class="btn btn-danger"
                     >
                         تأیید رد

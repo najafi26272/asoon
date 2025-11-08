@@ -37,6 +37,47 @@
 
     <?php echo $__env->yieldPushContent('css'); ?>
 
+    <style>
+
+        .rating {
+            border: none;
+            float: right;
+            direction: ltr;
+        }
+
+        .rating > label {
+            color: #90a0a3;
+            float: right;
+        }
+
+        .rating > label:before {
+            margin: 5px;
+            font-size: 20px;
+            font-family: FontAwesome;
+            content: "\f005";
+            display: inline-block;
+        }
+
+        .rating > input {
+            display: none;
+        }
+
+        .rating > input:checked ~ label,
+        .rating:not(:checked) > label:hover,
+        .rating:not(:checked) > label:hover ~ label {
+            color: #f79426;
+        }
+
+        .rating > input:checked + label:hover,
+        .rating > input:checked ~ label:hover,
+        .rating > label:hover ~ input:checked ~ label,
+        .rating > input:checked ~ label:hover ~ label {
+            color: #fece31;
+        }
+
+
+    </style>
+
 
 
 </head>
@@ -774,7 +815,7 @@ if (isset($__slots)) unset($__slots);
             buttonsStyling: false
         });
     })
-    
+
      // In your Javascript (external .js resource or <script> tag)
         $(document).ready(function() {
             $('.select-filter').select2({

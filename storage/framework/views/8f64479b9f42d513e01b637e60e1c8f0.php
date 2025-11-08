@@ -168,6 +168,7 @@ if (isset($__slots)) unset($__slots);
         });
         document.addEventListener('newsTitle-rejected', event => {
             $("#rejectTitrModal").modal('hide');
+            $("#kt_modal_reject_title").modal('hide');
         });
     </script>
 <?php $__env->stopPush(); ?>

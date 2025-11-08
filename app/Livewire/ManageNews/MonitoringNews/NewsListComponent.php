@@ -161,6 +161,50 @@ class NewsListComponent extends Component
         $this->processSelected(2);
     }
 
+    public function rejectSelectedTitr($newsId)
+    {
+        DB::transaction(function () use ($newsId) {
+                $news = News::findOrFail($newsId);
+                $totalStatus = true;
+        
+                $title = ($this->activeTab === 'web') 
+                    ? $news->latestWebTitle 
+                    : $news->latestSocialTitle;
+        
+                if ($title) {
+                    $title->update([
+                        'status' => 'reject',
+                        'reject_reason' => $this->rejectDescription
+                    ]);
+                }
+
+                if ($news->latestWebTitle && in_array($news->latestWebTitle->status, ['progressing', 'waiting'])) {
+                    $totalStatus = false;
+                }
+        
+                if ($news->latestSocialTitle && in_array($news->latestSocialTitle->status, ['progressing', 'waiting'])) {
+                    $totalStatus = false;
+                }
+        
+                if ($totalStatus) {
+                    $step = NewsStep::create([
+                        'news_id' => $newsId,
+                        'step_id' => 7,
+                        'creator_id' => auth()->id(),
+                        'description' => $this->rejectDescription
+                    ]);
+                    
+                    $news->update(['status' => $step->id]); 
+                }
+        });
+
+        $this->reset(['selectedIds', 'rejectDescription', 'selectAll']);
+        $this->dispatch('$_alert_message', [
+            'message' => 'تیتر انتخابی رد شد'
+        ]);
+        $this->dispatch('newsTitle-rejected'); 
+    }
+
     public function approveSelectedTitrs()
     {
         // $this->validate([

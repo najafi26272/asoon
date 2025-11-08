@@ -65,6 +65,7 @@
         });
         document.addEventListener('newsTitle-rejected', event => {
             $("#rejectTitrModal").modal('hide');
+            $("#kt_modal_reject_title").modal('hide');
         });
     </script>
 @endpush
