@@ -102,7 +102,100 @@
                         عنوان رصد
                         </td>
                         <td class="">
-                          صادقی
+                            <div class="card-toolbar">
+                                <!--begin::Menu-->
+                                <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-bg-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                    <i class="ki-duotone ki-category fs-6">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                    </i>
+                                </button>
+                                <!--begin::Menu 3-->
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
+                                    <!--begin::Heading-->
+                                    <div class="menu-item px-3">
+                                        <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">درگاه ها</div>
+                                    </div>
+                                    <!--end::Heading-->
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3">ساختن فاکتور</a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link flex-stack px-3">ساختن پرداخت
+                                        <span class="ms-2" data-bs-toggle="tooltip" title="یک نام هدف را برای استفاده و مرجع در آینده مشخص کنید">
+                                            <i class="ki-duotone ki-information fs-6">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </i>
+                                        </span></a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3">بیل تولید کنید</a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
+                                        <a href="#" class="menu-link px-3">
+                                            <span class="menu-title">اشتراک</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <!--begin::Menu sub-->
+                                        <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3">برنامه ریزی ها</a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3">صورتحساب</a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3">بیانه ها</a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu separator-->
+                                            <div class="separator my-2"></div>
+                                            <!--end::Menu separator-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <div class="menu-content px-3">
+                                                    <!--begin::Switch-->
+                                                    <label class="form-check form-switch form-check-custom form-check-solid">
+                                                        <!--begin::Input-->
+                                                        <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
+                                                        <!--end::Input-->
+                                                        <!--end::Tags-->
+                                                        <span class="form-check-label text-muted fs-6">وضعیت</span>
+                                                        <!--end::Tags-->
+                                                    </label>
+                                                    <!--end::Switch-->
+                                                </div>
+                                            </div>
+                                            <!--end::Menu item-->
+                                        </div>
+                                        <!--end::Menu sub-->
+                                    </div>
+                                    <!--end::Menu item-->
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3 my-1">
+                                        <a href="#" class="menu-link px-3">تنظیمات</a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                </div>
+                                <!--end::Menu 3-->
+                                <!--end::Menu-->
+                            </div>
                         </td>
                         <td>
                             <p class="text-dark fw-bold text-hover-primary d-block fs-6">

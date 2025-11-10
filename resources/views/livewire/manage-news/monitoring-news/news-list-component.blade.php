@@ -260,110 +260,130 @@
                                 </td>
                             @endif 
                             <td>
-                                <div class="d-flex justify-content-start flex-shrink-0">
-                                    @if($pathIsTitle)
-                                    <a data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="تاریخچه تیترها">
-                                        <i class="ki-duotone ki-switch fs-2">
+                                <div class="card-toolbar">
+                                    <!--begin::Menu-->
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-bg-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="ki-duotone ki-category fs-6">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
                                         </i>
-                                    </span>
-                                    </a>
-                                    @endif
-                                    @if($pathIsAddInfo)
-                                    <a wire:click="addInfo({{$item->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="افزودن اطلاعات">
-                                        <i class="ki-duotone ki-switch fs-2">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                        </i>
-                                    </span>
-                                    </a>
-                                    @endif
-                                    @if($pathIsReview)
-                                    <a wire:click="reviewHistory({{$item->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_history"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="تاریخچه بازنویسی">
-                                        <i class="ki-duotone ki-switch fs-2">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                        </i>
-                                    </span>
-                                    </a>
-                                    @endif
-                                    @if($pathIsReview && in_array($item->step->stepDefinition->id, [6, 8]))
-                                    <a wire:click="addEditor({{$item->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_add_editor"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="ارجاع به بازنویس">
-                                        <i class="ki-duotone ki-send fs-2">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                        </i>
-                                    </span>
-                                    </a>
-                                    @endif
-                                    @if($pathIsMyMonitoring && $item->step->stepDefinition->id === 1)
-                                    <a wire:click="update({{$item->id}})"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
- 
-                                     <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
-                                         <i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
-                                             <span class="path1"></span>
-                                             <span class="path2"></span>
-                                             <span class="path3"></span>
-                                         </i>
-                                     </span>
-                                     </a>
-                                     <a wire:click="delete({{$item->id}})"
-                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
-                                          <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
-                                      <i class="ki-duotone ki-trash fs-2">
-                                          <span class="path1"></span>
-                                          <span class="path2"></span>
-                                          <span class="path3"></span>
-                                          <span class="path4"></span>
-                                          <span class="path5"></span>
-                                      </i>
-                                     </span>
-                                     </a>
-                                     @elseif(!$pathIsMyMonitoring && !$pathIsFinal)
-                                     <a wire:click="update({{$item->id}})"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
- 
-                                     <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
-                                         <i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
-                                             <span class="path1"></span>
-                                             <span class="path2"></span>
-                                             <span class="path3"></span>
-                                         </i>
-                                     </span>
-                                     </a>
-                                     <a wire:click="delete({{$item->id}})"
-                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
-                                          <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
-                                      <i class="ki-duotone ki-trash fs-2">
-                                          <span class="path1"></span>
-                                          <span class="path2"></span>
-                                          <span class="path3"></span>
-                                          <span class="path4"></span>
-                                          <span class="path5"></span>
-                                      </i>
-                                     </span>
-                                     </a>
-                                    @endif
-                                    <a wire:click="details({{$item->id}})"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                     <span class="ms-1" data-bs-toggle="tooltip" title="جزییات">
-                                         <i class="ki-duotone ki-eye fs-2 text-gray-500 fs-6">
-                                             <span class="path1"></span>
-                                             <span class="path2"></span>
-                                             <span class="path3"></span>
-                                         </i>
-                                     </span>
-                                     </a>
+                                    </button>
+                                    <!--begin::Menu 3-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
+                                        <!--begin::Heading-->
+                                        @if($pathIsTitle)
+                                            <div class="menu-item px-3">
+                                                <a data-bs-toggle="modal" data-bs-target="#kt_modal_add_info" class="menu-link flex-stack px-3">تاریخچه تیترها
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="تاریخچه تیترهای رد شده">
+                                                    <i class="ki-duotone ki-information fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        @endif
+                                        @if($pathIsAddInfo)
+                                            <div class="menu-item px-3">
+                                                <a wire:click="addInfo({{$item->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_add_info" class="menu-link flex-stack px-3">افزودن اطلاعات
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="افزودن اطلاعات لازم">
+                                                    <i class="ki-duotone ki-information fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        @endif
+                                        @if($pathIsReview)
+                                            <div class="menu-item px-3">
+                                                <a wire:click="reviewHistory({{$item->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_history" class="menu-link flex-stack px-3">تاریخچه بازنویسی ها
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="تاریخچه بازنویسی های رد شده">
+                                                    <i class="ki-duotone ki-information fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        @endif
+                                        @if($pathIsReview && in_array($item->step->stepDefinition->id, [6, 8]))
+                                            <div class="menu-item px-3">
+                                                <a wire:click="addEditor({{$item->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_add_editor" class="menu-link flex-stack px-3">ارجاع به بازنویس
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="ارجاع به شخص موردنظر برای بازنویسی خبر">
+                                                    <i class="ki-duotone ki-send fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        @endif
+                                        @if($pathIsMyMonitoring && $item->step->stepDefinition->id === 1)
+                                            <div class="menu-item px-3">
+                                                <a wire:click="update({{$item->id}})" class="menu-link flex-stack px-3">ویرایش خبر
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="ویرایش اطلاعات خبر">
+                                                    <i class="ki-duotone ki-pencil fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="delete({{$item->id}})" class="menu-link flex-stack px-3">حذف خبر
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="حذف خبر">
+                                                    <i class="ki-duotone ki-abstract-11 fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        @elseif(!$pathIsMyMonitoring && !$pathIsFinal)
+                                            <div class="menu-item px-3">
+                                                <a wire:click="update({{$item->id}})" class="menu-link flex-stack px-3">ویرایش خبر
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="ویرایش اطلاعات خبر">
+                                                    <i class="ki-duotone ki-pencil fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="delete({{$item->id}})" class="menu-link flex-stack px-3">حذف خبر
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="حذف خبر">
+                                                    <i class="ki-duotone ki-abstract-11 fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        @endif
+                                        <div class="menu-item px-3">
+                                            <a wire:click="details({{$item->id}})" class="menu-link flex-stack px-3">جزییات خبر
+                                            <span class="ms-2" data-bs-toggle="tooltip" title="نمایش جزییات خبر">
+                                                <i class="ki-duotone ki-eye fs-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                    <span class="path3"></span>
+                                                </i>
+                                            </span>
+                                            </a>
+                                        </div>                                    
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -540,6 +560,7 @@
         </div>
     </div>
 
+    @if($pathIsTitle)
     <!-- Reject one Titr Modal -->
     <div class="modal fade" id="kt_modal_reject_title" tabindex="-1" wire:ignore.self>
         <div class="modal-dialog">
@@ -569,7 +590,7 @@
             </div>
         </div>
     </div>
-    
+    @endif
 </div>
 
 
