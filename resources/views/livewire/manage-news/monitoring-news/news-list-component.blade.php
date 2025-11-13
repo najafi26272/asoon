@@ -151,11 +151,6 @@
                                 وضعیت
                             </th>      
                         @endif     
-                        @if($pathIsReview) 
-                            <th class="min-w-100px">
-                                 محتوای خبر
-                            </th>
-                        @endif                 
                         <th class="min-w-100px ">
                             عملیات
                         </th>                  
@@ -249,16 +244,6 @@
                                 <div class="badge badge-light-primary">{{ $item->step->stepDefinition->title }}</div>                                    
                             </td>
                             @endif
-                            @if($pathIsReview) 
-                                <td class="min-w-100px">
-                                    <a data-bs-toggle="modal" data-bs-target="#contentModal"
-                                        class=" text-center cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                        <span class="ms-1 text-center text-gray-400" data-bs-toggle="tooltip" title="محتوای خبر بازنویسی شده ">
-                                            ...
-                                        </span>
-                                    </a>
-                                </td>
-                            @endif 
                             <td>
                                 <div class="card-toolbar">
                                     <!--begin::Menu-->
@@ -290,7 +275,7 @@
                                             <div class="menu-item px-3">
                                                 <a wire:click="addInfo({{$item->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_add_info" class="menu-link flex-stack px-3">افزودن اطلاعات
                                                 <span class="ms-2" data-bs-toggle="tooltip" title="افزودن اطلاعات لازم">
-                                                    <i class="ki-duotone ki-information fs-2">
+                                                    <i class="ki-duotone ki-fasten fs-2">
                                                         <span class="path1"></span>
                                                         <span class="path2"></span>
                                                         <span class="path3"></span>
@@ -300,6 +285,17 @@
                                             </div>
                                         @endif
                                         @if($pathIsReview)
+                                            <div class="menu-item px-3">
+                                                <a data-bs-toggle="modal" data-bs-target="#contentModal" class="menu-link flex-stack px-3">محتوای بازنویسی
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="محتوای بازنویسی خبر و رد یا تایید بازنویسی">
+                                                    <i class="ki-duotone ki-book fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
                                             <div class="menu-item px-3">
                                                 <a wire:click="reviewHistory({{$item->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_review_history" class="menu-link flex-stack px-3">تاریخچه بازنویسی ها
                                                 <span class="ms-2" data-bs-toggle="tooltip" title="تاریخچه بازنویسی های رد شده">
@@ -446,7 +442,7 @@
     </style>
 
     <!-- Content Modal -->
-    <div class="modal fade  " id="contentModal" tabindex="-1" wire:ignore.self >
+    <div class="modal fade" id="contentModal" tabindex="-1" wire:ignore.self >
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <div class="modal-content">
                 <div class="modal-header">
@@ -476,15 +472,13 @@
                         <div class=" col-10 d-flex  mb-8 fv-row">
             
                             <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-
                                 <input class="form-check-input w-45px h-30px" type="checkbox" id="accept" checked="checked">
                                 <label class="form-check-label" for="allowmarketing">تایید</label>
                             </div>
                             
                         </div>
                         <div class="col-12 mb-8 fv-row">
-                        
-                        <input type="text" class="form-control form-control-sm  min-w-100px mt-1 " id="reasonInput" placeholder="دلیل رد شدن"/>
+                            <input type="text" class="form-control form-control-sm  min-w-100px mt-1 " id="reasonInput" placeholder="دلیل رد شدن"/>
                         </div>
                         
                     </div>
@@ -492,8 +486,7 @@
                 <div class="modal-footer">
                     <button 
                         wire:click=""
-                        class="btn btn-danger"
-                    >
+                        class="btn btn-danger">
                         ثبت
                     </button>
                 </div>
