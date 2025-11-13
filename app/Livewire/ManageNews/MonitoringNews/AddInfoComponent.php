@@ -28,7 +28,7 @@ class AddInfoComponent extends Component
     public function addInfo()
     {
 
-        dd($this->rate);
+        // dd($this->rate);
         DB::transaction(function () {
             $news = News::findOrFail($this->newsId);
 
