@@ -94,7 +94,10 @@
                             {{$item->title}}
                             </td>
                             <td class="">
-                                {{$item->link}}
+                                <a href= {{$item->link}}>
+                                    لینک رصد
+                                </a>
+                               
                             </td>
                             <td>
                                 <p class="text-dark fw-bold text-hover-primary d-block fs-6">
@@ -120,6 +123,7 @@
                                 @endif
                             </td>
                             <td>
+                                
                                 <div class="d-flex justify-content-end flex-shrink-0">
                                     <a wire:click="details({{$item->id}})"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
@@ -131,7 +135,8 @@
                                          </i>
                                      </span>
                                      </a>
-                                     @if($item->editNews->status != "waiting")
+                                     @if($item->editNews->status != "accept")
+                                     
                                      <a wire:click="update({{$item->id}})"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                       <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">

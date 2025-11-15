@@ -43,6 +43,7 @@
             border: none;
             float: right;
             direction: ltr;
+            justify-content: flex-end;
         }
 
         .rating > label {
@@ -51,8 +52,8 @@
         }
 
         .rating > label:before {
-            margin: 5px;
-            font-size: 20px;
+            /* margin: 5px; */
+            font-size: 14px;
             font-family: FontAwesome;
             content: "\f005";
             display: inline-block;
@@ -65,7 +66,7 @@
         .rating > input:checked ~ label,
         .rating:not(:checked) > label:hover,
         .rating:not(:checked) > label:hover ~ label {
-            color: #f79426;
+            color: #FFAD0F;
         }
 
         .rating > input:checked + label:hover,
@@ -78,7 +79,7 @@
 
     </style>
 
-
+  
 
 </head>
 <!--end::Head-->

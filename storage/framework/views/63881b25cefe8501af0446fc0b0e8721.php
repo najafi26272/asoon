@@ -115,6 +115,22 @@ unset($__params);
 unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('manage-news.monitoring-news.review-history-component', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-3349914660-7', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
@@ -128,6 +144,10 @@ if (isset($__slots)) unset($__slots);
     <script>
         document.addEventListener('$_news_details', event => {
             $("#kt_modal_news_details").modal('show');
+        });
+
+        document.addEventListener('$_review_history', event => {
+            $("#kt_modal_review_history").modal('show');
         });
         
         document.addEventListener('show-delete-news-modal', event => {
@@ -168,6 +188,7 @@ if (isset($__slots)) unset($__slots);
         });
         document.addEventListener('newsTitle-rejected', event => {
             $("#rejectTitrModal").modal('hide');
+            $("#kt_modal_reject_title").modal('hide');
         });
     </script>
 <?php $__env->stopPush(); ?>
