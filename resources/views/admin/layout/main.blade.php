@@ -42,6 +42,7 @@
             border: none;
             float: right;
             direction: ltr;
+            justify-content: flex-end;
         }
 
         .rating > label, .review-rating > label{
@@ -85,7 +86,7 @@
 
     </style>
 
-
+  
 
 </head>
 <!--end::Head-->

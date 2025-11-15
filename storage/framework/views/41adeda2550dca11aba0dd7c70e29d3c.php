@@ -133,6 +133,9 @@
                         <th class="min-w-200px">
                             عنوان
                         </th>
+                        <th class="">
+                            امتیاز دهی
+                        </th>
                         <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
                             <th class="min-w-150px">
                                 تیتر پیشنهادی
@@ -151,11 +154,6 @@
                                 وضعیت
                             </th>      
                         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->     
-                        <!--[if BLOCK]><![endif]--><?php if($pathIsReview): ?> 
-                            <th class="min-w-100px">
-                                 محتوای خبر
-                            </th>
-                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->                 
                         <th class="min-w-100px ">
                             عملیات
                         </th>                  
@@ -177,21 +175,68 @@
                                 >
                             </td>
                             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                            <td class="">
-                                <?php echo e($item->title); ?>
+                            <td class="flex">
+                                <h5>
+                                    <?php echo e($item->title); ?>
 
+                                </h5>
+                                
+                            </td>
+                            <td>
+                                <div class="rating justify-content-end">
+                                    <div class="rating-label checked">
+                                        <i class="ki-duotone ki-star fs-6"></i>
+                                    </div>
+                                    <div class="rating-label checked">
+                                        <i class="ki-duotone ki-star fs-6"></i>
+                                    </div>
+                                    <div class="rating-label checked">
+                                        <i class="ki-duotone ki-star fs-6"></i>
+                                    </div>
+                                    <div class="rating-label checked">
+                                        <i class="ki-duotone ki-star fs-6"></i>
+                                    </div>
+                                    <div class="rating-label checked">
+                                        <i class="ki-duotone ki-star fs-6"></i>
+                                    </div>
+                                </div>
                             </td>
 
                             <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
+                            <?php
+                                $title = $activeTab === 'web' ? ($item->latestWebTitle ?? null) : ($item->latestSocialTitle ?? null);
+                                $status = $title?->status;
+                                $label  = match ($title?->status) {
+                                    'accept'     => 'تایید شده',
+                                    'waiting'    => 'در انتظار تیتر',
+                                    'progressing'=> 'در انتظار بررسی تیتر',
+                                    default      => 'رد شده',
+                                };
+                            ?>
                                 <td>
                                     <!--[if BLOCK]><![endif]--><?php if($activeTab === 'web'): ?>
                                         <span title = <?php echo e($item->latestWebTitle->title); ?>><?php echo e($item->latestWebTitle?->title ? Str::limit($item->latestWebTitle->title, 50) : '-'); ?></span>
                                     <?php else: ?>
                                         <span title = <?php echo e($item->latestSocialTitle->title); ?>><?php echo e($item->latestSocialTitle?->title ? Str::limit($item->latestSocialTitle->title, 50) : '-'); ?></span>
                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                    <!--[if BLOCK]><![endif]--><?php if($label != 'رد شده' ): ?>
+                                    <a data-bs-toggle="modal" data-bs-target="#kt_modal_reject_title"
+                                        class="cursor-pointer btn btn-icon btn-color-danger  btn-active-color-danger btn-sm me-1">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="رد کردن تیتر">
+                                        <i class="ki-duotone ki-abstract-11 fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    </a>
+                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                 </td>
                             <?php else: ?>
-                                <td><?php echo e(Str::limit($item->link, 30)); ?></td>
+                                <td>
+                                    <a href=<?php echo e($item->link); ?>> 
+                                        لینک رصد
+                                    </a>
+                                    
                                 
                                 <td>
                                     <p class="text-dark fw-bold text-hover-primary d-block fs-6">
@@ -222,128 +267,150 @@
                               </div>
                             </td>
                             <?php elseif($pathIsTitle): ?>
-                            <?php
-                                $title = $activeTab === 'web' ? ($item->latestWebTitle ?? null) : ($item->latestSocialTitle ?? null);
-                                $status = $title?->status;
-                                $label  = match ($title?->status) {
-                                    'accept'     => 'تایید شده',
-                                    'waiting'    => 'در انتظار تیتر',
-                                    'progressing'=> 'در انتظار بررسی تیتر',
-                                    default      => 'رد شده',
-                                };
-                            ?>
                             <td>
-                                <div class="badge badge-light-primary"><?php echo e($label ?? ''); ?></div>
+                                <div class="badge <?php if($label == 'رد شده'): ?> badge-light-danger <?php else: ?> badge-light-primary <?php endif; ?> "><?php echo e($label ?? ''); ?></div>
                             </td>
                             <?php else: ?>
                             <td>
                                 <div class="badge badge-light-primary"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
                             </td>
                             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                            <!--[if BLOCK]><![endif]--><?php if($pathIsReview): ?> 
-                                <td class="min-w-100px">
-                                    <a data-bs-toggle="modal" data-bs-target="#contentModal"
-                                        class=" text-center cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                        <span class="ms-1 text-center text-gray-400" data-bs-toggle="tooltip" title="محتوای خبر بازنویسی شده ">
-                                            ...
-                                        </span>
-                                    </a>
-                                </td>
-                            <?php endif; ?><!--[if ENDBLOCK]><![endif]--> 
                             <td>
-                                <div class="d-flex justify-content-start flex-shrink-0">
-                                    <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
-                                    <a data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="تاریخچه تیترها">
-                                        <i class="ki-duotone ki-switch fs-2">
+                                <div class="card-toolbar">
+                                    <!--begin::Menu-->
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-bg-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="ki-duotone ki-category fs-6">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
                                         </i>
-                                    </span>
-                                    </a>
-                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                    <!--[if BLOCK]><![endif]--><?php if($pathIsAddInfo): ?>
-                                    <a wire:click="addInfo(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_info"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="افزودن اطلاعات">
-                                        <i class="ki-duotone ki-switch fs-2">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                        </i>
-                                    </span>
-                                    </a>
-                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                    <!--[if BLOCK]><![endif]--><?php if($pathIsReview && in_array($item->step->stepDefinition->id, [6, 8])): ?>
-                                    <a wire:click="addEditor(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_editor"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                    <span class="ms-1" data-bs-toggle="tooltip" title="ارجاع به بازنویس">
-                                        <i class="ki-duotone ki-switch fs-2">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                        </i>
-                                    </span>
-                                    </a>
-                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                    <!--[if BLOCK]><![endif]--><?php if($pathIsMyMonitoring && $item->step->stepDefinition->id === 1): ?>
-                                    <a wire:click="update(<?php echo e($item->id); ?>)"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
- 
-                                     <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
-                                         <i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
-                                             <span class="path1"></span>
-                                             <span class="path2"></span>
-                                             <span class="path3"></span>
-                                         </i>
-                                     </span>
-                                     </a>
-                                     <a wire:click="delete(<?php echo e($item->id); ?>)"
-                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
-                                          <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
-                                      <i class="ki-duotone ki-trash fs-2">
-                                          <span class="path1"></span>
-                                          <span class="path2"></span>
-                                          <span class="path3"></span>
-                                          <span class="path4"></span>
-                                          <span class="path5"></span>
-                                      </i>
-                                     </span>
-                                     </a>
-                                     <?php elseif(!$pathIsMyMonitoring && !$pathIsFinal): ?>
-                                     <a wire:click="update(<?php echo e($item->id); ?>)"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
- 
-                                     <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
-                                         <i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
-                                             <span class="path1"></span>
-                                             <span class="path2"></span>
-                                             <span class="path3"></span>
-                                         </i>
-                                     </span>
-                                     </a>
-                                     <a wire:click="delete(<?php echo e($item->id); ?>)"
-                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm cursor-pointer">
-                                          <span class="ms-1" data-bs-toggle="tooltip" title="حذف">
-                                      <i class="ki-duotone ki-trash fs-2">
-                                          <span class="path1"></span>
-                                          <span class="path2"></span>
-                                          <span class="path3"></span>
-                                          <span class="path4"></span>
-                                          <span class="path5"></span>
-                                      </i>
-                                     </span>
-                                     </a>
-                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                    <a wire:click="details(<?php echo e($item->id); ?>)"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                     <span class="ms-1" data-bs-toggle="tooltip" title="جزییات">
-                                         <i class="ki-duotone ki-eye fs-2 text-gray-500 fs-6">
-                                             <span class="path1"></span>
-                                             <span class="path2"></span>
-                                             <span class="path3"></span>
-                                         </i>
-                                     </span>
-                                     </a>
+                                    </button>
+                                    <!--begin::Menu 3-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
+                                        <!--begin::Heading-->
+                                        <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
+                                            <div class="menu-item px-3">
+                                                <a data-bs-toggle="modal" data-bs-target="#kt_modal_title_history" class="menu-link flex-stack px-3">تاریخچه تیترها
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="تاریخچه تیترهای رد شده">
+                                                    <i class="ki-duotone ki-information fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                        <!--[if BLOCK]><![endif]--><?php if($pathIsAddInfo): ?>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="addInfo(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_info" class="menu-link flex-stack px-3">افزودن اطلاعات
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="افزودن اطلاعات لازم">
+                                                    <i class="ki-duotone ki-fasten fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                        <!--[if BLOCK]><![endif]--><?php if($pathIsReview): ?>
+                                            <div class="menu-item px-3">
+                                                <a data-bs-toggle="modal" data-bs-target="#contentModal" class="menu-link flex-stack px-3">محتوای بازنویسی
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="محتوای بازنویسی خبر و رد یا تایید بازنویسی">
+                                                    <i class="ki-duotone ki-book fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="reviewHistory(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_review_history" class="menu-link flex-stack px-3">تاریخچه بازنویسی ها
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="تاریخچه بازنویسی های رد شده">
+                                                    <i class="ki-duotone ki-information fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                        <!--[if BLOCK]><![endif]--><?php if($pathIsReview && in_array($item->step->stepDefinition->id, [6, 8])): ?>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="addEditor(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_add_editor" class="menu-link flex-stack px-3">ارجاع به بازنویس
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="ارجاع به شخص موردنظر برای بازنویسی خبر">
+                                                    <i class="ki-duotone ki-send fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                        <!--[if BLOCK]><![endif]--><?php if($pathIsMyMonitoring && $item->step->stepDefinition->id === 1): ?>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="update(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">ویرایش خبر
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="ویرایش اطلاعات خبر">
+                                                    <i class="ki-duotone ki-pencil fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="delete(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">حذف خبر
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="حذف خبر">
+                                                    <i class="ki-duotone ki-abstract-11 fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        <?php elseif(!$pathIsMyMonitoring && !$pathIsFinal): ?>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="update(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">ویرایش خبر
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="ویرایش اطلاعات خبر">
+                                                    <i class="ki-duotone ki-pencil fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="delete(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">حذف خبر
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="حذف خبر">
+                                                    <i class="ki-duotone ki-abstract-11 fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                        <div class="menu-item px-3">
+                                            <a wire:click="details(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">جزییات خبر
+                                            <span class="ms-2" data-bs-toggle="tooltip" title="نمایش جزییات خبر">
+                                                <i class="ki-duotone ki-eye fs-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                    <span class="path3"></span>
+                                                </i>
+                                            </span>
+                                            </a>
+                                        </div>                                    
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -407,7 +474,7 @@
     </style>
 
     <!-- Content Modal -->
-    <div class="modal fade  " id="contentModal" tabindex="-1" wire:ignore.self >
+    <div class="modal fade" id="contentModal" tabindex="-1" wire:ignore.self >
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <div class="modal-content">
                 <div class="modal-header">
@@ -437,15 +504,13 @@
                         <div class=" col-10 d-flex  mb-8 fv-row">
             
                             <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-
                                 <input class="form-check-input w-45px h-30px" type="checkbox" id="accept" checked="checked">
                                 <label class="form-check-label" for="allowmarketing">تایید</label>
                             </div>
                             
                         </div>
                         <div class="col-12 mb-8 fv-row">
-                        
-                        <input type="text" class="form-control form-control-sm  min-w-100px mt-1 " id="reasonInput" placeholder="دلیل رد شدن"/>
+                            <input type="text" class="form-control form-control-sm  min-w-100px mt-1 " id="reasonInput" placeholder="دلیل رد شدن"/>
                         </div>
                         
                     </div>
@@ -453,8 +518,7 @@
                 <div class="modal-footer">
                     <button 
                         wire:click=""
-                        class="btn btn-danger"
-                    >
+                        class="btn btn-danger">
                         ثبت
                     </button>
                 </div>
@@ -534,8 +598,109 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
         </div>
     </div>
+
+    <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
+    <!-- Reject one Titr Modal -->
+    <div class="modal fade" id="kt_modal_reject_title" tabindex="-1" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">رد تیتر انتخاب شده</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea 
+                        wire:model="rejectDescription"
+                        class="form-control"
+                        rows="4"
+                        placeholder="لطفاً دلیل رد تیتر انتخابی را وارد کنید..."
+                        required
+                    ></textarea>
+                    <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['rejectDescription'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="text-danger"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
+                </div>
+                <div class="modal-footer">
+                    <button 
+                        wire:click="rejectSelectedTitr(<?php echo e($item->id); ?>)"
+                        class="btn btn-danger"
+                    >
+                        تأیید رد
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+
+
+    <div wire:ignore.self class="modal fade" id="kt_modal_title_history" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header" id="kt_modal_new_mosavabe_header">
+                        <!--begin::Modal title-->
+                        <h2> تاریخچه تیتر ها</h2>
+                        <!--end::Modal title-->
+                        <!--begin::Close-->
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                            <i class="ki-duotone ki-cross fs-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body py-10 px-lg-17">
+                        <!--begin::Scroll-->
+                        <div class="scroll-y me-n7 pe-7" id="kt_modal_new_mosavabe_scroll" data-kt-scroll="true"
+                             data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
+                             data-kt-scroll-dependencies="#kt_modal_new_address_header"
+                             data-kt-scroll-wrappers="#kt_modal_new_address_scroll" data-kt-scroll-offset="300px">
+                            
+                            
+                             <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 ">
+                                <thead>
+                                    <tr class="fw-bold text-muted bg-light">
+                                        <th class="ps-4  rounded-start">تیتر پیشنهادی</th>
+                                        <th> تاریخ</th>
+                                        <th class="ps-4  rounded-end">دلیل رد شدن</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td > تیتر یک</td>
+                                        <td>1404/04/04 </td>
+                                        <td>طولانی بودن</td>
+                                        
+                                       
+                                    </tr>
+                                    
+                                   
+                                </tbody>
+                            </table>
     
+                        </div>
+                        <!--end::Scroll-->
+                    </div>
+                    <!--end::Modal body-->
+                   
+               
+            </div>
+        </div>
+    </div>
 </div>
+
 
 
 <?php $__env->startPush('scripts'); ?>

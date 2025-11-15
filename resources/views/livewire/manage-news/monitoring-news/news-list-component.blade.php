@@ -133,6 +133,9 @@
                         <th class="min-w-200px">
                             عنوان
                         </th>
+                        <th class="">
+                            امتیاز دهی
+                        </th>
                         @if($pathIsTitle)
                             <th class="min-w-150px">
                                 تیتر پیشنهادی
@@ -172,8 +175,30 @@
                                 >
                             </td>
                             @endif
-                            <td class="">
-                                {{$item->title}}
+                            <td class="flex">
+                                <h5>
+                                    {{$item->title}}
+                                </h5>
+                                
+                            </td>
+                            <td>
+                                <div class="rating justify-content-end">
+                                    <div class="rating-label checked">
+                                        <i class="ki-duotone ki-star fs-6"></i>
+                                    </div>
+                                    <div class="rating-label checked">
+                                        <i class="ki-duotone ki-star fs-6"></i>
+                                    </div>
+                                    <div class="rating-label checked">
+                                        <i class="ki-duotone ki-star fs-6"></i>
+                                    </div>
+                                    <div class="rating-label checked">
+                                        <i class="ki-duotone ki-star fs-6"></i>
+                                    </div>
+                                    <div class="rating-label checked">
+                                        <i class="ki-duotone ki-star fs-6"></i>
+                                    </div>
+                                </div>
                             </td>
 
                             @if($pathIsTitle)
@@ -193,7 +218,7 @@
                                     @else
                                         <span title = {{$item->latestSocialTitle->title}}>{{ $item->latestSocialTitle?->title ? Str::limit($item->latestSocialTitle->title, 50) : '-' }}</span>
                                     @endif
-                                    @if($label != 'رد شده')
+                                    @if($label != 'رد شده' )
                                     <a data-bs-toggle="modal" data-bs-target="#kt_modal_reject_title"
                                         class="cursor-pointer btn btn-icon btn-color-danger  btn-active-color-danger btn-sm me-1">
                                     <span class="ms-1" data-bs-toggle="tooltip" title="رد کردن تیتر">
@@ -206,7 +231,11 @@
                                     @endif
                                 </td>
                             @else
-                                <td>{{ Str::limit($item->link, 30) }}</td>
+                                <td>
+                                    <a href={{$item->link}}> 
+                                        لینک رصد
+                                    </a>
+                                    {{-- {{ Str::limit($item->link, 30) }}</td> --}}
                                 
                                 <td>
                                     <p class="text-dark fw-bold text-hover-primary d-block fs-6">
@@ -260,7 +289,7 @@
                                         <!--begin::Heading-->
                                         @if($pathIsTitle)
                                             <div class="menu-item px-3">
-                                                <a data-bs-toggle="modal" data-bs-target="#kt_modal_add_info" class="menu-link flex-stack px-3">تاریخچه تیترها
+                                                <a data-bs-toggle="modal" data-bs-target="#kt_modal_title_history" class="menu-link flex-stack px-3">تاریخچه تیترها
                                                 <span class="ms-2" data-bs-toggle="tooltip" title="تاریخچه تیترهای رد شده">
                                                     <i class="ki-duotone ki-information fs-2">
                                                         <span class="path1"></span>
@@ -532,7 +561,70 @@
         </div>
     </div>
     @endif
+
+
+    <div wire:ignore.self class="modal fade" id="kt_modal_title_history" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header" id="kt_modal_new_mosavabe_header">
+                        <!--begin::Modal title-->
+                        <h2> تاریخچه تیتر ها</h2>
+                        <!--end::Modal title-->
+                        <!--begin::Close-->
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                            <i class="ki-duotone ki-cross fs-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body py-10 px-lg-17">
+                        <!--begin::Scroll-->
+                        <div class="scroll-y me-n7 pe-7" id="kt_modal_new_mosavabe_scroll" data-kt-scroll="true"
+                             data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
+                             data-kt-scroll-dependencies="#kt_modal_new_address_header"
+                             data-kt-scroll-wrappers="#kt_modal_new_address_scroll" data-kt-scroll-offset="300px">
+                            
+                            
+                             <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 ">
+                                <thead>
+                                    <tr class="fw-bold text-muted bg-light">
+                                        <th class="ps-4  rounded-start">تیتر پیشنهادی</th>
+                                        <th> تاریخ</th>
+                                        <th class="ps-4  rounded-end">دلیل رد شدن</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td > تیتر یک</td>
+                                        <td>1404/04/04 </td>
+                                        <td>طولانی بودن</td>
+                                        
+                                       
+                                    </tr>
+                                    
+                                   
+                                </tbody>
+                            </table>
+    
+                        </div>
+                        <!--end::Scroll-->
+                    </div>
+                    <!--end::Modal body-->
+                   
+               
+            </div>
+        </div>
+    </div>
 </div>
+
 
 
 @push('scripts')

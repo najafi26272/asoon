@@ -5,6 +5,7 @@
 <?php $__env->stopPush(); ?>
 
 <div class="card mb-5 mb-xl-10">
+    
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
@@ -94,8 +95,10 @@
 
                             </td>
                             <td class="">
-                                <?php echo e($item->link); ?>
-
+                                <a href= <?php echo e($item->link); ?>>
+                                    لینک رصد
+                                </a>
+                               
                             </td>
                             <td>
                                 <p class="text-dark fw-bold text-hover-primary d-block fs-6">
@@ -122,6 +125,7 @@
                                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                             </td>
                             <td>
+                                
                                 <div class="d-flex justify-content-end flex-shrink-0">
                                     <a wire:click="details(<?php echo e($item->id); ?>)"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
@@ -133,7 +137,8 @@
                                          </i>
                                      </span>
                                      </a>
-                                     <!--[if BLOCK]><![endif]--><?php if($item->editNews->status != "waiting"): ?>
+                                     <!--[if BLOCK]><![endif]--><?php if($item->editNews->status != "accept"): ?>
+                                     
                                      <a wire:click="update(<?php echo e($item->id); ?>)"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                       <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">

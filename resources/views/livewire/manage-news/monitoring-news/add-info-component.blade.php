@@ -175,27 +175,43 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-6">
+                                 <!--begin::Input group-->
+                                 <div wire:ignore class="d-flex flex-column mb-8 fv-row">
+                                    <!--begin::Tags-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                        <span class="">امتیازدهی</span>
+                                        {{-- <span class="ms-1" data-bs-toggle="tooltip"
+                                              title="این خبر به کاور نیاز دارد یا خیر؟ ">
+                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                        </i>
+                                    </span> --}}
+                                    </label>
+                                    <!--end::Tags-->
+                                
+        
+                                <div class="rating d-flex">
+        
+                                    <input type="radio" wire:model="rate" id="star5" name="rating" value="5" />
+                                    <label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
+                                    <input type="radio" wire:model="rate"  id="star4" name="rating" value="4" />
+                                    <label class="star" for="star4" title="Great" aria-hidden="true"></label>
+                                    <input type="radio" wire:model="rate"  id="star3" name="rating" value="3" />
+                                    <label class="star" for="star3" title="Very good" aria-hidden="true"></label>
+                                    <input type="radio" wire:model="rate" id="star2" name="rating" value="2" />
+                                    <label class="star" for="star2" title="Good" aria-hidden="true"></label>
+                                    <input type="radio" wire:model="rate" id="star1" name="rating" value="1" />
+                                    <label class="star" for="star1" title="Bad" aria-hidden="true"></label>
+                                </div>
+                            </div>
                         </div>
 
-                        <label class="d-flex align-items-center fs-6 fw-semibold">
-                            <span class="">امتیاز دهی</span>
-                        </label>
+                       
 
-                        <div class="rating">
-
-                            <input type="radio" wire:model="rate" id="star5" name="rating" value="5" />
-                            <label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
-                            <input type="radio" wire:model="rate"  id="star4" name="rating" value="4" />
-                            <label class="star" for="star4" title="Great" aria-hidden="true"></label>
-                            <input type="radio" wire:model="rate"  id="star3" name="rating" value="3" />
-                            <label class="star" for="star3" title="Very good" aria-hidden="true"></label>
-                            <input type="radio" wire:model="rate" id="star2" name="rating" value="2" />
-                            <label class="star" for="star2" title="Good" aria-hidden="true"></label>
-                            <input type="radio" wire:model="rate" id="star1" name="rating" value="1" />
-                            <label class="star" for="star1" title="Bad" aria-hidden="true"></label>
-                        </div>
-
+                        
                     </div>
                 </div>
 
@@ -227,4 +243,5 @@
         @this.set('selectedLanguages', data);
         });
     </script>
+   
 @endpush
