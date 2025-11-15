@@ -39,18 +39,18 @@
 
     <style>
 
-        .rating {
+        .rating, .review-rating {
             border: none;
             float: right;
             direction: ltr;
         }
 
-        .rating > label {
+        .rating > label, .review-rating > label{
             color: #90a0a3;
             float: right;
         }
 
-        .rating > label:before {
+        .rating > label:before , .review-rating > label:before {
             margin: 5px;
             font-size: 20px;
             font-family: FontAwesome;
@@ -58,20 +58,28 @@
             display: inline-block;
         }
 
-        .rating > input {
+        .rating > input , .review-rating > input{
             display: none;
         }
 
         .rating > input:checked ~ label,
         .rating:not(:checked) > label:hover,
-        .rating:not(:checked) > label:hover ~ label {
+        .rating:not(:checked) > label:hover ~ label ,  
+        .review-rating > input:checked ~ label,
+        .review-rating:not(:checked) > label:hover,
+        .review-rating:not(:checked) > label:hover ~ label 
+        {
             color: #f79426;
         }
-
+        
         .rating > input:checked + label:hover,
         .rating > input:checked ~ label:hover,
         .rating > label:hover ~ input:checked ~ label,
-        .rating > input:checked ~ label:hover ~ label {
+        .rating > input:checked ~ label:hover ~ label,
+        .review-rating > input:checked + label:hover,
+        .review-rating > input:checked ~ label:hover,
+        .review-rating > label:hover ~ input:checked ~ label,
+        .review-rating > input:checked ~ label:hover ~ label {
             color: #fece31;
         }
 

@@ -13,7 +13,7 @@ class NewsDetailsComponent extends Component
     ];
 
     public function saveData($id){
-        $news = News::with(['editNews'])->find($id);
+        $news = News::with('editNews')->find($id);
         $this->newsId         = $news->id;
         $this->title          = $news->title;
         $this->link           = $news->link;

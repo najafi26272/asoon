@@ -288,7 +288,7 @@
                                         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                         <!--[if BLOCK]><![endif]--><?php if($pathIsReview): ?>
                                             <div class="menu-item px-3">
-                                                <a data-bs-toggle="modal" data-bs-target="#contentModal" class="menu-link flex-stack px-3">محتوای بازنویسی
+                                                <a wire:click="editedContent(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_content" class="menu-link flex-stack px-3">محتوای بازنویسی
                                                 <span class="ms-2" data-bs-toggle="tooltip" title="محتوای بازنویسی خبر و رد یا تایید بازنویسی">
                                                     <i class="ki-duotone ki-book fs-2">
                                                         <span class="path1"></span>
@@ -444,58 +444,6 @@
         }
     </style>
 
-    <!-- Content Modal -->
-    <div class="modal fade" id="contentModal" tabindex="-1" wire:ignore.self >
-        <div class="modal-dialog modal-dialog-centered mw-650px">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"> 
-                        محتوای بازنویسی شده
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                        <textarea 
-                            id="editor_content"
-                            wire:model="content"
-                            class="form-control w-100"
-                            rows="4"
-                            value="test"
-                        ></textarea>
-                        
-                        </div>
-
-                    </div>
-                    <div class="row  mt-5 notice bg-light-primary rounded border-primary border border-dashed min-w-lg-600px p-6">
-                        <div class="col-2 mb-8 fv-row">
-                            <label>وضعیت: </label>
-                        </div>
-                        <div class=" col-10 d-flex  mb-8 fv-row">
-            
-                            <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-                                <input class="form-check-input w-45px h-30px" type="checkbox" id="accept" checked="checked">
-                                <label class="form-check-label" for="allowmarketing">تایید</label>
-                            </div>
-                            
-                        </div>
-                        <div class="col-12 mb-8 fv-row">
-                            <input type="text" class="form-control form-control-sm  min-w-100px mt-1 " id="reasonInput" placeholder="دلیل رد شدن"/>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button 
-                        wire:click=""
-                        class="btn btn-danger">
-                        ثبت
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Reject Modal -->
     <div class="modal fade" id="rejectModal" tabindex="-1" wire:ignore.self>

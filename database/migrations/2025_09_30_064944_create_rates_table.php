@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('news_id')->constrained('news')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('creator_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->float('rate')->nullable();
+            $table->integer('rate')->nullable();
             $table->enum('type', ['edit', 'rasad'])->comment('بازنویسی و رصد');
             $table->timestamps();
         });

@@ -131,7 +131,7 @@
                                          </i>
                                      </span>
                                      </a>
-                                     @if($item->editNews->status != "waiting")
+                                     @if($item->editNews->status != "accept")
                                      <a wire:click="update({{$item->id}})"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                       <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">

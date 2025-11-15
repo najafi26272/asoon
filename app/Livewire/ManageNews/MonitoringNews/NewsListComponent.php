@@ -130,6 +130,10 @@ class NewsListComponent extends Component
     {
         $this->dispatch('$_news_editable', $id);
     }
+    public function editedContent($id)
+    {
+        $this->dispatch('$_content_editable', $id);
+    }
 
     private function processSelected($stepId)
     {

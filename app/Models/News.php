@@ -79,7 +79,7 @@ class News extends Model
 
     public function editNews()
     {
-        return $this->hasOne(EditNews::class)->latestOfMany('created_at');;
+        return $this->hasOne(EditNews::class)->latestOfMany('created_at');
     }
     public function reviews()
     {
@@ -89,7 +89,7 @@ class News extends Model
 
     public function titr()
     {
-        return $this->hasOne(Title::class)->latestOfMany('created_at');;
+        return $this->hasOne(Title::class)->latestOfMany('created_at');
     }
     public function titles()
     {
