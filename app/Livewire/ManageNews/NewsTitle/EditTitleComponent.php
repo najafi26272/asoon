@@ -15,11 +15,8 @@ class EditTitleComponent extends Component
     public $titleId,$newsId,$newTitle;
 
     public function saveData($id){
-        $row = Title::where([
-            'news_id' => $id,
-            'creator_id' => Auth::id()
-        ])->latest('created_at')->firstOrFail();        
-        $this->newsId = $id;
+        $row = Title::findOrFail($id);        
+        $this->newsId =  $row->news_id;
         $this->newTitle = $row->title;
         $this->titleId = $row->id;
     }
