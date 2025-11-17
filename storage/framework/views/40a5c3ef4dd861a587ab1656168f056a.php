@@ -5,11 +5,29 @@
 <?php $__env->stopPush(); ?>
 
 <div class="card mb-5 mb-xl-10">
-    
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
+        <!--begin::Nav group-->
+        <div class="d-flex flex-column" style="width: 100%">
+           <div class="nav-group nav-group-outline mx-auto mb-3" data-kt-buttons="true">
+               <button 
+                   class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 me-2 <?php if($activeTab === 'web'): ?> active <?php endif; ?>" 
+                   wire:click="setActiveTab('web')"
+                   data-kt-plan="web">
+                   سایت
+               </button>
+               <button 
+                   class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 <?php if($activeTab === 'socialMedia'): ?> active <?php endif; ?>" 
+                   wire:click="setActiveTab('socialMedia')"
+                   data-kt-plan="socialMedia">
+                   شبکه های اجتماعی
+               </button>
+           </div>
+        </div>
+       <!--end::Nav group-->
+
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold fs-3 mb-1">لیست بازنویسی های من </span>
+            <span class="card-label fw-bold fs-3 mb-1">لیست تیترهای من </span>
         </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
@@ -57,7 +75,7 @@
                 <div class="py-10 text-center">
                     <img src="<?php echo e(asset("assets/media/svg/illustrations/easy/2.svg")); ?>" class=" w-200px"
                          alt="">
-                    <p class="m-5">در حال حاضر بازنویسی  برای شما ثبت نشده است.</p>
+                    <p class="m-5">در حال حاضر تیتر  برای شما ثبت نشده است.</p>
                 </div>
             <?php else: ?>
                 <!--begin::Table-->
@@ -65,11 +83,11 @@
                     <!--begin::Table head-->
                     <thead>
                     <tr class="fw-bold text-muted">
-                        <th class="min-w-200px">
-                            عنوان
+                        <th class="min-w-150px">
+                            عنوان خبر
                         </th>
                         <th class="min-w-150px">
-                            لینک  
+                            تیتر پیشنهادی من  
                         </th>  
                         <th class="min-w-100px">
                             تاریخ ثبت خبر  
@@ -78,7 +96,7 @@
                             وضعیت خبر
                         </th>   
                         <th class="min-w-100px">
-                            وضعیت بازنویسی
+                            وضعیت تیتر
                         </th>   
                         <th class="min-w-100px text-end">
                             عملیات
@@ -91,14 +109,16 @@
                     <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
                             <td class="">
-                            <?php echo e($item->title); ?>
+                                <?php echo e($item->title); ?>
 
                             </td>
                             <td class="">
-                                <a href= <?php echo e($item->link); ?>>
-                                    لینک رصد
-                                </a>
-                               
+                                <?php
+                                $title = $activeTab === 'web' ? ($item->latestWebTitle ?? null) : ($item->latestSocialTitle ?? null);
+                                $myTitle =  $title?->title;
+                                ?>
+                                <?php echo e($myTitle); ?>
+
                             </td>
                             <td>
                                 <p class="text-dark fw-bold text-hover-primary d-block fs-6">
@@ -107,26 +127,34 @@
                                 </p>
                             </td>
                             <td>
-                                <div class="badge badge-light-primary"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
+                                <div class="badge badge-light-info"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
                             </td>
-                            <td>
-                                <!--[if BLOCK]><![endif]--><?php if($item->step->stepDefinition->id == 7): ?>
-                                    <div class="badge badge-light-warning"> در انتظار بازنویسی</div>
-                                <?php else: ?>
-                                    <!--[if BLOCK]><![endif]--><?php if($item->editNews->status == "waiting"): ?>
-                                        <div class="badge badge-light-warning">در انتظار بازنویسی</div>
-                                    <?php elseif($item->editNews->status == "progressing"): ?>
-                                        <div class="badge badge-light-warning">در انتظار بررسی بازنویسی</div>
-                                    <?php elseif($item->editNews->status == "accept"): ?>
-                                        <div class="badge badge-light-success">تایید شده</div>
-                                    <?php elseif($item->editNews->status == "reject"): ?>
-                                        <div class="badge badge-light-danger">رد شده</div>
-                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                            </td>
-                            <td>
                                 
+                            <?php
+                                $title = $activeTab === 'web' ? ($item->latestWebTitle ?? null) : ($item->latestSocialTitle ?? null);
+                                $status = $title?->status;
+                                $label  = match ($title?->status) {
+                                    'accept'     => 'تایید شده',
+                                    'waiting'    => 'در انتظار تیتر',
+                                    'progressing'=> 'در انتظار بررسی تیتر',
+                                    default      => 'رد شده',
+                                };
+                            ?>
+                            <td>
+                                <div class="badge badge-light-primary"><?php echo e($label ?? ''); ?></div>
+                            </td>
+
+                            <td>
                                 <div class="d-flex justify-content-end flex-shrink-0">
+                                    <a data-bs-toggle="modal" data-bs-target="#kt_modal_title_history"
+                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="تاریخچه تیترها">
+                                        <i class="ki-duotone ki-switch fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    </a>
                                     <a wire:click="details(<?php echo e($item->id); ?>)"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                      <span class="ms-1" data-bs-toggle="tooltip" title="جزییات">
@@ -137,18 +165,17 @@
                                          </i>
                                      </span>
                                      </a>
-                                     <!--[if BLOCK]><![endif]--><?php if($item->editNews->status != "accept"): ?>
-                                     
+                                     <!--[if BLOCK]><![endif]--><?php if($status != "accept"): ?>
                                      <a wire:click="update(<?php echo e($item->id); ?>)"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                      <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
-                                         <i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
-                                             <span class="path1"></span>
-                                             <span class="path2"></span>
-                                             <span class="path3"></span>
-                                         </i>
-                                      </span>
-                                      </a>
+                                       class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                     <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
+										<i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
+											<span class="path1"></span>
+											<span class="path2"></span>
+											<span class="path3"></span>
+										</i>
+									 </span>
+                                     </a>
                                      <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                 </div>
                             </td>                           
@@ -176,6 +203,7 @@
         }
     </style>
 </div>
+
 <?php $__env->startPush('scripts'); ?>
     <script>
         $('#searching').on('keyup', function (e) {
@@ -184,25 +212,4 @@
         });
     </script>
 
-
-<script src="<?php echo e(asset("assets/plugins/custom/tinymce/tinymce.bundle.js")); ?>"></script>
-
-<script>
-    // start textEditor
-    var options = {selector: "#editor", height : "480"};
-
-    if ( KTThemeMode.getMode() === "dark" ) {
-        options["skin"] = "oxide-dark";
-        options["content_css"] = "dark";
-    }
-
-    tinymce.init({
-        selector: "#editor",
-        height : "480",
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link code',    plugins : "advlist autolink link image lists charmap print preview",
-        menubar: false 
-    });
-    // end textEditor
-</script>
-
-<?php $__env->stopPush(); ?><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/review-news/review-list-component.blade.php ENDPATH**/ ?>
+<?php $__env->stopPush(); ?><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/news-title/title-list-component.blade.php ENDPATH**/ ?>

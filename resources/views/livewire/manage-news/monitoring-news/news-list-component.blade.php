@@ -183,19 +183,19 @@
                             </td>
                             <td>
                                 <div class="rating justify-content-end">
-                                    <div class="rating-label checked">
+                                    <div class="rating-label">
                                         <i class="ki-duotone ki-star fs-6"></i>
                                     </div>
-                                    <div class="rating-label checked">
+                                    <div class="rating-label">
                                         <i class="ki-duotone ki-star fs-6"></i>
                                     </div>
-                                    <div class="rating-label checked">
+                                    <div class="rating-label">
                                         <i class="ki-duotone ki-star fs-6"></i>
                                     </div>
-                                    <div class="rating-label checked">
+                                    <div class="rating-label">
                                         <i class="ki-duotone ki-star fs-6"></i>
                                     </div>
-                                    <div class="rating-label checked">
+                                    <div class="rating-label">
                                         <i class="ki-duotone ki-star fs-6"></i>
                                     </div>
                                 </div>
@@ -218,7 +218,7 @@
                                     @else
                                         <span title = {{$item->latestSocialTitle->title}}>{{ $item->latestSocialTitle?->title ? Str::limit($item->latestSocialTitle->title, 50) : '-' }}</span>
                                     @endif
-                                    @if(in_array($title->status, ['waiting','progressing','accept']))
+                                    @if(in_array($title->status, ['progressing','accept']))
                                     <a data-bs-toggle="modal" data-bs-target="#kt_modal_reject_title"
                                         class="cursor-pointer btn btn-icon btn-color-danger  btn-active-color-danger btn-sm me-1">
                                     <span class="ms-1" data-bs-toggle="tooltip" title="رد کردن تیتر">
