@@ -691,7 +691,11 @@ $('#selectAll').on('change', function() {
     @this.set('selectedIds', ids);
 });
 $(document).ready(function() {
-            $('#filter_status').select2();
+    $('#filter_status').select2();
+
+   
+        
+    
 });
 // مدیریت تغییرات تک تک آیتم‌ها
 $(document).on('change', '.item-checkbox', function() {
@@ -736,15 +740,7 @@ $(document).on('change', '.item-checkbox', function() {
     });
     // end textEditor
 
-    $(document).ready(function() {
-        $('#accept').change(function() {
-            if (!this.checked) {
-                $('#reasonInput').addClass('show'); // اضافه کردن کلاس برای نمایش
-            } else {
-                $('#reasonInput').removeClass('show'); // حذف کلاس برای پنهان کردن
-            }
-        });
-    });
+   
 </script>
 
 @endpush

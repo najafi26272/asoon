@@ -715,7 +715,11 @@ $('#selectAll').on('change', function() {
     window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedIds', ids);
 });
 $(document).ready(function() {
-            $('#filter_status').select2();
+    $('#filter_status').select2();
+
+   
+        
+    
 });
 // مدیریت تغییرات تک تک آیتم‌ها
 $(document).on('change', '.item-checkbox', function() {
@@ -760,15 +764,7 @@ $(document).on('change', '.item-checkbox', function() {
     });
     // end textEditor
 
-    $(document).ready(function() {
-        $('#accept').change(function() {
-            if (!this.checked) {
-                $('#reasonInput').addClass('show'); // اضافه کردن کلاس برای نمایش
-            } else {
-                $('#reasonInput').removeClass('show'); // حذف کلاس برای پنهان کردن
-            }
-        });
-    });
+   
 </script>
 
 <?php $__env->stopPush(); ?><?php /**PATH D:\project\asou\asoon\resources\views/livewire/manage-news/monitoring-news/news-list-component.blade.php ENDPATH**/ ?>
