@@ -58,6 +58,58 @@
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
                
+                 <!--begin::Menu-->
+                 <a  href="#"  class="btn me-2 btn-flex btn-primary fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                     <i class="ki-duotone ki-filter fs-6 text-light me-1">
+                     	<span class="path1"></span>
+                     	<span class="path2"></span>
+                        
+                     </i>
+                    فیلتر
+                </a>
+                <!--begin::Menu 1-->
+                <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64b77cca6eb7e">
+                    <!--begin::Header-->
+                    <div class="px-7 py-5">
+                        <div class="fs-5 text-dark fw-bold">فیلتر تنظیمات</div>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Menu separator-->
+                    <div class="separator border-gray-200"></div>
+                    <!--end::Menu separator-->
+                    <!--begin::Form-->
+                    <div class="px-7 py-5">
+                        <!--begin::Input group-->
+                        <div class="mb-10">
+                            <!--begin::Tags-->
+                            <label class="form-label fw-semibold">وضعیت:</label>
+                            <!--end::Tags-->
+                            <!--begin::Input-->
+                            <div>
+                                <select class="form-select form-select-solid" multiple="multiple" data-kt-select2="true" data-close-on-select="false" data-placeholder="انتخاب گزینه" data-dropdown-parent="#kt_menu_64b77cca6eb7e" data-allow-clear="true">
+                                    <option></option>
+                                    <option value="1">تایید شده</option>
+                                    <option value="2">در انتظار</option>
+                                    <option value="2">در حال پردازش</option>
+                                    <option value="2">رد شد</option>
+                                </select>
+                            </div>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+                       
+                        <!--begin::Actions-->
+                        <div class="d-flex justify-content-end">
+                            <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">ریست</button>
+                            <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">تایید</button>
+                        </div>
+                        <!--end::Actions-->
+                    </div>
+                    <!--end::Form-->
+                </div>
+                <!--end::Menu 1-->
+                <!--end::Menu-->
+
                 <!--begin::جستجو-->
                 <div id="kt_header_search" class="header-search d-flex align-items-center w-lg-250px me-3" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-search-responsive="lg" data-kt-menu-trigger="auto" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end">
                     <!--begin::Fیاm(use d-none d-lg-block classes for responsive search)-->
@@ -89,6 +141,7 @@
                     <!--end::Form-->
                 </div>
              
+
                 <!--[if BLOCK]><![endif]--><?php if(!$pathIsAddInfo && !$pathIsTitle && !$pathIsFinal && !$pathIsReview && count($items)): ?>
                 <a class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal"
                     data-bs-target="#kt_modal_new_news">
@@ -134,7 +187,7 @@
                             عنوان
                         </th>
                         <th class="">
-                            امتیاز دهی
+                            امتیاز خبر
                         </th>
                         <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
                             <th class="min-w-150px">
@@ -184,19 +237,19 @@
                             </td>
                             <td>
                                 <div class="rating justify-content-end">
-                                    <div class="rating-label checked">
+                                    <div class="rating-label">
                                         <i class="ki-duotone ki-star fs-6"></i>
                                     </div>
-                                    <div class="rating-label checked">
+                                    <div class="rating-label">
                                         <i class="ki-duotone ki-star fs-6"></i>
                                     </div>
-                                    <div class="rating-label checked">
+                                    <div class="rating-label">
                                         <i class="ki-duotone ki-star fs-6"></i>
                                     </div>
-                                    <div class="rating-label checked">
+                                    <div class="rating-label">
                                         <i class="ki-duotone ki-star fs-6"></i>
                                     </div>
-                                    <div class="rating-label checked">
+                                    <div class="rating-label">
                                         <i class="ki-duotone ki-star fs-6"></i>
                                     </div>
                                 </div>
@@ -219,7 +272,7 @@
                                     <?php else: ?>
                                         <span title = <?php echo e($item->latestSocialTitle->title); ?>><?php echo e($item->latestSocialTitle?->title ? Str::limit($item->latestSocialTitle->title, 50) : '-'); ?></span>
                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                    <!--[if BLOCK]><![endif]--><?php if($label != 'رد شده' ): ?>
+                                    <!--[if BLOCK]><![endif]--><?php if(in_array($title->status, ['progressing','accept'])): ?>
                                     <a data-bs-toggle="modal" data-bs-target="#kt_modal_reject_title"
                                         class="cursor-pointer btn btn-icon btn-color-danger  btn-active-color-danger btn-sm me-1">
                                     <span class="ms-1" data-bs-toggle="tooltip" title="رد کردن تیتر">
@@ -233,7 +286,7 @@
                                 </td>
                             <?php else: ?>
                                 <td>
-                                    <a href=<?php echo e($item->link); ?>> 
+                                    <a target="_blank" href=<?php echo e($item->link); ?>> 
                                         لینک رصد
                                     </a>
                                     
@@ -317,7 +370,7 @@
                                         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                         <!--[if BLOCK]><![endif]--><?php if($pathIsReview): ?>
                                             <div class="menu-item px-3">
-                                                <a data-bs-toggle="modal" data-bs-target="#contentModal" class="menu-link flex-stack px-3">محتوای بازنویسی
+                                                <a wire:click="editedContent(<?php echo e($item->id); ?>)" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_content" class="menu-link flex-stack px-3">محتوای بازنویسی
                                                 <span class="ms-2" data-bs-toggle="tooltip" title="محتوای بازنویسی خبر و رد یا تایید بازنویسی">
                                                     <i class="ki-duotone ki-book fs-2">
                                                         <span class="path1"></span>
@@ -473,58 +526,6 @@
         }
     </style>
 
-    <!-- Content Modal -->
-    <div class="modal fade" id="contentModal" tabindex="-1" wire:ignore.self >
-        <div class="modal-dialog modal-dialog-centered mw-650px">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"> 
-                        محتوای بازنویسی شده
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                        <textarea 
-                            id="editor_content"
-                            wire:model="content"
-                            class="form-control w-100"
-                            rows="4"
-                            value="test"
-                        ></textarea>
-                        
-                        </div>
-
-                    </div>
-                    <div class="row  mt-5 notice bg-light-primary rounded border-primary border border-dashed min-w-lg-600px p-6">
-                        <div class="col-2 mb-8 fv-row">
-                            <label>وضعیت: </label>
-                        </div>
-                        <div class=" col-10 d-flex  mb-8 fv-row">
-            
-                            <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-                                <input class="form-check-input w-45px h-30px" type="checkbox" id="accept" checked="checked">
-                                <label class="form-check-label" for="allowmarketing">تایید</label>
-                            </div>
-                            
-                        </div>
-                        <div class="col-12 mb-8 fv-row">
-                            <input type="text" class="form-control form-control-sm  min-w-100px mt-1 " id="reasonInput" placeholder="دلیل رد شدن"/>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button 
-                        wire:click=""
-                        class="btn btn-danger">
-                        ثبت
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Reject Modal -->
     <div class="modal fade" id="rejectModal" tabindex="-1" wire:ignore.self>
@@ -713,7 +714,9 @@ $('#selectAll').on('change', function() {
     const ids = $('.item-checkbox[data-tab="' + currentTab + '"]:checked').map((i, el) => el.value).get();
     window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedIds', ids);
 });
-
+$(document).ready(function() {
+            $('#filter_status').select2();
+});
 // مدیریت تغییرات تک تک آیتم‌ها
 $(document).on('change', '.item-checkbox', function() {
     const currentTab = $(this).data('tab'); // دریافت تب فعال

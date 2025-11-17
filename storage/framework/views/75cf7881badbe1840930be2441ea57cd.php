@@ -222,6 +222,7 @@
         </div>
     </div>
 </div>
+</div>
 <?php $__env->startPush('scripts'); ?>
     <script>
          $('#selectedLanguages').select2({
