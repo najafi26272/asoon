@@ -105,6 +105,12 @@ class NewsListComponent extends Component
         $this->dispatch('show-review-history-modal');
     }
 
+    public function titleHistory($id)
+    {
+        $this->dispatch('$_title_history', ['id' => $id , 'activeTab' => $this->activeTab]);
+        $this->dispatch('show-title-history-modal');
+    }
+
     public function addInfo($id)
     {
         $this->dispatch('$_info_add', $id);

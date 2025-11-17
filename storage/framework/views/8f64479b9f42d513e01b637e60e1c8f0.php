@@ -147,6 +147,22 @@ unset($__params);
 unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('manage-news.monitoring-news.title-history-component', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-1261632283-9', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
@@ -164,6 +180,10 @@ if (isset($__slots)) unset($__slots);
 
         document.addEventListener('$_review_history', event => {
             $("#kt_modal_review_history").modal('show');
+        });
+
+        document.addEventListener('$_title_history', event => {
+            $("#kt_modal_title_history").modal('show');
         });
 
         document.addEventListener('$_content_editable', event => {
