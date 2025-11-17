@@ -34,9 +34,6 @@
                             <td>{{$link}}</td>
                         </tr>
                         <tr>
-                            <?php
-                            print_r($reviewId);
-                            ?>
                             <td>متن بازنویسی</td>
                             <td>{{$edited_content}}</td>
                         </tr>

@@ -134,7 +134,7 @@
                             عنوان
                         </th>
                         <th class="">
-                            امتیاز دهی
+                            امتیاز خبر
                         </th>
                         @if($pathIsTitle)
                             <th class="min-w-150px">
@@ -218,7 +218,7 @@
                                     @else
                                         <span title = {{$item->latestSocialTitle->title}}>{{ $item->latestSocialTitle?->title ? Str::limit($item->latestSocialTitle->title, 50) : '-' }}</span>
                                     @endif
-                                    @if($label != 'رد شده' )
+                                    @if(in_array($title->status, ['waiting','progressing','accept']))
                                     <a data-bs-toggle="modal" data-bs-target="#kt_modal_reject_title"
                                         class="cursor-pointer btn btn-icon btn-color-danger  btn-active-color-danger btn-sm me-1">
                                     <span class="ms-1" data-bs-toggle="tooltip" title="رد کردن تیتر">
@@ -232,7 +232,7 @@
                                 </td>
                             @else
                                 <td>
-                                    <a href={{$item->link}}> 
+                                    <a target="_blank" href={{$item->link}}> 
                                         لینک رصد
                                     </a>
                                     {{-- {{ Str::limit($item->link, 30) }}</td> --}}

@@ -71,7 +71,7 @@ class NewsListComponent extends Component
             })
             ->when($pathIsReview, function (Builder $q) {
                 $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id', [6, 8, 9, 10]);
+                    $q2->whereIn('step_id', [6, 8, 9, 10, 11]);
                 });
             })
             ->when($pathIsMyMonitoring, function (Builder $q) {

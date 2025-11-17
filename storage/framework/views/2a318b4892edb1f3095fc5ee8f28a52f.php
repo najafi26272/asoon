@@ -173,27 +173,36 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-6">
+                                 <!--begin::Input group-->
+                                 <div wire:ignore class="d-flex flex-column mb-8 fv-row">
+                                    <!--begin::Tags-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                        <span class="">امتیازدهی</span>
+                                        
+                                    </label>
+                                    <!--end::Tags-->
+                                
+        
+                                <div class="rating d-flex">
+        
+                                    <input type="radio" wire:model="rate" id="star5" name="rating" value="5" />
+                                    <label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
+                                    <input type="radio" wire:model="rate"  id="star4" name="rating" value="4" />
+                                    <label class="star" for="star4" title="Great" aria-hidden="true"></label>
+                                    <input type="radio" wire:model="rate"  id="star3" name="rating" value="3" />
+                                    <label class="star" for="star3" title="Very good" aria-hidden="true"></label>
+                                    <input type="radio" wire:model="rate" id="star2" name="rating" value="2" />
+                                    <label class="star" for="star2" title="Good" aria-hidden="true"></label>
+                                    <input type="radio" wire:model="rate" id="star1" name="rating" value="1" />
+                                    <label class="star" for="star1" title="Bad" aria-hidden="true"></label>
+                                </div>
+                            </div>
                         </div>
 
-                        <label class="d-flex align-items-center fs-6 fw-semibold">
-                            <span class="">امتیاز دهی</span>
-                        </label>
+                       
 
-                        <div class="rating">
-
-                            <input type="radio" wire:model="rate" id="star5" name="rating" value="5" />
-                            <label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
-                            <input type="radio" wire:model="rate"  id="star4" name="rating" value="4" />
-                            <label class="star" for="star4" title="Great" aria-hidden="true"></label>
-                            <input type="radio" wire:model="rate"  id="star3" name="rating" value="3" />
-                            <label class="star" for="star3" title="Very good" aria-hidden="true"></label>
-                            <input type="radio" wire:model="rate" id="star2" name="rating" value="2" />
-                            <label class="star" for="star2" title="Good" aria-hidden="true"></label>
-                            <input type="radio" wire:model="rate" id="star1" name="rating" value="1" />
-                            <label class="star" for="star1" title="Bad" aria-hidden="true"></label>
-                        </div>
-
+                        
                     </div>
                 </div>
 
@@ -213,6 +222,7 @@
         </div>
     </div>
 </div>
+</div>
 <?php $__env->startPush('scripts'); ?>
     <script>
          $('#selectedLanguages').select2({
@@ -225,5 +235,6 @@
         window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedLanguages', data);
         });
     </script>
+   
 <?php $__env->stopPush(); ?>
 <?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/monitoring-news/add-info-component.blade.php ENDPATH**/ ?>

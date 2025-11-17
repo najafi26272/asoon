@@ -34,9 +34,6 @@
                             <td><?php echo e($link); ?></td>
                         </tr>
                         <tr>
-                            <?php
-                            print_r($reviewId);
-                            ?>
                             <td>متن بازنویسی</td>
                             <td><?php echo e($edited_content); ?></td>
                         </tr>

@@ -231,6 +231,7 @@
         </div>
     </div>
 </div>
+</div>
 @push('scripts')
     <script>
          $('#selectedLanguages').select2({
