@@ -123,7 +123,6 @@
                                 @endif
                             </td>
                             <td>
-                                
                                 <div class="d-flex justify-content-end flex-shrink-0">
                                     <a wire:click="details({{$item->id}})"
                                         class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
