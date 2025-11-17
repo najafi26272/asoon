@@ -40,7 +40,7 @@
                     
                     <div class="row">
                         <div class="col-12 mb-4 fv-row">
-                            <input type="text" wire:model='description' value="<?php echo e($description); ?>" class="form-control form-control-sm min-w-100px mt-1" id="reasonInput" placeholder="دلیل رد شدن" />
+                            <input type="text" wire:model='description' value="<?php echo e($description); ?>" class="form-control form-control-sm min-w-100px mt-1" id="reasonInput" placeholder="دلیل  ویرایش مجدد" />
                         </div>
                     </div>
                     <div class="row">
