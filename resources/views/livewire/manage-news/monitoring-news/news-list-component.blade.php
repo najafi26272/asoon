@@ -235,28 +235,19 @@
                                 <h5>
                                     {{$item->title}}
                                 </h5>
-                                
                             </td>
                             <td>
-                                <div class="rating justify-content-end">
-                                    <div class="rating-label">
-                                        <i class="ki-duotone ki-star fs-6"></i>
-                                    </div>
-                                    <div class="rating-label">
-                                        <i class="ki-duotone ki-star fs-6"></i>
-                                    </div>
-                                    <div class="rating-label">
-                                        <i class="ki-duotone ki-star fs-6"></i>
-                                    </div>
-                                    <div class="rating-label">
-                                        <i class="ki-duotone ki-star fs-6"></i>
-                                    </div>
-                                    <div class="rating-label">
-                                        <i class="ki-duotone ki-star fs-6"></i>
+                                <div class="d-flex align-items-center">
+                                    <div class="rating justify-content-end">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            <div class="rating-label {{ $i <= ($item->newsRate ?? 0) ? 'checked' : '' }}">
+                                                <i class="ki-duotone ki-star fs-6"></i>
+                                            </div>
+                                        @endfor
                                     </div>
                                 </div>
                             </td>
-
+                            
                             @if($pathIsTitle)
                             @php
                                 $title = $activeTab === 'web' ? ($item->latestWebTitle ?? null) : ($item->latestSocialTitle ?? null);

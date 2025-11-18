@@ -1,6 +1,6 @@
 <?php
 namespace App\Livewire\ManageNews\MonitoringNews;
-use App\Models\{News,NewsStep,Title};
+use App\Models\{News,NewsStep,Title,Rate};
 use Livewire\{Component, WithPagination};
 use Illuminate\Support\Facades\{Auth,Validator,DB};
 use Illuminate\Database\Eloquent\Builder;
@@ -125,7 +125,13 @@ class NewsListComponent extends Component
 
     public function refresh()
     {
-        $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);
+        $this->items = $this->getBaseQuery()
+        ->latest()
+        ->paginate($this->pageNumber);
+    
+        foreach ($this->items as $news) {
+            $news->newsRate = $news->rasadRate->rate ?? null;
+        }
     }
     public function delete($id)
     {
@@ -340,6 +346,9 @@ class NewsListComponent extends Component
     public function render()
     {
         $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);
+        foreach ($items as $news) {
+            $news->newsRate = $news->rasadRate->rate ?? null;
+        }
 
         return view('livewire.manage-news.monitoring-news.news-list-component', [
             'items' => $items,

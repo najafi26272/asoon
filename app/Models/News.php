@@ -120,4 +120,12 @@ class News extends Model
                     ->where('channel', 'socialMedia')->latest()->take(1);
     }
 
+    public function rasadRate()
+    {
+        return $this->hasOne(Rate::class, 'news_id')
+                    ->where('type', 'rasad')
+                    ->latest();
+    }
+
+
 }

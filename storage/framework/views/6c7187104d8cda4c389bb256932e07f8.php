@@ -49,6 +49,15 @@
                             <td>خلاصه</td>
                             <td><?php echo e($summary); ?></td>
                         </tr>
+                        <tr>
+                            <td>امتیاز خبر</td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>امتیاز بازنویسی</td>
+                            <td></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
