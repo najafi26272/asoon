@@ -1,4 +1,4 @@
-<div wire:ignore.self class="modal fade" id="kt_modal_title_history" tabindex="-1" aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="kt_modal_my_title_history" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -26,13 +26,13 @@
                          data-kt-scroll-dependencies="#kt_modal_new_address_header"
                          data-kt-scroll-wrappers="#kt_modal_new_address_scroll" data-kt-scroll-offset="300px">
                         
-                         <!--[if BLOCK]><![endif]--><?php if(count($values) == 0): ?>
+                         @if(count($values) == 0)
                          <div class="py-10 text-center">
-                             <img src="<?php echo e(asset("assets/media/svg/illustrations/easy/2.svg")); ?>" class=" w-200px"
+                             <img src="{{asset("assets/media/svg/illustrations/easy/2.svg")}}" class=" w-200px"
                                  alt="">
                              <p class="m-5">در حال حاضر اطلاعاتی برای نمایش وجود ندارد.</p>
                          </div>
-                        <?php else: ?>
+                        @else
                          <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 ">
                             <thead>
                                 <tr class="fw-bold text-muted bg-light">
@@ -42,22 +42,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $values; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                @foreach ($values as $value)
                                 <tr>
-                                    <td ><?php echo e($value->title); ?></td>
-                                    <td><?php echo e(verta($value->updated_at)->format('Y/m/d')); ?></td>
-                                    <td><?php echo e($value->description); ?></td>
+                                    <td >{{$value->title}}</td>
+                                    <td>{{verta($value->updated_at)->format('Y/m/d')}}</td>
+                                    <td>{{$value->description}}</td>
                                 </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                                @endforeach
                             </tbody>
                         </table>
-                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                        @endif
                     </div>
                     <!--end::Scroll-->
                 </div>
                 <!--end::Modal body-->
-               
-           
         </div>
     </div>
-</div><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/monitoring-news/title-history-component.blade.php ENDPATH**/ ?>
+</div>

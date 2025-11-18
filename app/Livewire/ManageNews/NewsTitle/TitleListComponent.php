@@ -69,6 +69,13 @@ class TitleListComponent extends Component
     {
         $this->dispatch('$_title_details', $id);
     }
+
+    public function titleHistory($id)
+    {
+        $this->dispatch('$_my_title_history', ['id' => $id , 'activeTab' => $this->activeTab]);
+        $this->dispatch('show-my-title-history-modal');
+    }
+
     public function render()
     {
         $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);

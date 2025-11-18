@@ -207,7 +207,7 @@
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
                                         <!--begin::Heading-->
                                             <div class="menu-item px-3">
-                                                <a data-bs-toggle="modal" data-bs-target="#kt_modal_title_history" class="menu-link flex-stack px-3">تاریخچه تیترها
+                                                <a wire:click="titleHistory({{$item->id}})" class="menu-link flex-stack px-3">تاریخچه تیترها
                                                 <span class="ms-2" data-bs-toggle="tooltip" title="تاریخچه تیترهای رد شده">
                                                     <i class="ki-duotone ki-information fs-2">
                                                         <span class="path1"></span>

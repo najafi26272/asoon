@@ -39,15 +39,14 @@
                                     <th class="ps-4  rounded-start">تیتر پیشنهادی</th>
                                     <th> تاریخ</th>
                                     <th class="ps-4  rounded-end">دلیل رد شدن</th>
-                                   
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($values as $value)
                                 <tr>
                                     <td >{{$value->title}}</td>
-                                    <td>1404/04/04 </td>
-                                    <td>طولانی بودن</td>
+                                    <td>{{verta($value->updated_at)->format('Y/m/d')}}</td>
+                                    <td>{{$value->description}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -57,8 +56,6 @@
                     <!--end::Scroll-->
                 </div>
                 <!--end::Modal body-->
-               
-           
         </div>
     </div>
 </div>
