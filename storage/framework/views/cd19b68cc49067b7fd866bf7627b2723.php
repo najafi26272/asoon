@@ -175,33 +175,58 @@
                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                             </td>
-                            <td>
-                                <div class="d-flex justify-content-end flex-shrink-0">
-                                    <a wire:click="details(<?php echo e($item->id); ?>)"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                     <span class="ms-1" data-bs-toggle="tooltip" title="جزییات">
-                                         <i class="ki-duotone ki-eye fs-2 text-gray-500 fs-6">
-                                             <span class="path1"></span>
-                                             <span class="path2"></span>
-                                             <span class="path3"></span>
-                                         </i>
-                                     </span>
-                                     </a>
-                                     <!--[if BLOCK]><![endif]--><?php if($item->editNews->status != "accept"): ?>
-                                     
-                                     <a wire:click="update(<?php echo e($item->id); ?>)"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                      <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
-                                         <i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
-                                             <span class="path1"></span>
-                                             <span class="path2"></span>
-                                             <span class="path3"></span>
-                                         </i>
-                                      </span>
-                                      </a>
-                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                            <td class="text-end">
+                                <div class="card-toolbar">
+                                    <!--begin::Menu-->
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-bg-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="ki-duotone ki-category fs-6">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
+                                    </button>
+                                    <!--begin::Menu 3-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
+                                        <!--begin::Heading-->
+                                            <div class="menu-item px-3">
+                                                <a wire:click="reviewHistory(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">تاریخچه بازنویسی ها
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="تاریخچه بازنویسی های رد شده">
+                                                    <i class="ki-duotone ki-information fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="details(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">جزییات
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="نمایش جزییات خبر">
+                                                    <i class="ki-duotone ki-eye fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                            <!--[if BLOCK]><![endif]--><?php if($status != "accept"): ?>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="update(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">ویرایش بازنویسی
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="ویرایش محتوای بازنویسی">
+                                                    <i class="ki-duotone ki-pencil fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                    </div>
                                 </div>
-                            </td>                           
+                            </td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                     </tbody>

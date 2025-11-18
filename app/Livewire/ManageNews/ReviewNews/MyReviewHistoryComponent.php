@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Livewire\ManageNews\MonitoringNews;
+namespace App\Livewire\ManageNews\ReviewNews;
 
 use Livewire\Component;
 use App\Models\EditNews;
 use Illuminate\Support\Facades\Auth;
 
-class ReviewHistoryComponent extends Component
+class MyReviewHistoryComponent extends Component
 {
     protected $listeners = [
-        '$_review_history'=>'loadData'
+        '$_my_review_history'=>'loadData'
     ];
 
     public $newsId;
@@ -19,6 +19,7 @@ class ReviewHistoryComponent extends Component
     {
         $this->newsId = $id;
         $this->values = EditNews::where('status', 'reject')
+            ->where('editor_id',Auth::id())
             ->where('news_id', $id)
             ->latest('created_at')
             ->get();
@@ -26,7 +27,7 @@ class ReviewHistoryComponent extends Component
 
     public function render()
     {
-        return view('livewire.manage-news.monitoring-news.review-history-component', [
+        return view('livewire.manage-news.review-news.my-review-history-component',[
             'values' => $this->values
         ]);
     }

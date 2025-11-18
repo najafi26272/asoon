@@ -39,6 +39,11 @@ class ReviewListComponent extends Component
     {
         $this->dispatch('$_review_details', $id);
     }
+    public function reviewHistory($id)
+    {
+        $this->dispatch('$_my_review_history', $id);
+        $this->dispatch('show-my-review-history-modal');
+    }
     public function render()
     {
         $searchTerm = '%'.$this->char.'%';
