@@ -3,7 +3,7 @@
 namespace App\Livewire\ManageNews\MonitoringNews;
 
 use Livewire\Component;
-use App\Models\{News,NewsStep,User,Title};
+use App\Models\{News,NewsStep,User,Title,Rate};
 use Illuminate\Support\Facades\{Auth,Validator,DB};
 
 class AddInfoComponent extends Component
@@ -12,23 +12,19 @@ class AddInfoComponent extends Component
         '$_info_add'=>'saveData'
     ];
 
-    public $newsId;
+    public $newsId,$news_rating;
     public $selectedLanguages = [];
     public $selectedWebAuthor = 45;
     public $selectedSocialMediaAuthor = 35;
     public $priority = 'medium';
     public $need_cover = false;
-    public $rate;
 
     public function saveData($id){
         $this->newsId = $id;
     }
 
-
     public function addInfo()
     {
-
-        // dd($this->rate);
         DB::transaction(function () {
             $news = News::findOrFail($this->newsId);
 
@@ -45,6 +41,17 @@ class AddInfoComponent extends Component
                 'languages' => $this->selectedLanguages,
                 'need_cover' => $this->need_cover
             ]);
+
+            $rate = $this->news_rating ?? null;
+            if($rate){
+                Rate::Create([
+                    'news_id' => $this->newsId,
+                    'creator_id' => Auth::id(),
+                    'user_id' => $news->creator_id,
+                    'rate' => $rate,
+                    'type' => 'rasad',
+                ]);
+            }
 
             $this->createTitles();
         });

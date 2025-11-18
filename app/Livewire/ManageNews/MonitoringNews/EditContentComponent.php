@@ -66,6 +66,7 @@ class EditContentComponent extends Component
             $rate = $this->review_rating ?? null;
             if($rate){
                 Rate::Create([
+                    'review_id' => $data->id,
                     'news_id' => $this->newsId,
                     'creator_id' => Auth::id(),
                     'user_id' => $data->editor_id,

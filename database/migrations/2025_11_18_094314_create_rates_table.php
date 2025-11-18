@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('review_id')->nullable()->constrained('edit_news')->cascadeOnDelete();
             $table->foreignId('news_id')->constrained('news')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('creator_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();

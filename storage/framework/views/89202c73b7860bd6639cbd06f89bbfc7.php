@@ -56,8 +56,6 @@
                     <!--end::Scroll-->
                 </div>
                 <!--end::Modal body-->
-               
-           
         </div>
     </div>
 </div><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/monitoring-news/title-history-component.blade.php ENDPATH**/ ?>
