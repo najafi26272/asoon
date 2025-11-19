@@ -1,4 +1,4 @@
-<div wire:ignore.self class="modal fade" id="kt_modal_title_history" tabindex="-1" aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="kt_modal_my_title_history" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -58,4 +58,4 @@
                 <!--end::Modal body-->
         </div>
     </div>
-</div><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/monitoring-news/title-history-component.blade.php ENDPATH**/ ?>
+</div><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/news-title/my-title-history-component.blade.php ENDPATH**/ ?>

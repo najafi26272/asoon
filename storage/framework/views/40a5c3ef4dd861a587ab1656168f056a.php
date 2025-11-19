@@ -31,7 +31,15 @@
         </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
-               
+                 <div wire:ignore style="margin-left: 5px; height:100% !important;">
+                    <select id="selectedStatus" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر کاربران" data-hide-search="true" data-close-on-select="false">
+                        <option value="all">همه</option>
+                        <option value="4">درانتظار تیتر</option>
+                        <option value="5">درانتظار بررسی</option>
+                        <option value="6">تاییدشده</option>
+                        <option value="7">ردشده</option>
+                    </select>
+                </div>  
                  <!--begin::جستجو-->
             <div id="kt_header_search" class="header-search d-flex align-items-center w-lg-250px me-3" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-search-responsive="lg" data-kt-menu-trigger="auto" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end">
                 
@@ -98,7 +106,7 @@
                         <th class="min-w-100px">
                             وضعیت تیتر
                         </th>   
-                        <th class="min-w-100px text-end">
+                        <th class="min-w-100px">
                             عملیات
                         </th>                        
                     </tr>
@@ -143,56 +151,40 @@
                             <td>
                                 <div class="badge badge-light-primary"><?php echo e($label ?? ''); ?></div>
                             </td>
-                            <td class="text-end">
-                                <div class="card-toolbar">
-                                    <!--begin::Menu-->
-                                    <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-bg-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                        <i class="ki-duotone ki-category fs-6">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                            <span class="path3"></span>
-                                            <span class="path4"></span>
-                                        </i>
-                                    </button>
-                                    <!--begin::Menu 3-->
-                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
-                                        <!--begin::Heading-->
-                                            <div class="menu-item px-3">
-                                                <a data-bs-toggle="modal" data-bs-target="#kt_modal_title_history" class="menu-link flex-stack px-3">تاریخچه تیترها
-                                                <span class="ms-2" data-bs-toggle="tooltip" title="تاریخچه تیترهای رد شده">
-                                                    <i class="ki-duotone ki-information fs-2">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                        <span class="path3"></span>
-                                                    </i>
-                                                </span>
-                                                </a>
-                                            </div>
-                                            <div class="menu-item px-3">
-                                                <a wire:click="details(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">جزییات
-                                                <span class="ms-2" data-bs-toggle="tooltip" title="نمایش جزییات خبر">
-                                                    <i class="ki-duotone ki-eye fs-2">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                        <span class="path3"></span>
-                                                    </i>
-                                                </span>
-                                                </a>
-                                            </div>
-                                            <!--[if BLOCK]><![endif]--><?php if($status != "accept"): ?>
-                                            <div class="menu-item px-3">
-                                                <a wire:click="update(<?php echo e($title?->id); ?>)" class="menu-link flex-stack px-3">ویرایش خبر
-                                                <span class="ms-2" data-bs-toggle="tooltip" title="ویرایش اطلاعات خبر">
-                                                    <i class="ki-duotone ki-pencil fs-2">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                        <span class="path3"></span>
-                                                    </i>
-                                                </span>
-                                                </a>
-                                            </div>
-                                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                    </div>
+                            <td>
+                                <div class="d-flex justify-content-end flex-shrink-0">
+                                    <a wire:click="titleHistory(<?php echo e($item->id); ?>)"
+                                       class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                         <span class="ms-1" data-bs-toggle="tooltip" title="تاریخچه تیترهای ردشده">
+                                            <i class="ki-duotone ki-information fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </i>
+                                        </span>
+                                    </a>
+                                    <a wire:click="details(<?php echo e($item->id); ?>)"
+                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                          <span class="ms-1" data-bs-toggle="tooltip" title="جزییات خبر">
+                                             <i class="ki-duotone ki-eye fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                             </i>
+                                         </span>
+                                    </a>
+                                    <!--[if BLOCK]><![endif]--><?php if($status != "accept"): ?>
+                                    <a wire:click="update(<?php echo e($title?->id); ?>)"
+                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                          <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش تیتر پیشنهادی">
+                                             <i class="ki-duotone ki-pencil fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                             </i>
+                                         </span>
+                                     </a>
+                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                 </div>
                             </td>
                         </tr>
@@ -225,6 +217,15 @@
         $('#searching').on('keyup', function (e) {
             let data = $(this).val();
             window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('char', data);
+        });
+        $('#selectedStatus').on('change', function (e) {
+            let data = $(this).val();
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedStatus', data);
+        });
+        $(document).ready(function() {
+            $('.select-filter').select2({
+                height:'100%'
+            });
         });
     </script>
 

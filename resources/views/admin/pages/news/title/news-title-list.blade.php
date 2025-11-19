@@ -8,6 +8,7 @@
     <livewire:manage-news.news-title.title-list-component/>
     <livewire:manage-news.news-title.title-details-component/>
     <livewire:manage-news.news-title.edit-title-component/>
+    <livewire:manage-news.news-title.my-title-history-component/>
 @endsection
 
 @push('scripts')
@@ -21,6 +22,10 @@
     <script>
         document.addEventListener('$_title_details', event => {
             $("#kt_modal_title_details").modal('show');
+        });
+
+        document.addEventListener('$_my_title_history', event => {
+            $("#kt_modal_my_title_history").modal('show');
         });
 
         document.addEventListener('$_title_editable', event => {

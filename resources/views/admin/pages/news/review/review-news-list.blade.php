@@ -11,6 +11,7 @@
     <livewire:manage-news.review-news.review-list-component/>
     <livewire:manage-news.review-news.review-details-component/>
     <livewire:manage-news.review-news.edit-review-component/>
+    <livewire:manage-news.review-news.my-review-history-component/>
 @endsection
 
 @push('scripts')
@@ -28,6 +29,10 @@
     <script>
         document.addEventListener('$_review_details', event => {
             $("#kt_modal_review_details").modal('show');
+        });
+
+        document.addEventListener('$_my_review_history', event => {
+            $("#kt_modal_my_review_history").modal('show');
         });
 
         document.addEventListener('$_review_editable', event => {

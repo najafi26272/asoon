@@ -13,57 +13,15 @@
         </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
-               
-                  <!--begin::Menu-->
-                  <a  href="#"  class="btn me-2 btn-flex btn-primary fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                    <i class="ki-duotone ki-filter fs-6 text-light me-1">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                       
-                    </i>
-                   فیلتر
-               </a>
-               <!--begin::Menu 1-->
-               <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64b77cca6eb7e">
-                   <!--begin::Header-->
-                   <div class="px-7 py-5">
-                       <div class="fs-5 text-dark fw-bold">فیلتر تنظیمات</div>
-                   </div>
-                   <!--end::Header-->
-                   <!--begin::Menu separator-->
-                   <div class="separator border-gray-200"></div>
-                   <!--end::Menu separator-->
-                   <!--begin::Form-->
-                   <div class="px-7 py-5">
-                       <!--begin::Input group-->
-                       <div class="mb-10">
-                           <!--begin::Tags-->
-                           <label class="form-label fw-semibold">وضعیت:</label>
-                           <!--end::Tags-->
-                           <!--begin::Input-->
-                           <div>
-                               <select class="form-select form-select-solid" multiple="multiple" data-kt-select2="true" data-close-on-select="false" data-placeholder="انتخاب گزینه" data-dropdown-parent="#kt_menu_64b77cca6eb7e" data-allow-clear="true">
-                                   <option></option>
-                                   <option value="1">تایید شده</option>
-                                   <option value="2">در انتظار</option>
-                                   <option value="2">در حال پردازش</option>
-                                   <option value="2">رد شد</option>
-                               </select>
-                           </div>
-                           <!--end::Input-->
-                       </div>
-                       <!--end::Input group-->
-                      
-                       <!--begin::Actions-->
-                       <div class="d-flex justify-content-end">
-                           <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">ریست</button>
-                           <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">تایید</button>
-                       </div>
-                       <!--end::Actions-->
-                   </div>
-                   <!--end::Form-->
-               </div>
-               <!--end::Menu 1-->
+                 <div wire:ignore style="margin-left: 5px; height:100% !important;">
+                    <select id="selectedStatus" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر کاربران" data-hide-search="true" data-close-on-select="false">
+                        <option value="all">همه</option>
+                        <option value="8">در انتظار بازنویسی</option>
+                        <option value="9">درانتظار بررسی</option>
+                        <option value="11">تاییدشده</option>
+                        <option value="10">ردشده</option>
+                    </select>
+                </div>  
                <!--end::Menu-->
                  <!--begin::جستجو-->
             <div id="kt_header_search" class="header-search d-flex align-items-center w-lg-250px me-3" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-search-responsive="lg" data-kt-menu-trigger="auto" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end">
@@ -173,33 +131,58 @@
                                     @endif
                                 @endif
                             </td>
-                            <td>
-                                <div class="d-flex justify-content-end flex-shrink-0">
-                                    <a wire:click="details({{$item->id}})"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                     <span class="ms-1" data-bs-toggle="tooltip" title="جزییات">
-                                         <i class="ki-duotone ki-eye fs-2 text-gray-500 fs-6">
-                                             <span class="path1"></span>
-                                             <span class="path2"></span>
-                                             <span class="path3"></span>
-                                         </i>
-                                     </span>
-                                     </a>
-                                     @if($item->editNews->status != "accept")
-                                     
-                                     <a wire:click="update({{$item->id}})"
-                                        class="cursor-pointer btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                      <span class="ms-1" data-bs-toggle="tooltip" title="ویرایش">
-                                         <i class="ki-duotone ki-pencil fs-2 text-gray-500 fs-6">
-                                             <span class="path1"></span>
-                                             <span class="path2"></span>
-                                             <span class="path3"></span>
-                                         </i>
-                                      </span>
-                                      </a>
-                                     @endif
+                            <td class="text-end">
+                                <div class="card-toolbar">
+                                    <!--begin::Menu-->
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-bg-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="ki-duotone ki-category fs-6">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
+                                    </button>
+                                    <!--begin::Menu 3-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
+                                        <!--begin::Heading-->
+                                            <div class="menu-item px-3">
+                                                <a wire:click="reviewHistory({{$item->id}})" class="menu-link flex-stack px-3">تاریخچه بازنویسی ها
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="تاریخچه بازنویسی های رد شده">
+                                                    <i class="ki-duotone ki-information fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="details({{$item->id}})" class="menu-link flex-stack px-3">جزییات
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="نمایش جزییات خبر">
+                                                    <i class="ki-duotone ki-eye fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                            @if($status != "accept")
+                                            <div class="menu-item px-3">
+                                                <a wire:click="update({{$item->id}})" class="menu-link flex-stack px-3">ویرایش بازنویسی
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="ویرایش محتوای بازنویسی">
+                                                    <i class="ki-duotone ki-pencil fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                            @endif
+                                    </div>
                                 </div>
-                            </td>                           
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -228,6 +211,15 @@
         $('#searching').on('keyup', function (e) {
             let data = $(this).val();
             @this.set('char', data);
+        });
+        $('#selectedStatus').on('change', function (e) {
+            let data = $(this).val();
+            @this.set('selectedStatus', data);
+        });
+        $(document).ready(function() {
+            $('.select-filter').select2({
+                height:'100%'
+            });
         });
     </script>
 

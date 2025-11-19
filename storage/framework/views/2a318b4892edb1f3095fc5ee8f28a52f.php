@@ -179,22 +179,19 @@
                                     <!--begin::Tags-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                         <span class="">امتیازدهی</span>
-                                        
                                     </label>
                                     <!--end::Tags-->
                                 
-        
                                 <div class="rating d-flex">
-        
-                                    <input type="radio" wire:model="rate" id="star5" name="rating" value="5" />
+                                    <input type="radio" wire:model="news_rating" id="star5" name="rating" value="5" />
                                     <label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
-                                    <input type="radio" wire:model="rate"  id="star4" name="rating" value="4" />
+                                    <input type="radio" wire:model="news_rating"  id="star4" name="rating" value="4" />
                                     <label class="star" for="star4" title="Great" aria-hidden="true"></label>
-                                    <input type="radio" wire:model="rate"  id="star3" name="rating" value="3" />
+                                    <input type="radio" wire:model="news_rating"  id="star3" name="rating" value="3" />
                                     <label class="star" for="star3" title="Very good" aria-hidden="true"></label>
-                                    <input type="radio" wire:model="rate" id="star2" name="rating" value="2" />
+                                    <input type="radio" wire:model="news_rating" id="star2" name="rating" value="2" />
                                     <label class="star" for="star2" title="Good" aria-hidden="true"></label>
-                                    <input type="radio" wire:model="rate" id="star1" name="rating" value="1" />
+                                    <input type="radio" wire:model="news_rating" id="star1" name="rating" value="1" />
                                     <label class="star" for="star1" title="Bad" aria-hidden="true"></label>
                                 </div>
                             </div>

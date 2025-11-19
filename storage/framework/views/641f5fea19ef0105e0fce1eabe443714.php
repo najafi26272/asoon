@@ -54,6 +54,22 @@ unset($__params);
 unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('manage-news.review-news.my-review-history-component', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-2471014533-3', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
@@ -71,6 +87,10 @@ if (isset($__slots)) unset($__slots);
     <script>
         document.addEventListener('$_review_details', event => {
             $("#kt_modal_review_details").modal('show');
+        });
+
+        document.addEventListener('$_my_review_history', event => {
+            $("#kt_modal_my_review_history").modal('show');
         });
 
         document.addEventListener('$_review_editable', event => {

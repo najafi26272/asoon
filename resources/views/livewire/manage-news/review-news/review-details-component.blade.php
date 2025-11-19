@@ -49,6 +49,30 @@
                                     <td>خلاصه</td>
                                     <td>{{$summary}}</td>
                                 </tr>
+                                <tr>
+                                    <td>امتیاز خبر</td>
+                                    <td>
+                                        <div class="rating justify-content-end">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <div class="rating-label {{ $i <= ($newsRate ?? 0) ? 'checked' : '' }}">
+                                                    <i class="ki-duotone ki-star fs-6"></i>
+                                                </div>
+                                            @endfor
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>امتیاز بازنویسی</td>
+                                    <td>
+                                        <div class="rating justify-content-end">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <div class="rating-label {{ $i <= ($editRate ?? 0) ? 'checked' : '' }}">
+                                                    <i class="ki-duotone ki-star fs-6"></i>
+                                                </div>
+                                            @endfor
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

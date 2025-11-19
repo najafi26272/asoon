@@ -31,4 +31,12 @@ class EditNews extends Model
     {
         return $this->belongsTo(News::class, 'news_id');
     }
+
+    public function editRate()
+    {
+        return $this->hasOne(Rate::class, 'review_id')
+                    ->where('type', 'edit')
+                    ->latest();
+    }
+
 }

@@ -52,8 +52,8 @@
         }
 
         .rating > label:before , .review-rating > label:before {
-            margin: 5px;
-            font-size: 20px;
+            margin: 2px;
+            font-size: 15px;
             font-family: FontAwesome;
             content: "\f005";
             display: inline-block;

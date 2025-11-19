@@ -1,6 +1,6 @@
 <?php
 namespace App\Livewire\ManageNews\MonitoringNews;
-use App\Models\{News,NewsStep,Title};
+use App\Models\{News,NewsStep,Title,Rate};
 use Livewire\{Component, WithPagination};
 use Illuminate\Support\Facades\{Auth,Validator,DB};
 use Illuminate\Database\Eloquent\Builder;
@@ -13,9 +13,10 @@ class NewsListComponent extends Component
     public $rejectDescription = '';
     public $selectAll = false;
     public $char = '';
+    public $selectedStatus ='all';
     public $title, $link, $content, $summary, $agency, $topic, $reason, $goals, $description;
     public $pageNumber = 10;
-    public $pathIsReview = false, $pathIsTitle = false, $pathIsAddInfo = false, $pathIsFinal = false, $pathIsMyMonitoring = false;
+    public $pathIsMonitoring = false, $pathIsReview = false, $pathIsTitle = false, $pathIsAddInfo = false, $pathIsFinal = false, $pathIsMyMonitoring = false;
     protected $listeners = ['$_news_refresh' => 'refresh'];
     public $activeTab = 'web';
 
@@ -28,6 +29,7 @@ class NewsListComponent extends Component
     {
         $this->pathIsAddInfo = request()->is('*news/addInfo*');
         $this->pathIsFinal = request()->is('*news/final*');
+        $this->pathIsMonitoring = request()->is('*news/monitoring*');
         $this->pathIsMyMonitoring = request()->is('*news/myMonitoring*');
         $this->pathIsTitle = request()->is('*news/title*');
         $this->pathIsReview = request()->is('*news/review*');
@@ -37,32 +39,53 @@ class NewsListComponent extends Component
     {
         $pathIsAddInfo = $this->pathIsAddInfo ?? false;
         $pathIsFinal = $this->pathIsFinal ?? false;
+        $pathIsMonitoring = $this->pathIsMonitoring ?? false;
         $pathIsMyMonitoring = $this->pathIsMyMonitoring ?? false;
         $pathIsTitle = $this->pathIsTitle ?? false;
         $pathIsReview = $this->pathIsReview ?? false;
 
         $char = $this->char ?? '';
+        $selectedStatus = $this->selectedStatus; // Store selectedStatus in a variable
 
-        return News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle'])
-        ->when($pathIsAddInfo, function (Builder $q) {
+        $query = News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle']);
+
+        // Define the step conditions based on selected status
+        $stepConditions = $this->getStepConditions($selectedStatus);
+
+        if ($selectedStatus && $selectedStatus !== 'all') {
+            // Apply common conditions
+            $query->when($pathIsAddInfo, function (Builder $q) use ($stepConditions) {
+                $q->whereHas('step.stepDefinition', $stepConditions['addInfo']);
+            })
+            ->when($pathIsTitle, function (Builder $q) use ($stepConditions) {
+                $q->whereHas('step.stepDefinition', $stepConditions['title']);
+                $this->applyActiveTabConditions($q);
+            })
+            ->when($pathIsFinal, function (Builder $q) use ($stepConditions) {
+                $q->whereHas('step.stepDefinition', $stepConditions['final']);
+            })
+            ->when($pathIsReview, function (Builder $q) use ($stepConditions) {
+                $q->whereHas('step.stepDefinition', $stepConditions['review']);
+            })
+            ->when($pathIsMonitoring, function (Builder $q) use ($stepConditions) {
+                $q->whereHas('step.stepDefinition', $stepConditions['monitoring']);
+            })
+            ->when($pathIsMyMonitoring, function (Builder $q) use ($stepConditions) {
+                $q->whereHas('step.stepDefinition', $stepConditions['myMonitoring']);
+                $q->where('creator_id', Auth::user()->id);
+            });
+        } else {
+            // Apply alternative conditions when selected status is 'all'
+            $query->when($pathIsAddInfo, function (Builder $q) {
                 $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id',[3,4]);
+                    $q2->whereIn('step_id', [3, 4]);
                 });
             })
             ->when($pathIsTitle, function (Builder $q) {
-                // فیلتر بر اساس تعریف مرحله
                 $q->whereHas('step.stepDefinition', function (Builder $q2) {
                     $q2->whereIn('step_id', [4, 5, 6, 7]);
                 });
-
-                // وقتی تب web است فقط وجود latestWebTitle را بررسی کن
-                if ($this->activeTab === 'web') {
-                    $q->whereHas('latestWebTitle');
-                }
-                // وقتی تب socialMedia است فقط وجود latestSocialTitle را بررسی کن
-                elseif ($this->activeTab === 'socialMedia') {
-                    $q->whereHas('latestSocialTitle');
-                }
+                $this->applyActiveTabConditions($q);
             })
             ->when($pathIsFinal, function (Builder $q) {
                 $q->whereHas('step.stepDefinition', function (Builder $q2) {
@@ -76,15 +99,59 @@ class NewsListComponent extends Component
             })
             ->when($pathIsMyMonitoring, function (Builder $q) {
                 $q->where('creator_id', Auth::user()->id);
-            })
-            ->where(function (Builder $query) use ($char) {
-                $search = "%{$char}%";
-                $query->where(function (Builder $q2) use ($search) {
-                    $q2->where('title', 'LIKE', $search)
-                       ->orWhere('link', 'LIKE', $search)
-                       ->orWhere('topic', 'LIKE', $search);
-                });
             });
+        }
+
+        // Apply search conditions
+        return $query->where(function (Builder $query) use ($char) {
+            $search = "%{$char}%";
+            $query->where(function (Builder $q2) use ($search) {
+                $q2->where('title', 'LIKE', $search)
+                    ->orWhere('link', 'LIKE', $search)
+                    ->orWhere('topic', 'LIKE', $search);
+            });
+        });
+    }
+
+    private function getStepConditions($selectedStatus): array
+    {
+        return [
+            'addInfo' => function (Builder $q2) use ($selectedStatus) {
+                $q2->where('step_id', $selectedStatus);
+            },
+            'title' => function (Builder $q2) use ($selectedStatus) {
+                $q2->where('step_id', $selectedStatus);
+            },
+            'final' => function (Builder $q2) use ($selectedStatus) {
+                $q2->where('step_id', $selectedStatus);
+            },
+            'review' => function (Builder $q2) use ($selectedStatus) {
+                $q2->where('step_id', $selectedStatus);
+            },
+            'monitoring' => function (Builder $q2) use ($selectedStatus) {
+                if ($selectedStatus == 3) {
+                    $q2->whereNotIn('step_id', [1, 2]);
+                } else {
+                    $q2->where('step_id', $selectedStatus);
+                }
+            },
+            'myMonitoring' => function (Builder $q2) use ($selectedStatus) {
+                if ($selectedStatus == 3) {
+                    $q2->whereNotIn('step_id', [1, 2]);
+                } else {
+                    $q2->where('step_id', $selectedStatus);
+                }
+            },
+        ];
+    }
+
+    private function applyActiveTabConditions(Builder $query): void
+    {
+        if ($this->activeTab === 'web') {
+            $query->whereHas('latestWebTitle');
+        } elseif ($this->activeTab === 'socialMedia') {
+            $query->whereHas('latestSocialTitle');
+        }
     }
 
     public function changeStatus($id,$status)
@@ -125,7 +192,13 @@ class NewsListComponent extends Component
 
     public function refresh()
     {
-        $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);
+        $this->items = $this->getBaseQuery()
+        ->latest()
+        ->paginate($this->pageNumber);
+    
+        foreach ($this->items as $news) {
+            $news->newsRate = $news->rasadRate->rate ?? null;
+        }
     }
     public function delete($id)
     {
@@ -340,6 +413,9 @@ class NewsListComponent extends Component
     public function render()
     {
         $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);
+        foreach ($items as $news) {
+            $news->newsRate = $news->rasadRate->rate ?? null;
+        }
 
         return view('livewire.manage-news.monitoring-news.news-list-component', [
             'items' => $items,
