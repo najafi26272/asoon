@@ -12,6 +12,7 @@ class TitleListComponent extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $char = "";
+    public $selectedStatus ='all';
     public $news_id, $newTitle, $status, $description;
     public $pageNumber = 10;
     protected $listeners = [
@@ -28,30 +29,53 @@ class TitleListComponent extends Component
     {
         $titleCreatorId = Auth::id();
         $char = $this->char ?? '';
+        $selectedStatus = $this->selectedStatus;
 
-        return News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle'])
-            ->when($this->activeTab, function ($query) use ($titleCreatorId) {
-                $query->where(function ($q) use ($titleCreatorId) {
-                    if ($this->activeTab === 'web') {
-                        $q->whereHas('latestWebTitle', function ($subQuery) use ($titleCreatorId) {
-                            $subQuery->where('creator_id', $titleCreatorId);
-                        });
-                    } elseif ($this->activeTab === 'socialMedia') {
-                        $q->whereHas('latestSocialTitle', function ($subQuery) use ($titleCreatorId) {
-                            $subQuery->where('creator_id', $titleCreatorId);
-                        });
-                    }
-                });
-            })
-            ->where(function (Builder $query) use ($char) {
-                $search = "%{$char}%";
-                $query->where(function (Builder $q2) use ($search) {
-                    $q2->where('title', 'LIKE', $search)
-                    ->orWhere('link', 'LIKE', $search)
-                    ->orWhere('topic', 'LIKE', $search);
-                });
+        $query = News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle']);
+
+        // Apply the step condition if selected status is set and not 'all'
+        if ($selectedStatus && $selectedStatus !== 'all') {
+            $query->whereHas('step.stepDefinition', function (Builder $q2) use ($selectedStatus) {
+                $q2->where('step_id', $selectedStatus);
             });
+        }
+
+        // Apply active tab conditions
+        $this->applyActiveTabConditions($query, $titleCreatorId);
+
+        // Apply search conditions
+        $this->applySearchConditions($query, $char);
+
+        return $query;
     }
+
+    private function applyActiveTabConditions(Builder $query, $titleCreatorId): void
+    {
+        if ($this->activeTab) {
+            $query->where(function ($q) use ($titleCreatorId) {
+                if ($this->activeTab === 'web') {
+                    $q->whereHas('latestWebTitle', function ($subQuery) use ($titleCreatorId) {
+                        $subQuery->where('creator_id', $titleCreatorId);
+                    });
+                } elseif ($this->activeTab === 'socialMedia') {
+                    $q->whereHas('latestSocialTitle', function ($subQuery) use ($titleCreatorId) {
+                        $subQuery->where('creator_id', $titleCreatorId);
+                    });
+                }
+            });
+        }
+    }
+
+    private function applySearchConditions(Builder $query, $char): void
+    {
+        $search = "%{$char}%";
+        $query->where(function (Builder $q) use ($search) {
+            $q->where('title', 'LIKE', $search)
+            ->orWhere('link', 'LIKE', $search)
+            ->orWhere('topic', 'LIKE', $search);
+        });
+    }
+
     public function refresh()
     {
         $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);

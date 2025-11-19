@@ -31,57 +31,15 @@
         </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
-                <!--begin::Menu-->
-                <a  href="#"  class="btn me-2 btn-flex btn-primary fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                    <i class="ki-duotone ki-filter fs-6 text-light me-1">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                       
-                    </i>
-                   فیلتر
-               </a>
-               <!--begin::Menu 1-->
-               <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64b77cca6eb7e">
-                   <!--begin::Header-->
-                   <div class="px-7 py-5">
-                       <div class="fs-5 text-dark fw-bold">فیلتر تنظیمات</div>
-                   </div>
-                   <!--end::Header-->
-                   <!--begin::Menu separator-->
-                   <div class="separator border-gray-200"></div>
-                   <!--end::Menu separator-->
-                   <!--begin::Form-->
-                   <div class="px-7 py-5">
-                       <!--begin::Input group-->
-                       <div class="mb-10">
-                           <!--begin::Tags-->
-                           <label class="form-label fw-semibold">وضعیت:</label>
-                           <!--end::Tags-->
-                           <!--begin::Input-->
-                           <div>
-                               <select class="form-select form-select-solid" multiple="multiple" data-kt-select2="true" data-close-on-select="false" data-placeholder="انتخاب گزینه" data-dropdown-parent="#kt_menu_64b77cca6eb7e" data-allow-clear="true">
-                                   <option></option>
-                                   <option value="1">تایید شده</option>
-                                   <option value="2">در انتظار</option>
-                                   <option value="2">در حال پردازش</option>
-                                   <option value="2">رد شد</option>
-                               </select>
-                           </div>
-                           <!--end::Input-->
-                       </div>
-                       <!--end::Input group-->
-                      
-                       <!--begin::Actions-->
-                       <div class="d-flex justify-content-end">
-                           <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">ریست</button>
-                           <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">تایید</button>
-                       </div>
-                       <!--end::Actions-->
-                   </div>
-                   <!--end::Form-->
-               </div>
-               <!--end::Menu 1-->
-               <!--end::Menu-->
+                 <div wire:ignore style="margin-left: 5px; height:100% !important;">
+                    <select id="selectedStatus" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر کاربران" data-hide-search="true" data-close-on-select="false">
+                        <option value="all">همه</option>
+                        <option value="4">درانتظار تیتر</option>
+                        <option value="5">درانتظار بررسی</option>
+                        <option value="6">تاییدشده</option>
+                        <option value="7">ردشده</option>
+                    </select>
+                </div>  
                  <!--begin::جستجو-->
             <div id="kt_header_search" class="header-search d-flex align-items-center w-lg-250px me-3" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-search-responsive="lg" data-kt-menu-trigger="auto" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end">
                 
@@ -257,6 +215,15 @@
         $('#searching').on('keyup', function (e) {
             let data = $(this).val();
             @this.set('char', data);
+        });
+        $('#selectedStatus').on('change', function (e) {
+            let data = $(this).val();
+            @this.set('selectedStatus', data);
+        });
+        $(document).ready(function() {
+            $('.select-filter').select2({
+                height:'100%'
+            });
         });
     </script>
 
