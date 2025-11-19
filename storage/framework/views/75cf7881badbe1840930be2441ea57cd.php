@@ -42,7 +42,7 @@
                                     </label>
                                     <!--end::Tags-->
                                     <select class="form-select form-select-solid"  wire:model="selectedWebAuthor" id="selectedWebAuthor"
-                                            data-placeholder=" انتخاب کنید." >
+                                            data-placeholder=" انتخاب کنید."  >
 
                                             <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $siteTitrs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $siteTitr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($siteTitr->id); ?>">
@@ -230,10 +230,24 @@
             placeholder: $(this).data('placeholder'),
             closeOnSelect: false,
         });
-        $('#selectedLanguages').on('change', function (e) {
+        $(document).ready(function() {
+
+            $('#selectedLanguages').on('change', function (e) {
             let data = $(this).val();
-        window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedLanguages', data);
-        });
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedLanguages', data);
+            });
+            $('#priority').select2({
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,
+            });
+            $('#selectedWebAuthor').select2(
+                { width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,}
+            );
+            });
+       
     </script>
    
 <?php $__env->stopPush(); ?>

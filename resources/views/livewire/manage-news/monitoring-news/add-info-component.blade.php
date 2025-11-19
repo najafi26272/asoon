@@ -42,7 +42,7 @@
                                     </label>
                                     <!--end::Tags-->
                                     <select class="form-select form-select-solid"  wire:model="selectedWebAuthor" id="selectedWebAuthor"
-                                            data-placeholder=" انتخاب کنید." >
+                                            data-placeholder=" انتخاب کنید."  >
 
                                             @foreach($siteTitrs as $siteTitr)
                                             <option value="{{$siteTitr->id}}">
@@ -234,15 +234,29 @@
 </div>
 @push('scripts')
     <script>
-         $('#selectedLanguages').select2({
+         
+        $(document).ready(function() {
+            $('#selectedLanguages').select2({
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: false,
-        });
-        $('#selectedLanguages').on('change', function (e) {
+            });
+            $('#selectedLanguages').on('change', function (e) {
             let data = $(this).val();
-        @this.set('selectedLanguages', data);
-        });
+            @this.set('selectedLanguages', data);
+            });
+            $('#priority').select2({
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,
+            });
+            $('#selectedWebAuthor').select2(
+                { width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,}
+            );
+            });
+       
     </script>
    
 @endpush

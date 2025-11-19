@@ -1,5 +1,4 @@
 <?php $__env->startPush('css'); ?>
-    <link rel="stylesheet" href="<?php echo e(asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.css")); ?>">
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -171,7 +170,6 @@ if (isset($__slots)) unset($__slots);
 <script src="<?php echo e(asset("assets/plugins/custom/datepicker/fa-jdate.js")); ?>"></script>
 <script src="<?php echo e(asset("assets/plugins/custom/datepicker/pickr.js")); ?>"></script>
 <script src="<?php echo e(asset("assets/plugins/custom/datepicker/forms-pickers.js")); ?>"></script>
-<script src="<?php echo e(asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.js")); ?>"></script>
 
     <script>
         document.addEventListener('$_news_details', event => {

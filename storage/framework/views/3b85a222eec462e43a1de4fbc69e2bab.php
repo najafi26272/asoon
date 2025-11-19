@@ -27,7 +27,7 @@
                
                 <div class="  mt-5 notice  rounded border-primary border border-dashed min-w-lg-600px p-6">
                     <div class="row">
-                        <div class="col-2 d-flex justify-content-end mb-4 fv-row">
+                        <div class="col-2 d-flex justify-content-center flex-column mb-4 fv-row">
                             <label>وضعیت: </label>
                         </div>
                         <div class="col-2 d-flex flex-column justify-content-center mb-4 fv-row">
