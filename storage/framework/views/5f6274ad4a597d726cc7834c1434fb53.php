@@ -39,15 +39,14 @@
                                     <th class="ps-4  rounded-start">تیتر پیشنهادی</th>
                                     <th> تاریخ</th>
                                     <th class="ps-4  rounded-end">دلیل رد شدن</th>
-                                   
                                 </tr>
                             </thead>
                             <tbody>
                                 <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $values; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
                                     <td ><?php echo e($value->title); ?></td>
-                                    <td>1404/04/04 </td>
-                                    <td>طولانی بودن</td>
+                                    <td><?php echo e(verta($value->updated_at)->format('Y/m/d')); ?></td>
+                                    <td><?php echo e($value->description); ?></td>
                                 </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                             </tbody>
@@ -57,8 +56,6 @@
                     <!--end::Scroll-->
                 </div>
                 <!--end::Modal body-->
-               
-           
         </div>
     </div>
 </div><?php /**PATH D:\project\asou\asoon\resources\views/livewire/manage-news/monitoring-news/title-history-component.blade.php ENDPATH**/ ?>

@@ -29,10 +29,9 @@
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="<?php echo e(asset("assets/plugins/global/plugins.bundle.rtl.css")); ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo e(asset("assets/css/style.bundle.rtl.css")); ?>" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
 
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!--end::Global Stylesheets Bundle-->
     <script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
     <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::styles(); ?> <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scripts(); ?>
@@ -769,7 +768,7 @@ if (isset($__slots)) unset($__slots);
 <script src="<?php echo e(asset("assets/js/custom/widgets.js")); ?>"></script>
 <script src="<?php echo e(asset("assets/js/custom/apps/chat/chat.js")); ?>"></script>
 <script src="<?php echo e(asset("assets/js/custom/utilities/modals/users-search.js")); ?>"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+// <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <!--end::سفارشی Javascript-->
 <!--end::Javascript-->
