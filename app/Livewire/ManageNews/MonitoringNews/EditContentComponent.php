@@ -74,10 +74,8 @@ class EditContentComponent extends Component
                     'type' => 'edit',
                 ]);
             }
-
         });
     }
-
 
     public function render()
     {
