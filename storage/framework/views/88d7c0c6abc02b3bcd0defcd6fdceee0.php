@@ -49,6 +49,30 @@
                                     <td>خلاصه</td>
                                     <td><?php echo e($summary); ?></td>
                                 </tr>
+                                <tr>
+                                    <td>امتیاز خبر</td>
+                                    <td>
+                                        <div class="rating justify-content-end">
+                                            <!--[if BLOCK]><![endif]--><?php for($i = 1; $i <= 5; $i++): ?>
+                                                <div class="rating-label <?php echo e($i <= ($newsRate ?? 0) ? 'checked' : ''); ?>">
+                                                    <i class="ki-duotone ki-star fs-6"></i>
+                                                </div>
+                                            <?php endfor; ?><!--[if ENDBLOCK]><![endif]-->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>امتیاز بازنویسی</td>
+                                    <td>
+                                        <div class="rating justify-content-end">
+                                            <!--[if BLOCK]><![endif]--><?php for($i = 1; $i <= 5; $i++): ?>
+                                                <div class="rating-label <?php echo e($i <= ($editRate ?? 0) ? 'checked' : ''); ?>">
+                                                    <i class="ki-duotone ki-star fs-6"></i>
+                                                </div>
+                                            <?php endfor; ?><!--[if ENDBLOCK]><![endif]-->
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

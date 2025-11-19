@@ -7,7 +7,7 @@ use App\Models\{News,NewsStep,EditNews};
 
 class ReviewDetailsComponent extends Component
 {
-    public $reviewId,$newsId,$title,$link,$content,$summary,$agency,$topic,$reason,$goals,$edited_content;
+    public $newsRate,$editRate,$reviewId,$newsId,$title,$link,$content,$summary,$agency,$topic,$reason,$goals,$edited_content;
     protected $listeners =[
         '$_review_details'=>'saveData'
     ];
@@ -20,9 +20,11 @@ class ReviewDetailsComponent extends Component
         $this->summary        = $news->summary;
         $this->topic          = $news->topic;
         $this->goals          = $news->goals;
+        $this->newsRate = $news->rasadRate->rate ?? null;
         $this->reviewId = $news->editNews->id ?? null;
         $this->review_status = $news->editNews->status ?? null;
         $this->edited_content = $news->editNews->edited_content ?? null;
+        $this->editRate = $news->editNews->editRate->rate ?? null;
     }
 
     public function render()

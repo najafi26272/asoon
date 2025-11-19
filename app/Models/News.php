@@ -127,5 +127,4 @@ class News extends Model
                     ->latest();
     }
 
-
 }
