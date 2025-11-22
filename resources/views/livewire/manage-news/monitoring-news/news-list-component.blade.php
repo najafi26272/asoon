@@ -6,15 +6,6 @@
     .select2-container .select2-selection--single{
         height:100% !important;
     }
-    .fade {
-        transition: opacity 0.5s ease;
-        opacity: 0;
-        display: none; /* مخفی کردن اولیه */
-    }
-    .fade.show {
-        opacity: 1;
-        display: block; /* نمایش هنگام فعال شدن */
-    }
 </style>
 @endpush
 <div class="card mb-5 mb-xl-10">
@@ -24,18 +15,13 @@
          <!--begin::Nav group-->
          <div class="d-flex flex-column" style="width: 100%">
             <div class="nav-group nav-group-outline mx-auto mb-3" data-kt-buttons="true">
-                <button 
-                    class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 me-2 @if($activeTab === 'web') active @endif" 
-                    wire:click="setActiveTab('web')"
-                    data-kt-plan="web">
-                    سایت
-                </button>
-                <button 
-                    class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 @if($activeTab === 'socialMedia') active @endif" 
-                    wire:click="setActiveTab('socialMedia')"
-                    data-kt-plan="socialMedia">
-                    شبکه های اجتماعی
-                </button>
+                @foreach(['web' => 'سایت', 'socialMedia' => 'شبکه های اجتماعی'] as $tab => $label)
+                        <button 
+                            class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 me-2 @if($activeTab === $tab) active @endif" 
+                            wire:click="setActiveTab('{{ $tab }}')">
+                            {{ $label }}
+                        </button>
+                @endforeach
             </div>
          </div>
         <!--end::Nav group-->
@@ -235,7 +221,7 @@
                                                 </i>
                                     </span>
                                     @endif
-                                    {{$item->title}}
+                                    {{ Str::limit($item->title, 15)}}
                                 </h5>
                             </td>
                             <td>
@@ -263,11 +249,11 @@
                             @endphp
                                 <td>
                                     @if($activeTab === 'web')
-                                        <span title = {{$item->latestWebTitle->title}}>{{ $item->latestWebTitle?->title ? Str::limit($item->latestWebTitle->title, 50) : '-' }}</span>
+                                        <span title = {{$item->latestWebTitle?->title}}>{{ $item->latestWebTitle?->title ? Str::limit($item->latestWebTitle->title, 25) : '-' }}</span>
                                     @else
-                                        <span title = {{$item->latestSocialTitle->title}}>{{ $item->latestSocialTitle?->title ? Str::limit($item->latestSocialTitle->title, 50) : '-' }}</span>
+                                        <span title = {{$item->latestSocialTitle?->title}}>{{ $item->latestSocialTitle?->title ? Str::limit($item->latestSocialTitle->title, 25) : '-' }}</span>
                                     @endif
-                                    @if(in_array($title->status, ['progressing','accept']))
+                                    @if(in_array($title?->status, ['progressing','accept']))
                                     <a data-bs-toggle="modal" data-bs-target="#kt_modal_reject_title"
                                         class="cursor-pointer btn btn-icon btn-color-danger  btn-active-color-danger btn-sm me-1">
                                     <span class="ms-1" data-bs-toggle="tooltip" title="رد کردن تیتر">
@@ -282,10 +268,8 @@
                             @else
                                 <td>
                                     <a target="_blank" href={{$item->link}}> 
-                                        لینک رصد
-                                    </a>
-                                    {{-- {{ Str::limit($item->link, 30) }}</td> --}}
-                                
+                                        {{Str::limit($item->link, 10)}}
+                                    </a>                                
                                 <td>
                                     <p class="text-dark fw-bold text-hover-primary d-block fs-6">
                                         {{$item->created_at? verta($item->created_at)->format('Y/m/d'): ''}}
@@ -582,7 +566,7 @@
         </div>
     </div>
 
-    @if($pathIsTitle)
+    @if($pathIsTitle && count($items))
     <!-- Reject one Titr Modal -->
     <div class="modal fade" id="kt_modal_reject_title" tabindex="-1" wire:ignore.self>
         <div class="modal-dialog">
@@ -640,13 +624,9 @@
             let data = $(this).val();
             @this.set('char', data);
         });
-        $('#selectedStatus').on('change', function (e) {
+        $('#selectedStatus, #selectedPriority').on('change', function() {
             let data = $(this).val();
-            @this.set('selectedStatus', data);
-        });
-        $('#selectedPriority').on('change', function (e) {
-            let data = $(this).val();
-            @this.set('selectedPriority', data);
+            @this.set($(this).attr('id') === 'selectedPriority' ? 'selectedPriority' : 'selectedStatus', data);
         });
         $(document).ready(function() {
             $('.select-filter').select2({
@@ -654,34 +634,4 @@
             });
         });
     </script>
-
-{{-- textEditor --}}
-{{-- <script src="{{asset("assets/plugins/custom/tinymce/tinymce.bundle.js")}}"></script> --}}
-{{-- 
-<script>
-    // start textEditor
-    var options = {selector: "#editor", height : "480"};
-
-    if ( KTThemeMode.getMode() === "dark" ) {
-        options["skin"] = "oxide-dark";
-        options["content_css"] = "dark";
-    }
-
-    tinymce.init({
-        selector: "#editor",
-        height : "480",
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link code',    plugins : "advlist autolink link image lists charmap print preview",
-        menubar: false 
-    });
-    tinymce.init({
-        selector: "#editor_content",
-        height : "480",
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link code',    plugins : "advlist autolink link image lists charmap print preview",
-        menubar: false 
-    });
-    // end textEditor
-
-   
-</script> --}}
-
 @endpush

@@ -61,7 +61,7 @@
                         <div class="d-flex flex-column mb-8 fv-row">
                             <!--begin::Tags-->
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">اهداف</span>
+                                <span>اهداف</span>
                             </label>
                             <!--end::Tags-->
                             <input wire:model="goals" type="text" class="form-control form-control-solid"
@@ -76,7 +76,7 @@
                         <div class="d-flex flex-column mb-8 fv-row">
                             <!--begin::Tags-->
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">موضوع خبر</span>
+                                <span>موضوع خبر</span>
                             </label>
                             <!--end::Tags-->
                             <input wire:model="topic" type="text" class="form-control form-control-solid"
@@ -91,7 +91,7 @@
                         <div class="d-flex flex-column mb-8 fv-row">
                             <!--begin::Tags-->
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">خلاصه خبر</span>
+                                <span>خلاصه خبر</span>
                             </label>
                             <!--end::Tags-->
                             <textarea wire:model="summary" class="form-control form-control-solid" rows="3"

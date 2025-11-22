@@ -36,14 +36,7 @@ class EditReviewComponent extends Component
     
         $canCreateNewEdit = !in_array($news->editNews?->status, ['progressing', 'waiting']);
     
-        if ($canCreateNewEdit) {
-            $editNews = EditNews::create([
-                'news_id' => $this->newsId,
-                'edited_content' => $this->edited_content,
-                'editor_id' => auth()->id(),
-                'status' => 'progressing'
-            ]);
-    
+        if($news->editNews?->status == 'waiting'){
             $editStep = NewsStep::create([
                 'news_id' => $this->newsId,
                 'step_id' => 9,
@@ -51,6 +44,14 @@ class EditReviewComponent extends Component
             ]);
     
             $news->update(['status' => $editStep->id]);
+        }
+        if ($canCreateNewEdit) {
+            $editNews = EditNews::create([
+                'news_id' => $this->newsId,
+                'edited_content' => $this->edited_content,
+                'editor_id' => auth()->id(),
+                'status' => 'progressing'
+            ]);
         } else {
             EditNews::where('id', $this->reviewId)->update([
                 'edited_content' => $this->edited_content,

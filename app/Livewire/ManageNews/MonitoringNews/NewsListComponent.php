@@ -1,8 +1,9 @@
 <?php
 namespace App\Livewire\ManageNews\MonitoringNews;
-use App\Models\{News,NewsStep,Title,Rate};
+
+use App\Models\{News, NewsStep, Rate};
 use Livewire\{Component, WithPagination};
-use Illuminate\Support\Facades\{Auth,Validator,DB};
+use Illuminate\Support\Facades\{Auth, DB};
 use Illuminate\Database\Eloquent\Builder;
 
 class NewsListComponent extends Component
@@ -25,6 +26,7 @@ class NewsListComponent extends Component
         $this->activeTab = $tab;
         $this->resetPage();
     }
+    
     public function mount()
     {
         $this->pathIsAddInfo = request()->is('*news/addInfo*');
@@ -35,121 +37,70 @@ class NewsListComponent extends Component
         $this->pathIsReview = request()->is('*news/review*');
     }
 
-    public function getBaseQuery(): Builder
+    public function getBaseQuery()
     {
-        $pathIsAddInfo = $this->pathIsAddInfo ?? false;
-        $pathIsFinal = $this->pathIsFinal ?? false;
-        $pathIsMonitoring = $this->pathIsMonitoring ?? false;
-        $pathIsMyMonitoring = $this->pathIsMyMonitoring ?? false;
-        $pathIsTitle = $this->pathIsTitle ?? false;
-        $pathIsReview = $this->pathIsReview ?? false;
-
-        $char = $this->char ?? '';
-        $selectedPriority = $this->selectedPriority;
-        $selectedStatus = $this->selectedStatus; // Store selectedStatus in a variable
-
         $query = News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle']);
+        $stepConditions = $this->getStepConditions($this->selectedStatus);
 
-        // Define the step conditions based on selected status
-        $stepConditions = $this->getStepConditions($selectedStatus);
-
-        if ($selectedStatus && $selectedStatus !== 'all') {
-            // Apply common conditions
-            $query->when($pathIsAddInfo, function (Builder $q) use ($stepConditions) {
-                $q->whereHas('step.stepDefinition', $stepConditions['addInfo']);
-            })
-            ->when($pathIsTitle, function (Builder $q) use ($stepConditions) {
-                $q->whereHas('step.stepDefinition', $stepConditions['title']);
-                $this->applyActiveTabConditions($q);
-            })
-            ->when($pathIsFinal, function (Builder $q) use ($stepConditions) {
-                $q->whereHas('step.stepDefinition', $stepConditions['final']);
-            })
-            ->when($pathIsReview, function (Builder $q) use ($stepConditions) {
-                $q->whereHas('step.stepDefinition', $stepConditions['review']);
-            })
-            ->when($pathIsMonitoring, function (Builder $q) use ($stepConditions) {
-                $q->whereHas('step.stepDefinition', $stepConditions['monitoring']);
-            })
-            ->when($pathIsMyMonitoring, function (Builder $q) use ($stepConditions) {
-                $q->whereHas('step.stepDefinition', $stepConditions['myMonitoring']);
-                $q->where('creator_id', Auth::user()->id);
-            });
-        } else {
-            // Apply alternative conditions when selected status is 'all'
-            $query->when($pathIsAddInfo, function (Builder $q) {
-                $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id', [3, 4]);
-                });
-            })
-            ->when($pathIsTitle, function (Builder $q) {
-                $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id', [4, 5, 6, 7]);
-                });
-                $this->applyActiveTabConditions($q);
-            })
-            ->when($pathIsFinal, function (Builder $q) {
-                $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id', [11, 12, 13]);
-                });
-            })
-            ->when($pathIsReview, function (Builder $q) {
-                $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id', [6, 8, 9, 10, 11]);
-                });
-            })
-            ->when($pathIsMyMonitoring, function (Builder $q) {
-                $q->where('creator_id', Auth::user()->id);
-            });
-        }
-
-        // Apply search conditions
-        return $query->where(function (Builder $query) use ($char,$selectedPriority) {
-            $search = "%{$char}%";
-            $query->where(function (Builder $q2) use ($search) {
-                $q2->where('title', 'LIKE', $search)
-                    ->orWhere('link', 'LIKE', $search)
-                    ->orWhere('topic', 'LIKE', $search);
-            });
-            if ($selectedPriority && $selectedPriority !== 'all') {
-                $query->where(function (Builder $q2) use ($selectedPriority) {
-                    $q2->where('priority', $selectedPriority);
+        $query->when($this->selectedStatus !== 'all', function ($q) use ($stepConditions) {
+            // Apply step conditions based on the status
+            foreach ($stepConditions as $key => $condition) {
+                $q->when($this->{'pathIs' . ucfirst($key)}, function ($q) use ($condition) {
+                    $q->whereHas('step.stepDefinition', $condition);
                 });
             }
+        });
 
+        return $query->where(function ($query) {
+            $this->applySearchConditions($query);
         });
     }
 
     private function getStepConditions($selectedStatus): array
     {
         return [
-            'addInfo' => function (Builder $q2) use ($selectedStatus) {
-                $q2->where('step_id', $selectedStatus);
+            'addInfo' => function ($q) use ($selectedStatus) {
+                $q->where('step_id', $selectedStatus);
             },
-            'title' => function (Builder $q2) use ($selectedStatus) {
-                $q2->where('step_id', $selectedStatus);
+            'title' => function ($q) use ($selectedStatus) {
+                $q->where('step_id', $selectedStatus);
+                $this->applyActiveTabConditions($q); // Apply active tab conditions here
             },
-            'final' => function (Builder $q2) use ($selectedStatus) {
-                $q2->where('step_id', $selectedStatus);
+            'final' => function ($q) use ($selectedStatus) {
+                $q->where('step_id', $selectedStatus);
             },
-            'review' => function (Builder $q2) use ($selectedStatus) {
-                $q2->where('step_id', $selectedStatus);
+            'review' => function ($q) use ($selectedStatus) {
+                $q->where('step_id', $selectedStatus);
             },
-            'monitoring' => function (Builder $q2) use ($selectedStatus) {
+            'monitoring' => function ($q) use ($selectedStatus) {
                 if ($selectedStatus == 3) {
-                    $q2->whereNotIn('step_id', [1, 2]);
+                    $q->whereNotIn('step_id', [1, 2]);
                 } else {
-                    $q2->where('step_id', $selectedStatus);
+                    $q->where('step_id', $selectedStatus);
                 }
             },
-            'myMonitoring' => function (Builder $q2) use ($selectedStatus) {
+            'myMonitoring' => function ($q) use ($selectedStatus) {
                 if ($selectedStatus == 3) {
-                    $q2->whereNotIn('step_id', [1, 2]);
+                    $q->whereNotIn('step_id', [1, 2]);
                 } else {
-                    $q2->where('step_id', $selectedStatus);
+                    $q->where('step_id', $selectedStatus);
                 }
             },
         ];
+    }
+
+    private function applySearchConditions($query)
+    {
+        $search = "%{$this->char}%";
+        $query->where(function ($q) use ($search) {
+            $q->where('title', 'LIKE', $search)
+              ->orWhere('link', 'LIKE', $search)
+              ->orWhere('topic', 'LIKE', $search);
+        });
+
+        if ($this->selectedPriority && $this->selectedPriority !== 'all') {
+            $query->where('priority', $this->selectedPriority);
+        }
     }
 
     private function applyActiveTabConditions(Builder $query): void
@@ -199,9 +150,7 @@ class NewsListComponent extends Component
 
     public function refresh()
     {
-        $this->items = $this->getBaseQuery()
-        ->latest()
-        ->paginate($this->pageNumber);
+        $this->items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);
     
         foreach ($this->items as $news) {
             $news->newsRate = $news->rasadRate->rate ?? null;

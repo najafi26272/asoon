@@ -26,25 +26,9 @@ class EditTitleComponent extends Component
         $this->validate(['newTitle' => 'required']);
 
         DB::transaction(function () {
-            $news = News::with(['latestWebTitle', 'latestSocialTitle'])
-                    ->findOrFail($this->newsId);
-           
-            // بررسی وضعیت گردش کار
-            $totalStatus = true;
-            
-            if ($news->latestWebTitle?->status === 'progressing' || 
-                $news->latestWebTitle?->status === 'waiting') {
-                $totalStatus = false;
-            }
-
-            if ($news->latestSocialTitle?->status === 'progressing' || 
-                $news->latestSocialTitle?->status === 'waiting') {
-                $totalStatus = false;
-            }
-
             $title = Title::findOrFail($this->titleId);
             // ایجاد Step جدید در صورت نیاز
-            if($totalStatus) {
+            if($title) {
                 $title = Title::create([
                     'news_id' => $this->newsId,
                     'title' => $this->newTitle,
@@ -52,14 +36,6 @@ class EditTitleComponent extends Component
                     'creator_id' => Auth::id(),
                     'status' => 'progressing'
                 ]);
-
-                $step = NewsStep::create([
-                    'news_id' => $this->newsId,
-                    'step_id' => 5,
-                    'creator_id' => Auth::id()
-                ]);
-                
-                $news->update(['status' => $step->id]);
             }else{
                 if(in_array($title->status, ['progressing', 'waiting'])) {
                     $title->update([
@@ -67,6 +43,29 @@ class EditTitleComponent extends Component
                         'status' => 'progressing'
                     ]);
                 }
+            }
+
+            $news = News::with(['latestWebTitle', 'latestSocialTitle'])
+            ->findOrFail($this->newsId);
+             // بررسی وضعیت گردش کار
+             $totalStatus = true;
+            
+             if ($news->latestWebTitle?->status === 'waiting') {
+                 $totalStatus = false;
+             }
+ 
+             if ($news->latestSocialTitle?->status === 'waiting') {
+                 $totalStatus = false;
+             }
+ 
+            if($totalStatus){
+                $step = NewsStep::create([
+                    'news_id' => $this->newsId,
+                    'step_id' => 5,
+                    'creator_id' => Auth::id()
+                ]);
+                
+                $news->update(['status' => $step->id]);
             }
         });
 

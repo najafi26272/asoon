@@ -6,15 +6,6 @@
     .select2-container .select2-selection--single{
         height:100% !important;
     }
-    .fade {
-        transition: opacity 0.5s ease;
-        opacity: 0;
-        display: none; /* مخفی کردن اولیه */
-    }
-    .fade.show {
-        opacity: 1;
-        display: block; /* نمایش هنگام فعال شدن */
-    }
 </style>
 <?php $__env->stopPush(); ?>
 <div class="card mb-5 mb-xl-10">
@@ -24,18 +15,14 @@
          <!--begin::Nav group-->
          <div class="d-flex flex-column" style="width: 100%">
             <div class="nav-group nav-group-outline mx-auto mb-3" data-kt-buttons="true">
-                <button 
-                    class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 me-2 <?php if($activeTab === 'web'): ?> active <?php endif; ?>" 
-                    wire:click="setActiveTab('web')"
-                    data-kt-plan="web">
-                    سایت
-                </button>
-                <button 
-                    class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 <?php if($activeTab === 'socialMedia'): ?> active <?php endif; ?>" 
-                    wire:click="setActiveTab('socialMedia')"
-                    data-kt-plan="socialMedia">
-                    شبکه های اجتماعی
-                </button>
+                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = ['web' => 'سایت', 'socialMedia' => 'شبکه های اجتماعی']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tab => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <button 
+                            class="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 me-2 <?php if($activeTab === $tab): ?> active <?php endif; ?>" 
+                            wire:click="setActiveTab('<?php echo e($tab); ?>')">
+                            <?php echo e($label); ?>
+
+                        </button>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
          </div>
         <!--end::Nav group-->
@@ -235,7 +222,7 @@
                                                 </i>
                                     </span>
                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                    <?php echo e($item->title); ?>
+                                    <?php echo e(Str::limit($item->title, 15)); ?>
 
                                 </h5>
                             </td>
@@ -264,11 +251,11 @@
                             ?>
                                 <td>
                                     <!--[if BLOCK]><![endif]--><?php if($activeTab === 'web'): ?>
-                                        <span title = <?php echo e($item->latestWebTitle->title); ?>><?php echo e($item->latestWebTitle?->title ? Str::limit($item->latestWebTitle->title, 50) : '-'); ?></span>
+                                        <span title = <?php echo e($item->latestWebTitle?->title); ?>><?php echo e($item->latestWebTitle?->title ? Str::limit($item->latestWebTitle->title, 25) : '-'); ?></span>
                                     <?php else: ?>
-                                        <span title = <?php echo e($item->latestSocialTitle->title); ?>><?php echo e($item->latestSocialTitle?->title ? Str::limit($item->latestSocialTitle->title, 50) : '-'); ?></span>
+                                        <span title = <?php echo e($item->latestSocialTitle?->title); ?>><?php echo e($item->latestSocialTitle?->title ? Str::limit($item->latestSocialTitle->title, 25) : '-'); ?></span>
                                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                    <!--[if BLOCK]><![endif]--><?php if(in_array($title->status, ['progressing','accept'])): ?>
+                                    <!--[if BLOCK]><![endif]--><?php if(in_array($title?->status, ['progressing','accept'])): ?>
                                     <a data-bs-toggle="modal" data-bs-target="#kt_modal_reject_title"
                                         class="cursor-pointer btn btn-icon btn-color-danger  btn-active-color-danger btn-sm me-1">
                                     <span class="ms-1" data-bs-toggle="tooltip" title="رد کردن تیتر">
@@ -283,10 +270,9 @@
                             <?php else: ?>
                                 <td>
                                     <a target="_blank" href=<?php echo e($item->link); ?>> 
-                                        لینک رصد
-                                    </a>
-                                    
-                                
+                                        <?php echo e(Str::limit($item->link, 10)); ?>
+
+                                    </a>                                
                                 <td>
                                     <p class="text-dark fw-bold text-hover-primary d-block fs-6">
                                         <?php echo e($item->created_at? verta($item->created_at)->format('Y/m/d'): ''); ?>
@@ -599,7 +585,7 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
         </div>
     </div>
 
-    <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
+    <!--[if BLOCK]><![endif]--><?php if($pathIsTitle && count($items)): ?>
     <!-- Reject one Titr Modal -->
     <div class="modal fade" id="kt_modal_reject_title" tabindex="-1" wire:ignore.self>
         <div class="modal-dialog">
@@ -664,13 +650,9 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             let data = $(this).val();
             window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('char', data);
         });
-        $('#selectedStatus').on('change', function (e) {
+        $('#selectedStatus, #selectedPriority').on('change', function() {
             let data = $(this).val();
-            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedStatus', data);
-        });
-        $('#selectedPriority').on('change', function (e) {
-            let data = $(this).val();
-            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedPriority', data);
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set($(this).attr('id') === 'selectedPriority' ? 'selectedPriority' : 'selectedStatus', data);
         });
         $(document).ready(function() {
             $('.select-filter').select2({
@@ -678,9 +660,4 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             });
         });
     </script>
-
-
-
-
-
 <?php $__env->stopPush(); ?><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/monitoring-news/news-list-component.blade.php ENDPATH**/ ?>

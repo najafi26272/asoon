@@ -22,7 +22,7 @@ class ReviewListComponent extends Component
     ];
     public function refresh()
     {
-        $items = $this->getItems();
+        $items = $this->buildQuery();
     }
     public function delete($id)
     {
