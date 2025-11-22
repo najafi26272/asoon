@@ -1,40 +1,36 @@
 <?php
-
 namespace App\Livewire\ManageNews\MonitoringNews;
 
 use Livewire\Component;
-use App\Models\{News,NewsStep,EditNews,Rate};
-use Illuminate\Support\Facades\{Auth,Validator,DB};
+use App\Models\{News, NewsStep, EditNews, Rate};
+use Illuminate\Support\Facades\{Auth, DB};
 
 class EditContentComponent extends Component
 {
-    protected $listeners =[
-        '$_content_editable'=>'saveData'
+    protected $listeners = [
+        '$_content_editable' => 'saveData'
     ];
 
-    public $contentId, $newsId,$edited_content,$description,$status,$review_rating;
+    public $status = false; // Default status
+    public $editRate, $rowStatus, $contentId, $newsId, $edited_content, $description, $review_rating;
 
-    public function saveData($id){
+    public function saveData($id)
+    {
         $this->newsId = $id;
         $data = EditNews::where('news_id', $id)->latest()->first();
         $this->contentId = $data->id;
         $this->edited_content = $data->edited_content;
         $this->description = $data->description;
-        $this->status = $data->status;
+        $this->status = ($data->status=='accept') ? true : false; // Ensure this is a boolean
+        $this->rowStatus = ($data->status=='accept') ? 'accept' : 'reject';
+        $this->editRate = $data->editRate->rate ?? null;
     }
 
     public function editContent()
     {
         DB::transaction(function () {
             $news = News::findOrFail($this->newsId);
-
-            if($this->status){
-                $this->status = 'accept';
-                $step_id = 11;
-            }else{
-                $this->status = 'reject';
-                $step_id = 10;
-            }
+            $step_id = $this->status ? 11 : 10;
 
             $newsStep = $news->step()->create([
                 'news_id' => $this->newsId,
@@ -42,10 +38,7 @@ class EditContentComponent extends Component
                 'creator_id' => Auth::id()
             ]);
 
-            $news->update([
-                'status' => $newsStep->id,
-            ]);
-
+            $news->update(['status' => $newsStep->id]);
             $this->createOrUpdateContent();
         });
 
@@ -58,14 +51,15 @@ class EditContentComponent extends Component
     {
         DB::transaction(function () {
             $data = EditNews::where('news_id', $this->newsId)->latest()->first();
+            $status = $this->status ? 'accept' : 'reject';
             $data->update([
-                'status'        => $this->status,
-                'edited_content'=> $this->edited_content,
-                'description'   => $this->description,
+                'status' => $status,
+                'edited_content' => $this->edited_content,
+                'description' => $this->description,
             ]);
             $rate = $this->review_rating ?? null;
-            if($rate){
-                Rate::Create([
+            if ($rate) {
+                Rate::create([
                     'review_id' => $data->id,
                     'news_id' => $this->newsId,
                     'creator_id' => Auth::id(),
