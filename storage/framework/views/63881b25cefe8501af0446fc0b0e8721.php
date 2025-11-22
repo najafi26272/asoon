@@ -1,5 +1,4 @@
 <?php $__env->startPush('css'); ?>
-    <link rel="stylesheet" href="<?php echo e(asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.css")); ?>">
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -147,6 +146,22 @@ unset($__params);
 unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('manage-news.monitoring-news.title-history-component', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-3349914660-9', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
@@ -155,7 +170,6 @@ if (isset($__slots)) unset($__slots);
 <script src="<?php echo e(asset("assets/plugins/custom/datepicker/fa-jdate.js")); ?>"></script>
 <script src="<?php echo e(asset("assets/plugins/custom/datepicker/pickr.js")); ?>"></script>
 <script src="<?php echo e(asset("assets/plugins/custom/datepicker/forms-pickers.js")); ?>"></script>
-<script src="<?php echo e(asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.js")); ?>"></script>
 
     <script>
         document.addEventListener('$_news_details', event => {
@@ -164,6 +178,10 @@ if (isset($__slots)) unset($__slots);
 
         document.addEventListener('$_review_history', event => {
             $("#kt_modal_review_history").modal('show');
+        });
+
+        document.addEventListener('$_title_history', event => {
+            $("#kt_modal_title_history").modal('show');
         });
 
         document.addEventListener('$_content_editable', event => {

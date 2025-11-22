@@ -1,7 +1,11 @@
-
 <?php $__env->startPush("style"); ?>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.0.0/ckeditor5.css" />
 <style>
+    .select2-container .select2-selection--single{
+        height:100% !important;
+    }
     .fade {
         transition: opacity 0.5s ease;
         opacity: 0;
@@ -54,62 +58,40 @@
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             </span>
         </h3>
-        
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
-               
-                 <!--begin::Menu-->
-                 <a  href="#"  class="btn me-2 btn-flex btn-primary fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                     <i class="ki-duotone ki-filter fs-6 text-light me-1">
-                     	<span class="path1"></span>
-                     	<span class="path2"></span>
-                        
-                     </i>
-                    فیلتر
-                </a>
-                <!--begin::Menu 1-->
-                <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64b77cca6eb7e">
-                    <!--begin::Header-->
-                    <div class="px-7 py-5">
-                        <div class="fs-5 text-dark fw-bold">فیلتر تنظیمات</div>
-                    </div>
-                    <!--end::Header-->
-                    <!--begin::Menu separator-->
-                    <div class="separator border-gray-200"></div>
-                    <!--end::Menu separator-->
-                    <!--begin::Form-->
-                    <div class="px-7 py-5">
-                        <!--begin::Input group-->
-                        <div class="mb-10">
-                            <!--begin::Tags-->
-                            <label class="form-label fw-semibold">وضعیت:</label>
-                            <!--end::Tags-->
-                            <!--begin::Input-->
-                            <div>
-                                <select class="form-select form-select-solid" multiple="multiple" data-kt-select2="true" data-close-on-select="false" data-placeholder="انتخاب گزینه" data-dropdown-parent="#kt_menu_64b77cca6eb7e" data-allow-clear="true">
-                                    <option></option>
-                                    <option value="1">تایید شده</option>
-                                    <option value="2">در انتظار</option>
-                                    <option value="2">در حال پردازش</option>
-                                    <option value="2">رد شد</option>
-                                </select>
-                            </div>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                       
-                        <!--begin::Actions-->
-                        <div class="d-flex justify-content-end">
-                            <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">ریست</button>
-                            <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">تایید</button>
-                        </div>
-                        <!--end::Actions-->
-                    </div>
-                    <!--end::Form-->
-                </div>
-                <!--end::Menu 1-->
-                <!--end::Menu-->
-
+                 <div wire:ignore style="margin-left: 5px; height:100% !important;">
+                    <select id="selectedStatus" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر کاربران" data-hide-search="true" data-close-on-select="false">
+                        <option value="all">همه</option>
+                        <!--[if BLOCK]><![endif]--><?php if($pathIsAddInfo): ?>
+                            <option value="3">درانتظار افزودن اطلاعات</option>
+                            <option value="4">اطلاعات افزوده شده</option>
+                        <?php elseif($pathIsTitle): ?>
+                            <option value="4">درانتظار تیتر</option>
+                            <option value="5">درانتظار بررسی</option>
+                            <option value="6">تاییدشده</option>
+                            <option value="7">ردشده</option>
+                        <?php elseif($pathIsReview): ?>
+                            <option value="6">درانتظار ارجاع</option>
+                            <option value="8">در انتظار بازنویسی</option>
+                            <option value="9">درانتظار بررسی</option>
+                            <option value="11">تاییدشده</option>
+                            <option value="10">ردشده</option>
+                        <?php elseif($pathIsFinal): ?>
+                            <option value="11">درانتظارانتشار</option>
+                            <option value="12">منتشر شده</option>
+                            <option value="13">عدم انتشار</option>                                    
+                        <?php elseif($pathIsMonitoring): ?>
+                            <option value="3">تاییدشده</option>
+                            <option value="2">ردشده</option>
+                            <option value="1">درانتظار بررسی</option>       
+                        <?php elseif($pathIsMyMonitoring): ?>
+                            <option value="3">تاییدشده</option>
+                            <option value="2">ردشده</option>
+                            <option value="1">درانتظار بررسی</option>       
+                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                    </select>
+                </div>                
                 <!--begin::جستجو-->
                 <div id="kt_header_search" class="header-search d-flex align-items-center w-lg-250px me-3" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-search-responsive="lg" data-kt-menu-trigger="auto" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end">
                     <!--begin::Fیاm(use d-none d-lg-block classes for responsive search)-->
@@ -190,9 +172,12 @@
                             امتیاز خبر
                         </th>
                         <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
-                            <th class="min-w-150px">
+                            <th class="min-w-200px">
                                 تیتر پیشنهادی
                             </th>
+                            <th class="min-w-100px">
+                                وضعیت خبر
+                            </th>   
                             <th class="min-w-100px">
                                 وضعیت تیتر
                             </th> 
@@ -233,28 +218,19 @@
                                     <?php echo e($item->title); ?>
 
                                 </h5>
-                                
                             </td>
                             <td>
-                                <div class="rating justify-content-end">
-                                    <div class="rating-label">
-                                        <i class="ki-duotone ki-star fs-6"></i>
-                                    </div>
-                                    <div class="rating-label">
-                                        <i class="ki-duotone ki-star fs-6"></i>
-                                    </div>
-                                    <div class="rating-label">
-                                        <i class="ki-duotone ki-star fs-6"></i>
-                                    </div>
-                                    <div class="rating-label">
-                                        <i class="ki-duotone ki-star fs-6"></i>
-                                    </div>
-                                    <div class="rating-label">
-                                        <i class="ki-duotone ki-star fs-6"></i>
+                                <div class="d-flex align-items-center">
+                                    <div class="rating justify-content-end">
+                                        <!--[if BLOCK]><![endif]--><?php for($i = 1; $i <= 5; $i++): ?>
+                                            <div class="rating-label <?php echo e($i <= ($item->newsRate ?? 0) ? 'checked' : ''); ?>">
+                                                <i class="ki-duotone ki-star fs-6"></i>
+                                            </div>
+                                        <?php endfor; ?><!--[if ENDBLOCK]><![endif]-->
                                     </div>
                                 </div>
                             </td>
-
+                            
                             <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
                             <?php
                                 $title = $activeTab === 'web' ? ($item->latestWebTitle ?? null) : ($item->latestSocialTitle ?? null);
@@ -321,6 +297,9 @@
                             </td>
                             <?php elseif($pathIsTitle): ?>
                             <td>
+                                <div class="badge badge-light-primary"><?php echo e($item->step->stepDefinition->title); ?></div>                                    
+                            </td>
+                            <td>
                                 <div class="badge <?php if($label == 'رد شده'): ?> badge-light-danger <?php else: ?> badge-light-primary <?php endif; ?> "><?php echo e($label ?? ''); ?></div>
                             </td>
                             <?php else: ?>
@@ -344,7 +323,7 @@
                                         <!--begin::Heading-->
                                         <!--[if BLOCK]><![endif]--><?php if($pathIsTitle): ?>
                                             <div class="menu-item px-3">
-                                                <a data-bs-toggle="modal" data-bs-target="#kt_modal_title_history" class="menu-link flex-stack px-3">تاریخچه تیترها
+                                                <a wire:click="titleHistory(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">تاریخچه تیترها
                                                 <span class="ms-2" data-bs-toggle="tooltip" title="تاریخچه تیترهای رد شده">
                                                     <i class="ki-duotone ki-information fs-2">
                                                         <span class="path1"></span>
@@ -638,133 +617,46 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
         </div>
     </div>
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-
-
-    <div wire:ignore.self class="modal fade" id="kt_modal_title_history" tabindex="-1" aria-hidden="true">
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog modal-dialog-centered mw-650px">
-            <!--begin::Modal content-->
-            <div class="modal-content">
-                    <!--begin::Modal header-->
-                    <div class="modal-header" id="kt_modal_new_mosavabe_header">
-                        <!--begin::Modal title-->
-                        <h2> تاریخچه تیتر ها</h2>
-                        <!--end::Modal title-->
-                        <!--begin::Close-->
-                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                            <i class="ki-duotone ki-cross fs-1">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
-                        </div>
-                        <!--end::Close-->
-                    </div>
-                    <!--end::Modal header-->
-                    <!--begin::Modal body-->
-                    <div class="modal-body py-10 px-lg-17">
-                        <!--begin::Scroll-->
-                        <div class="scroll-y me-n7 pe-7" id="kt_modal_new_mosavabe_scroll" data-kt-scroll="true"
-                             data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
-                             data-kt-scroll-dependencies="#kt_modal_new_address_header"
-                             data-kt-scroll-wrappers="#kt_modal_new_address_scroll" data-kt-scroll-offset="300px">
-                            
-                            
-                             <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 ">
-                                <thead>
-                                    <tr class="fw-bold text-muted bg-light">
-                                        <th class="ps-4  rounded-start">تیتر پیشنهادی</th>
-                                        <th> تاریخ</th>
-                                        <th class="ps-4  rounded-end">دلیل رد شدن</th>
-                                       
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td > تیتر یک</td>
-                                        <td>1404/04/04 </td>
-                                        <td>طولانی بودن</td>
-                                        
-                                       
-                                    </tr>
-                                    
-                                   
-                                </tbody>
-                            </table>
-    
-                        </div>
-                        <!--end::Scroll-->
-                    </div>
-                    <!--end::Modal body-->
-                   
-               
-            </div>
-        </div>
-    </div>
 </div>
-
-
 
 <?php $__env->startPush('scripts'); ?>
     <script>
         // مدیریت انتخاب تمامی آیتم‌ها
-$('#selectAll').on('change', function() {
-    const isChecked = $(this).prop('checked');
-    const currentTab = $(this).data('tab'); // دریافت تب فعال
-    $('.item-checkbox[data-tab="' + currentTab + '"]').prop('checked', isChecked);
-    const ids = $('.item-checkbox[data-tab="' + currentTab + '"]:checked').map((i, el) => el.value).get();
-    window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedIds', ids);
-});
-$(document).ready(function() {
-    $('#filter_status').select2();
+        $('#selectAll').on('change', function() {
+            const isChecked = $(this).prop('checked');
+            const currentTab = $(this).data('tab'); // دریافت تب فعال
+            $('.item-checkbox[data-tab="' + currentTab + '"]').prop('checked', isChecked);
+            const ids = $('.item-checkbox[data-tab="' + currentTab + '"]:checked').map((i, el) => el.value).get();
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedIds', ids);
+        });
 
-   
-        
-    
-});
-// مدیریت تغییرات تک تک آیتم‌ها
-$(document).on('change', '.item-checkbox', function() {
-    const currentTab = $(this).data('tab'); // دریافت تب فعال
-    const allChecked = $('.item-checkbox[data-tab="' + currentTab + '"]:checked').length === 
-                      $('.item-checkbox[data-tab="' + currentTab + '"]').length;
-    $('#selectAll[data-tab="' + currentTab + '"]').prop('checked', allChecked);
-    const ids = $('.item-checkbox[data-tab="' + currentTab + '"]:checked').map((i, el) => el.value).get();
-    window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedIds', ids);
-});
+        // مدیریت تغییرات تک تک آیتم‌ها
+        $(document).on('change', '.item-checkbox', function() {
+            const currentTab = $(this).data('tab'); // دریافت تب فعال
+            const allChecked = $('.item-checkbox[data-tab="' + currentTab + '"]:checked').length === 
+                            $('.item-checkbox[data-tab="' + currentTab + '"]').length;
+            $('#selectAll[data-tab="' + currentTab + '"]').prop('checked', allChecked);
+            const ids = $('.item-checkbox[data-tab="' + currentTab + '"]:checked').map((i, el) => el.value).get();
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedIds', ids);
+        });
 
         $('#searching').on('keyup', function (e) {
             let data = $(this).val();
             window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('char', data);
         });
-
+        $('#selectedStatus').on('change', function (e) {
+            let data = $(this).val();
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedStatus', data);
+        });
+        $(document).ready(function() {
+            $('.select-filter').select2({
+                height:'100%'
+            });
+        });
     </script>
 
 
-<script src="<?php echo e(asset("assets/plugins/custom/tinymce/tinymce.bundle.js")); ?>"></script>
 
-<script>
-    // start textEditor
-    var options = {selector: "#editor", height : "480"};
 
-    if ( KTThemeMode.getMode() === "dark" ) {
-        options["skin"] = "oxide-dark";
-        options["content_css"] = "dark";
-    }
-
-    tinymce.init({
-        selector: "#editor",
-        height : "480",
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link code',    plugins : "advlist autolink link image lists charmap print preview",
-        menubar: false 
-    });
-    tinymce.init({
-        selector: "#editor_content",
-        height : "480",
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link code',    plugins : "advlist autolink link image lists charmap print preview",
-        menubar: false 
-    });
-    // end textEditor
-
-   
-</script>
 
 <?php $__env->stopPush(); ?><?php /**PATH D:\project\asou\asoon\resources\views/livewire/manage-news/monitoring-news/news-list-component.blade.php ENDPATH**/ ?>
