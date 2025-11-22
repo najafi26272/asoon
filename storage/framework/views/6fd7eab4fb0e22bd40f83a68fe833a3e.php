@@ -61,8 +61,16 @@
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
                  <div wire:ignore style="margin-left: 5px; height:100% !important;">
-                    <select id="selectedStatus" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر کاربران" data-hide-search="true" data-close-on-select="false">
-                        <option value="all">همه</option>
+                    <select id="selectedPriority" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر اولویت" data-hide-search="true" data-close-on-select="false">
+                        <option value="all">همه اولویت ها</option>
+                            <option value="low">کم</option>
+                            <option value="medium">متوسط</option>
+                            <option value="high">زیاد</option>       
+                    </select>
+                </div> 
+                 <div wire:ignore style="margin-left: 5px; height:100% !important;">
+                    <select id="selectedStatus" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر وضعیت" data-hide-search="true" data-close-on-select="false">
+                        <option value="all">همه وضعیت ها</option>
                         <!--[if BLOCK]><![endif]--><?php if($pathIsAddInfo): ?>
                             <option value="3">درانتظار افزودن اطلاعات</option>
                             <option value="4">اطلاعات افزوده شده</option>
@@ -215,6 +223,18 @@
                             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                             <td class="flex">
                                 <h5>
+                                    <!--[if BLOCK]><![endif]--><?php if($item->priority): ?>
+                                    <span class="ms-1" data-bs-toggle="tooltip"
+                                        <?php if($item->priority == "high"): ?> title="اولویت زیاد"
+                                        <?php elseif($item->priority == "low"): ?> title="اولویت کم"
+                                        <?php elseif($item->priority == "medium"): ?> title="اولویت متوسط" <?php endif; ?>>
+                                        <i class="fa fa-flag   <?php if($item->priority == "high"): ?> text-danger <?php elseif($item->priority == "low"): ?> text-warning  <?php elseif($item->priority == "medium"): ?> text-primary <?php endif; ?> "></i>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                                </i>
+                                    </span>
+                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                     <?php echo e($item->title); ?>
 
                                 </h5>
@@ -647,6 +667,10 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
         $('#selectedStatus').on('change', function (e) {
             let data = $(this).val();
             window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedStatus', data);
+        });
+        $('#selectedPriority').on('change', function (e) {
+            let data = $(this).val();
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedPriority', data);
         });
         $(document).ready(function() {
             $('.select-filter').select2({

@@ -13,7 +13,7 @@ class NewsListComponent extends Component
     public $rejectDescription = '';
     public $selectAll = false;
     public $char = '';
-    public $selectedStatus ='all';
+    public $selectedStatus ='all',$selectedPriority = 'all';
     public $title, $link, $content, $summary, $agency, $topic, $reason, $goals, $description;
     public $pageNumber = 10;
     public $pathIsMonitoring = false, $pathIsReview = false, $pathIsTitle = false, $pathIsAddInfo = false, $pathIsFinal = false, $pathIsMyMonitoring = false;
@@ -45,6 +45,7 @@ class NewsListComponent extends Component
         $pathIsReview = $this->pathIsReview ?? false;
 
         $char = $this->char ?? '';
+        $selectedPriority = $this->selectedPriority;
         $selectedStatus = $this->selectedStatus; // Store selectedStatus in a variable
 
         $query = News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle']);
@@ -103,13 +104,19 @@ class NewsListComponent extends Component
         }
 
         // Apply search conditions
-        return $query->where(function (Builder $query) use ($char) {
+        return $query->where(function (Builder $query) use ($char,$selectedPriority) {
             $search = "%{$char}%";
             $query->where(function (Builder $q2) use ($search) {
                 $q2->where('title', 'LIKE', $search)
                     ->orWhere('link', 'LIKE', $search)
                     ->orWhere('topic', 'LIKE', $search);
             });
+            if ($selectedPriority && $selectedPriority !== 'all') {
+                $query->where(function (Builder $q2) use ($selectedPriority) {
+                    $q2->where('priority', $selectedPriority);
+                });
+            }
+
         });
     }
 

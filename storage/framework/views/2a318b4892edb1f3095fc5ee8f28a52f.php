@@ -42,7 +42,7 @@
                                     </label>
                                     <!--end::Tags-->
                                     <select class="form-select form-select-solid"  wire:model="selectedWebAuthor" id="selectedWebAuthor"
-                                            data-placeholder=" انتخاب کنید." >
+                                            data-placeholder=" انتخاب کنید."  >
 
                                             <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $siteTitrs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $siteTitr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($siteTitr->id); ?>">
@@ -75,7 +75,7 @@
                                     </label>
                                     <!--end::Tags-->
                                     <select class="form-select form-select-solid" wire:model="selectedSocialMediaAuthor" id="selectedSocialMediaAuthor"
-                                            data-placeholder="انتخاب کنید ">
+                                    data-hide-search="true"    data-placeholder="انتخاب کنید ">
 
                                         <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $socialMediaTitrs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $socialMediaTitr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($socialMediaTitr->id); ?>">
@@ -111,7 +111,8 @@
                                     </label>
                                     <!--end::Tags-->
 
-                                    <select id="priority" class="form-select form-select-solid" wire:model="priority" data-placeholder="یک مورد را انتخاب کنید" name="priority">
+                                    <select id="priority" class="form-select form-select-solid" wire:model="priority"
+                                    data-hide-search="true" data-placeholder="یک مورد را انتخاب کنید" name="priority">
                                         <option class="text-warning" value="low">کم</option>
                                         <option class="text-primary" selected value="medium">متوسط</option>
                                         <option class="text-danger" value="high">زیاد</option>
@@ -222,15 +223,45 @@
 </div>
 <?php $__env->startPush('scripts'); ?>
     <script>
-         $('#selectedLanguages').select2({
+         
+        $(document).ready(function() {
+            $('#selectedLanguages').select2({
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: false,
-        });
-        $('#selectedLanguages').on('change', function (e) {
+            });
+            $('#selectedLanguages').on('change', function (e) {
             let data = $(this).val();
-        window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedLanguages', data);
-        });
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('selectedLanguages', data);
+            });
+            $('#priority').select2({
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,
+                minimumResultsForSearch: Infinity,
+            });
+           
+            $('#selectedWebAuthor').select2({
+
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,
+                minimumResultsForSearch: Infinity,
+            }
+            );
+ 
+            $('#selectedSocialMediaAuthor').select2(
+               {
+                
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,
+                minimumResultsForSearch: Infinity,
+               }
+            );
+            
+            });
+       
     </script>
    
 <?php $__env->stopPush(); ?>
