@@ -117,7 +117,6 @@
                     <!--end::Form-->
                 </div>
              
-
                 @if(!$pathIsAddInfo && !$pathIsTitle && !$pathIsFinal && !$pathIsReview && count($items))
                 <a class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal"
                     data-bs-target="#kt_modal_new_news">
@@ -155,8 +154,7 @@
                                 id="selectAll" 
                                 wire:model="selectAll" 
                                 class="form-check-input"
-                                data-tab="{{ $activeTab }}"
-                            >
+                                data-tab="{{ $activeTab }}">
                         </th>
                         @endif
                         <th class="min-w-200px">
@@ -499,13 +497,6 @@
         </div>
         <!--end::Table container-->
     </div>
-    <!--begin::Body-->
-    <style>
-        .text-new-green{
-            color:#3da5a5 !important;
-        }
-    </style>
-
 
     <!-- Reject Modal -->
     <div class="modal fade" id="rejectModal" tabindex="-1" wire:ignore.self>

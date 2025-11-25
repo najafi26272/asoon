@@ -42,15 +42,51 @@ class NewsListComponent extends Component
         $query = News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle']);
         $stepConditions = $this->getStepConditions($this->selectedStatus);
 
-        $query->when($this->selectedStatus !== 'all', function ($q) use ($stepConditions) {
+        $pathIsAddInfo = $this->pathIsAddInfo ?? false;
+        $pathIsFinal = $this->pathIsFinal ?? false;
+        $pathIsMonitoring = $this->pathIsMonitoring ?? false;
+        $pathIsMyMonitoring = $this->pathIsMyMonitoring ?? false;
+        $pathIsTitle = $this->pathIsTitle ?? false;
+        $pathIsReview = $this->pathIsReview ?? false;
+
+        if($this->selectedStatus !== 'all'){
+            $query->when($this->selectedStatus !== 'all', function ($q) use ($stepConditions) {
             // Apply step conditions based on the status
             foreach ($stepConditions as $key => $condition) {
                 $q->when($this->{'pathIs' . ucfirst($key)}, function ($q) use ($condition) {
                     $q->whereHas('step.stepDefinition', $condition);
                 });
             }
+            });
+        }else{
+            $query->when($pathIsAddInfo, function (Builder $q) {
+                $q->whereHas('step.stepDefinition', function (Builder $q2) {
+                    $q2->whereIn('step_id', [3, 4]);
+                });
+            })
+            ->when($pathIsTitle, function (Builder $q) {
+                $q->whereHas('step.stepDefinition', function (Builder $q2) {
+                    $q2->whereIn('step_id', [4, 5, 6, 7]);
+                });
+            })
+            ->when($pathIsFinal, function (Builder $q) {
+                $q->whereHas('step.stepDefinition', function (Builder $q2) {
+                    $q2->whereIn('step_id', [11, 12, 13]);
+                });
+            })
+            ->when($pathIsReview, function (Builder $q) {
+                $q->whereHas('step.stepDefinition', function (Builder $q2) {
+                    $q2->whereIn('step_id', [6, 8, 9, 10, 11]);
+                });
+            })
+            ->when($pathIsMyMonitoring, function (Builder $q) {
+                $q->where('creator_id', Auth::user()->id);
+            });
+        }
+      
+        $query->when($pathIsTitle, function (Builder $q) {
+            $this->applyActiveTabConditions($q);
         });
-
         return $query->where(function ($query) {
             $this->applySearchConditions($query);
         });
@@ -64,7 +100,6 @@ class NewsListComponent extends Component
             },
             'title' => function ($q) use ($selectedStatus) {
                 $q->where('step_id', $selectedStatus);
-                $this->applyActiveTabConditions($q); // Apply active tab conditions here
             },
             'final' => function ($q) use ($selectedStatus) {
                 $q->where('step_id', $selectedStatus);
