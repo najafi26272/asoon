@@ -7,7 +7,7 @@ use App\Models\{News,NewsStep,Title};
 
 class TitleDetailsComponent extends Component
 {
-    public $titleId,$newsId,$title,$link,$content,$summary,$agency,$topic,$reason,$goals,$new_title;
+    public $titleId,$newsId,$need_cover,$title,$link,$content,$summary,$agency,$topic,$reason,$goals,$new_title;
     protected $listeners =[
         '$_title_details'=>'saveData'
     ];
@@ -20,6 +20,7 @@ class TitleDetailsComponent extends Component
         $this->summary        = $news->summary;
         $this->topic          = $news->topic;
         $this->goals          = $news->goals;
+        $this->need_cover     = $news->need_cover;
         $this->titleId = $news->titr->id ?? null;
         $this->title_status = $news->titr->status ?? null;
         $this->new_title = $news->titr->title ?? null;

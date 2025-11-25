@@ -50,6 +50,15 @@
                                     <td>{{$summary}}</td>
                                 </tr>
                                 <tr>
+                                    <td>نیاز به کاور</td>
+                                    <td>
+                                        <div class="form-check form-check-solid form-switch form-check-success fv-row">
+                                            <input wire:model='need_cover' class="form-check-input w-45px h-30px" type="checkbox" disabled>
+                                            <label for="accept">{{$need_cover==1 ? 'دارد' : 'ندارد'}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>امتیاز خبر</td>
                                     <td>
                                         <div class="rating justify-content-end">

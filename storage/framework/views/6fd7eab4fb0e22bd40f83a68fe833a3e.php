@@ -47,7 +47,7 @@
         </h3>
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
-                 <div wire:ignore style="margin-left: 5px; height:100% !important;">
+                <div wire:ignore style="margin-left: 5px; height:100% !important;">
                     <select id="selectedPriority" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر اولویت" data-hide-search="true" data-close-on-select="false">
                         <option value="all">همه اولویت ها</option>
                             <option value="low">کم</option>
@@ -55,7 +55,7 @@
                             <option value="high">زیاد</option>       
                     </select>
                 </div> 
-                 <div wire:ignore style="margin-left: 5px; height:100% !important;">
+                <div wire:ignore style="margin-left: 5px; height:100% !important;">
                     <select id="selectedStatus" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر وضعیت" data-hide-search="true" data-close-on-select="false">
                         <option value="all">همه وضعیت ها</option>
                         <!--[if BLOCK]><![endif]--><?php if($pathIsAddInfo): ?>
