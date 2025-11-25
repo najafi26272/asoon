@@ -29,12 +29,10 @@ class NewsListComponent extends Component
     
     public function mount()
     {
-        $this->pathIsAddInfo = request()->is('*news/addInfo*');
-        $this->pathIsFinal = request()->is('*news/final*');
-        $this->pathIsMonitoring = request()->is('*news/monitoring*');
-        $this->pathIsMyMonitoring = request()->is('*news/myMonitoring*');
-        $this->pathIsTitle = request()->is('*news/title*');
-        $this->pathIsReview = request()->is('*news/review*');
+        $paths = ['addInfo', 'final', 'monitoring', 'myMonitoring', 'title', 'review'];
+        foreach ($paths as $path) {
+            $this->{'pathIs' . ucfirst($path)} = request()->is("*news/{$path}*");
+        }
     }
 
     public function getBaseQuery()
@@ -42,54 +40,55 @@ class NewsListComponent extends Component
         $query = News::with(['step.stepDefinition', 'latestWebTitle', 'latestSocialTitle']);
         $stepConditions = $this->getStepConditions($this->selectedStatus);
 
-        $pathIsAddInfo = $this->pathIsAddInfo ?? false;
-        $pathIsFinal = $this->pathIsFinal ?? false;
-        $pathIsMonitoring = $this->pathIsMonitoring ?? false;
-        $pathIsMyMonitoring = $this->pathIsMyMonitoring ?? false;
-        $pathIsTitle = $this->pathIsTitle ?? false;
-        $pathIsReview = $this->pathIsReview ?? false;
-
-        if($this->selectedStatus !== 'all'){
-            $query->when($this->selectedStatus !== 'all', function ($q) use ($stepConditions) {
-            // Apply step conditions based on the status
-            foreach ($stepConditions as $key => $condition) {
-                $q->when($this->{'pathIs' . ucfirst($key)}, function ($q) use ($condition) {
-                    $q->whereHas('step.stepDefinition', $condition);
-                });
-            }
-            });
-        }else{
-            $query->when($pathIsAddInfo, function (Builder $q) {
-                $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id', [3, 4]);
-                });
-            })
-            ->when($pathIsTitle, function (Builder $q) {
-                $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id', [4, 5, 6, 7]);
-                });
-            })
-            ->when($pathIsFinal, function (Builder $q) {
-                $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id', [11, 12, 13]);
-                });
-            })
-            ->when($pathIsReview, function (Builder $q) {
-                $q->whereHas('step.stepDefinition', function (Builder $q2) {
-                    $q2->whereIn('step_id', [6, 8, 9, 10, 11]);
-                });
-            })
-            ->when($pathIsMyMonitoring, function (Builder $q) {
-                $q->where('creator_id', Auth::user()->id);
-            });
+         // Check if selectedStatus is not 'all' and apply conditions
+        if ($this->selectedStatus !== 'all') {
+            $this->applyStepConditions($query, $stepConditions);
+        } else {
+            $this->applyPathConditions($query);
         }
-      
-        $query->when($pathIsTitle, function (Builder $q) {
-            $this->applyActiveTabConditions($q);
-        });
+
+        // Apply active tab conditions if the path is title
+        if ($this->pathIsTitle) {
+            $this->applyActiveTabConditions($query);
+        }
+
         return $query->where(function ($query) {
             $this->applySearchConditions($query);
         });
+    }
+    
+    private function applyStepConditions($query, $stepConditions)
+    {
+        foreach ($stepConditions as $key => $condition) {
+            $query->when($this->{'pathIs' . ucfirst($key)}, function ($q) use ($condition) {
+                $q->whereHas('step.stepDefinition', $condition);
+            });
+        }
+    }
+
+    private function applyPathConditions($query)
+    {
+        $conditions = [
+            'addInfo' => [3, 4],
+            'title' => [4, 5, 6, 7],
+            'final' => [11, 12, 13],
+            'review' => [6, 8, 9, 10, 11],
+            'myMonitoring' => function (Builder $q) {
+                $q->where('creator_id', Auth::user()->id);
+            },
+        ];
+
+        foreach ($conditions as $key => $value) {
+            $query->when($this->{'pathIs' . ucfirst($key)}, function (Builder $q) use ($value) {
+                if (is_array($value)) {
+                    $q->whereHas('step.stepDefinition', function (Builder $q2) use ($value) {
+                        $q2->whereIn('step_id', $value);
+                    });
+                } else {
+                    $value($q);  // Call the closure directly for myMonitoring
+                }
+            });
+        }
     }
 
     private function getStepConditions($selectedStatus): array
@@ -129,8 +128,8 @@ class NewsListComponent extends Component
         $search = "%{$this->char}%";
         $query->where(function ($q) use ($search) {
             $q->where('title', 'LIKE', $search)
-              ->orWhere('link', 'LIKE', $search)
-              ->orWhere('topic', 'LIKE', $search);
+            ->orWhere('link', 'LIKE', $search)
+            ->orWhere('topic', 'LIKE', $search);
         });
 
         if ($this->selectedPriority && $this->selectedPriority !== 'all') {
