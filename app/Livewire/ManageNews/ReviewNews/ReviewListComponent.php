@@ -15,14 +15,14 @@ class ReviewListComponent extends Component
     public $char = "";
     public $news_id, $edited_content, $status, $description;
     public $pageNumber = 10;
-    public $selectedStatus ='all';
+    public $selectedStatus ='all',$selectedPriority = 'all';
 
     protected $listeners = [
         '$_review_refresh' => 'refresh'
     ];
     public function refresh()
     {
-        $items = $this->buildQuery();
+        $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);
     }
     public function delete($id)
     {
@@ -43,15 +43,13 @@ class ReviewListComponent extends Component
         $this->dispatch('show-my-review-history-modal');
     }
 
-
-    private function buildQuery(): LengthAwarePaginator
+    public function getBaseQuery(): Builder
     {
-        $searchTerm = '%' . $this->char . '%';
+        $char = $this->char ?? '';
         $editorId = Auth::user()->id;
         $selectedStatus = $this->selectedStatus;
         // Start building the query
         $query = News::with(['editNews','step.stepDefinition'])
-            ->where('title', 'LIKE', $searchTerm)
             ->whereHas('editorsAssignments', function ($query) use ($editorId) {
                 $query->where('editor_id', $editorId);
             })
@@ -66,12 +64,28 @@ class ReviewListComponent extends Component
             });
         }
 
-        return $query->latest()->paginate($this->pageNumber);
+        $this->applySearchConditions($query, $char);
+
+        return $query;
+    }
+
+    private function applySearchConditions(Builder $query, $char): void
+    {
+        $search = "%{$char}%";
+        $query->where(function ($q) use ($search) {
+            $q->where('title', 'LIKE', $search)
+              ->orWhere('link', 'LIKE', $search)
+              ->orWhere('topic', 'LIKE', $search);
+        });
+
+        if ($this->selectedPriority && $this->selectedPriority !== 'all') {
+            $query->where('priority', $this->selectedPriority);
+        }
     }
 
     public function render()
     {
-        $items = $this->buildQuery();
+        $items = $this->getBaseQuery()->latest()->paginate($this->pageNumber);
 
         return view('livewire.manage-news.review-news.review-list-component', [
             'items' => $items,

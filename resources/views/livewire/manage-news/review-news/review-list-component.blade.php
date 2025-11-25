@@ -14,8 +14,16 @@
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                  data-bs-original-title="Click to add a user" data-kt-initialized="1">
                  <div wire:ignore style="margin-left: 5px; height:100% !important;">
+                    <select id="selectedPriority" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر اولویت" data-hide-search="true" data-close-on-select="false">
+                        <option value="all">همه اولویت ها</option>
+                            <option value="low">کم</option>
+                            <option value="medium">متوسط</option>
+                            <option value="high">زیاد</option>       
+                    </select>
+                </div> 
+                <div wire:ignore style="margin-left: 5px; height:100% !important;">
                     <select id="selectedStatus" class="select-filter form-select form-select-solid "  style="height:100% !important;" tabindex="-1" aria-hidden="true" data-kt-initialized="1"  data-placeholder="فیلتر کاربران" data-hide-search="true" data-close-on-select="false">
-                        <option value="all">همه</option>
+                        <option value="all">همه وضعیت ها</option>
                         <option value="8">در انتظار بازنویسی</option>
                         <option value="9">درانتظار بررسی</option>
                         <option value="11">تاییدشده</option>
@@ -100,13 +108,24 @@
                     @foreach($items as $item)
                         <tr>
                             <td class="">
-                            {{$item->title}}
+                                @if($item->priority)
+                                    <span class="ms-1" data-bs-toggle="tooltip"
+                                        @if($item->priority == "high") title="اولویت زیاد"
+                                        @elseif($item->priority == "low") title="اولویت کم"
+                                        @elseif($item->priority == "medium") title="اولویت متوسط" @endif>
+                                        <i class="fa fa-flag   @if($item->priority == "high") text-danger @elseif($item->priority == "low") text-warning  @elseif($item->priority == "medium") text-primary @endif "></i>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                        </i>
+                                    </span>
+                                @endif
+                                {{$item->title}}
                             </td>
                             <td class="">
-                                <a href= {{$item->link}}>
-                                    لینک رصد
-                                </a>
-                               
+                                <a target="_blank" href={{$item->link}}> 
+                                    {{Str::limit($item->link, 10)}}
+                                </a>    
                             </td>
                             <td>
                                 <p class="text-dark fw-bold text-hover-primary d-block fs-6">
@@ -208,13 +227,13 @@
 </div>
 @push('scripts')
     <script>
-        $('#searching').on('keyup', function (e) {
+         $('#searching').on('keyup', function (e) {
             let data = $(this).val();
             @this.set('char', data);
         });
-        $('#selectedStatus').on('change', function (e) {
+        $('#selectedStatus, #selectedPriority').on('change', function() {
             let data = $(this).val();
-            @this.set('selectedStatus', data);
+            @this.set($(this).attr('id') === 'selectedPriority' ? 'selectedPriority' : 'selectedStatus', data);
         });
         $(document).ready(function() {
             $('.select-filter').select2({

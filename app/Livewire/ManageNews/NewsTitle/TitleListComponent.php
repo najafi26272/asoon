@@ -12,7 +12,7 @@ class TitleListComponent extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $char = "";
-    public $selectedStatus ='all';
+    public $selectedStatus ='all',$selectedPriority = 'all';
     public $news_id, $newTitle, $status, $description;
     public $pageNumber = 10;
     protected $listeners = [
@@ -69,11 +69,15 @@ class TitleListComponent extends Component
     private function applySearchConditions(Builder $query, $char): void
     {
         $search = "%{$char}%";
-        $query->where(function (Builder $q) use ($search) {
+        $query->where(function ($q) use ($search) {
             $q->where('title', 'LIKE', $search)
-            ->orWhere('link', 'LIKE', $search)
-            ->orWhere('topic', 'LIKE', $search);
+              ->orWhere('link', 'LIKE', $search)
+              ->orWhere('topic', 'LIKE', $search);
         });
+
+        if ($this->selectedPriority && $this->selectedPriority !== 'all') {
+            $query->where('priority', $this->selectedPriority);
+        }
     }
 
     public function refresh()
