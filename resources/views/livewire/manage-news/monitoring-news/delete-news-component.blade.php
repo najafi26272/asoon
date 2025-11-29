@@ -33,12 +33,11 @@
                 <button type="button" wire:click="delete()" class="btn btn-danger">
                     <span class="indicator-label">حذف</span>
                     <span wire:loading class="indicator-progress">لطفا صبر کنید...
-								<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+				    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                 </button>
                 <!--end::Button-->
             </div>
             <!--end::Modal footer-->
-
         </div>
     </div>
 </div>

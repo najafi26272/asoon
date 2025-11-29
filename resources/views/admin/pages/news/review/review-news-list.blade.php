@@ -3,11 +3,9 @@
 @push('css')
     <link rel="stylesheet" href="{{asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.css")}}">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
-
-    @endpush
+@endpush
 
 @section('content')
-
     <livewire:manage-news.review-news.review-list-component/>
     <livewire:manage-news.review-news.review-details-component/>
     <livewire:manage-news.review-news.edit-review-component/>
@@ -23,9 +21,7 @@
 <script src="{{asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.js")}}"></script>
 
 {{-- textEditor --}}
-
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
-
     <script>
         document.addEventListener('$_review_details', event => {
             $("#kt_modal_review_details").modal('show');
@@ -41,11 +37,6 @@
 
         document.addEventListener('review_edited', event => {
             $("#kt_modal_edit_review").modal('hide');
-        });
-        
-
-        $(document).ready(function() {
-            
         });
     </script>
 @endpush

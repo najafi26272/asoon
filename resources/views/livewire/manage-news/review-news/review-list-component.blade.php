@@ -1,11 +1,9 @@
 
 @push("style")
-<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.0.0/ckeditor5.css" />
-
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.0.0/ckeditor5.css" />
 @endpush
 
 <div class="card mb-5 mb-xl-10">
-    
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
@@ -218,12 +216,6 @@
         </div>
         <!--end::Table container-->
     </div>
-    <!--begin::Body-->
-    <style>
-        .text-new-green{
-            color:#3da5a5 !important;
-        }
-    </style>
 </div>
 @push('scripts')
     <script>

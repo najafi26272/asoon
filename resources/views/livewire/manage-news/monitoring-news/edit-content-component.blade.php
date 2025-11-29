@@ -42,37 +42,37 @@
 
                     {{-- Conditional Section for Rating --}}
                     @if ($status)
-                    @if($editRate)
-                    <div class="row">
-                        <div class="col-2 d-flex flex-column justify-content-center mb-4 fv-row">
-                            <label>امتیاز فعلی: </label>
-                        </div>
-                        <div class="rating justify-content-end" style="display: contents">
-                            @for($i = 1; $i <= 5; $i++)
-                            <div class="rating-label {{ $i <= ($editRate ?? 0) ? 'checked' : '' }}">
-                                <i class="ki-duotone ki-star fs-6"></i>
+                        @if($editRate)
+                            <div class="row">
+                                <div class="col-2 d-flex flex-column justify-content-center mb-4 fv-row">
+                                    <label>امتیاز فعلی: </label>
+                                </div>
+                                <div class="rating justify-content-end" style="display: contents">
+                                    @for($i = 1; $i <= 5; $i++)
+                                    <div class="rating-label {{ $i <= ($editRate ?? 0) ? 'checked' : '' }}">
+                                        <i class="ki-duotone ki-star fs-6"></i>
+                                    </div>
+                                    @endfor
+                                </div>
                             </div>
-                            @endfor
+                        @endif
+                        <div class="row">
+                            <div class="col-3 d-flex flex-column justify-content-center mb-4 fv-row">
+                                @if($editRate)<label>امتیازدهی مجدد: </label> @else <label>امتیازدهی: </label> @endif
+                            </div>
+                            <div class="review-rating col-lg-9 col-sm-12 mb-4 ">
+                                <input type="radio" wire:model="review_rating" id="star10" name="review-rating" value="5" />
+                                <label class="review-star" for="star10" title="Awesome" aria-hidden="true"></label>
+                                <input type="radio" wire:model="review_rating" id="star9" name="review-rating" value="4" />
+                                <label class="review-star" for="star9" title="Great" aria-hidden="true"></label>
+                                <input type="radio" wire:model="review_rating" id="star8" name="review-rating" value="3" />
+                                <label class="review-star" for="star8" title="Very good" aria-hidden="true"></label>
+                                <input type="radio" wire:model="review_rating" id="star7" name="review-rating" value="2" />
+                                <label class="review-star" for="star7" title="Good" aria-hidden="true"></label>
+                                <input type="radio" wire:model="review_rating" id="star6" name="review-rating" value="1" />
+                                <label class="review-star" for="star6" title="Bad" aria-hidden="true"></label>
+                            </div>
                         </div>
-                    </div>
-                    @endif
-                    <div class="row">
-                        <div class="col-3 d-flex flex-column justify-content-center mb-4 fv-row">
-                            @if($editRate)<label>امتیازدهی مجدد: </label> @else <label>امتیازدهی: </label> @endif
-                        </div>
-                        <div class="review-rating col-lg-9 col-sm-12 mb-4 ">
-                            <input type="radio" wire:model="review_rating" id="star10" name="review-rating" value="5" />
-                            <label class="review-star" for="star10" title="Awesome" aria-hidden="true"></label>
-                            <input type="radio" wire:model="review_rating" id="star9" name="review-rating" value="4" />
-                            <label class="review-star" for="star9" title="Great" aria-hidden="true"></label>
-                            <input type="radio" wire:model="review_rating" id="star8" name="review-rating" value="3" />
-                            <label class="review-star" for="star8" title="Very good" aria-hidden="true"></label>
-                            <input type="radio" wire:model="review_rating" id="star7" name="review-rating" value="2" />
-                            <label class="review-star" for="star7" title="Good" aria-hidden="true"></label>
-                            <input type="radio" wire:model="review_rating" id="star6" name="review-rating" value="1" />
-                            <label class="review-star" for="star6" title="Bad" aria-hidden="true"></label>
-                        </div>
-                    </div>
                     @endif
                 </div>
             </div>
@@ -86,11 +86,9 @@
 </div>
 @push('scripts')
     <script>
-
         $('#acceptOrReject').on('change', function (e) {
             let data = $(this).is(':checked');
             @this.set('status', data);
         });
     </script>
-   
 @endpush

@@ -21,8 +21,7 @@
                          data-kt-scroll-dependencies="#kt_modal_new_address_header"
                          data-kt-scroll-wrappers="#kt_modal_new_address_scroll" data-kt-scroll-offset="300px">
 
-
-                            <!--begin::Input group-->
+                        <!--begin::Input group-->
                         <div class="row g-9 mb-8">
                             <!--begin::Col-->
                             <div class="col-md-6 fv-row">
@@ -199,10 +198,6 @@
                                 </div>
                             </div>
                         </div>
-
-                       
-
-                        
                     </div>
                 </div>
 
@@ -225,16 +220,15 @@
 </div>
 @push('scripts')
     <script>
-         
         $(document).ready(function() {
             $('#selectedLanguages').select2({
-            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-            placeholder: $(this).data('placeholder'),
-            closeOnSelect: false,
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,
             });
             $('#selectedLanguages').on('change', function (e) {
-            let data = $(this).val();
-            @this.set('selectedLanguages', data);
+                let data = $(this).val();
+                @this.set('selectedLanguages', data);
             });
             $('#priority').select2({
                 width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
@@ -242,28 +236,18 @@
                 closeOnSelect: false,
                 minimumResultsForSearch: Infinity,
             });
-           
             $('#selectedWebAuthor').select2({
-
                 width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
                 placeholder: $(this).data('placeholder'),
                 closeOnSelect: false,
                 minimumResultsForSearch: Infinity,
-            }
-            );
- 
-            $('#selectedSocialMediaAuthor').select2(
-               {
-                
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-                placeholder: $(this).data('placeholder'),
-                closeOnSelect: false,
-                minimumResultsForSearch: Infinity,
-               }
-            );
-            
             });
-       
+            $('#selectedSocialMediaAuthor').select2({
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,
+                minimumResultsForSearch: Infinity,
+            });
+        });
     </script>
-   
 @endpush

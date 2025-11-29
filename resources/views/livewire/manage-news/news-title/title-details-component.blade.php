@@ -21,9 +21,7 @@
                          data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
                          data-kt-scroll-dependencies="#kt_modal_new_address_header"
                          data-kt-scroll-wrappers="#kt_modal_new_address_scroll" data-kt-scroll-offset="300px">
-                        
-                        
-                         <table class="table  table-row-dashed ">
+                        <table class="table  table-row-dashed ">
                             <tbody>
                                 <tr>
                                     <td >تیتر پیشنهادی من</td>
