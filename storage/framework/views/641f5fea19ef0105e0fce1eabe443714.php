@@ -1,11 +1,9 @@
 <?php $__env->startPush('css'); ?>
     <link rel="stylesheet" href="<?php echo e(asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.css")); ?>">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
-
-    <?php $__env->stopPush(); ?>
+<?php $__env->stopPush(); ?>
 
 <?php $__env->startSection('content'); ?>
-
     <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
@@ -81,9 +79,7 @@ if (isset($__slots)) unset($__slots);
 <script src="<?php echo e(asset("assets/admin/assets/vendor/libs/bootstrap-select/bootstrap-select.js")); ?>"></script>
 
 
-
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
-
     <script>
         document.addEventListener('$_review_details', event => {
             $("#kt_modal_review_details").modal('show');
@@ -99,11 +95,6 @@ if (isset($__slots)) unset($__slots);
 
         document.addEventListener('review_edited', event => {
             $("#kt_modal_edit_review").modal('hide');
-        });
-        
-
-        $(document).ready(function() {
-            
         });
     </script>
 <?php $__env->stopPush(); ?>

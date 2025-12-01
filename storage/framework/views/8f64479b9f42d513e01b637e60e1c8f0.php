@@ -1,4 +1,5 @@
 <?php $__env->startPush('css'); ?>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -170,6 +171,7 @@ if (isset($__slots)) unset($__slots);
 <script src="<?php echo e(asset("assets/plugins/custom/datepicker/fa-jdate.js")); ?>"></script>
 <script src="<?php echo e(asset("assets/plugins/custom/datepicker/pickr.js")); ?>"></script>
 <script src="<?php echo e(asset("assets/plugins/custom/datepicker/forms-pickers.js")); ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
 
     <script>
         document.addEventListener('$_news_details', event => {

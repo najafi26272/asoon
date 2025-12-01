@@ -35,7 +35,7 @@
                         </tr>
                         <tr>
                             <td>متن بازنویسی</td>
-                            <td><?php echo e($edited_content); ?></td>
+                            <td><?php echo $edited_content; ?></td>
                         </tr>
                         <tr>
                             <td>اهداف</td>

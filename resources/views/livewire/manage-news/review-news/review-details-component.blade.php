@@ -27,7 +27,7 @@
                             <tbody>
                                 <tr>
                                     <td >متن بازنویسی</td>
-                                    <td>{{$edited_content}}</td>
+                                    <td>{!! $edited_content !!}</td>
                                 </tr>
                                 <tr>
                                     <td >عنوان</td>

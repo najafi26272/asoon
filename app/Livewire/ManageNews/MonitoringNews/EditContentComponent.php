@@ -18,15 +18,20 @@ class EditContentComponent extends Component
     {
         $this->newsId = $id;
         $data = EditNews::where('news_id', $id)->latest()->first();
-        $this->contentId = $data->id;
-        $this->edited_content = $data->edited_content;
-        $this->description = $data->description;
-        $this->status = ($data->status=='accept') ? true : false; // Ensure this is a boolean
-        $this->rowStatus = ($data->status=='accept') ? 'accept' : 'reject';
-        $this->editRate = $data->editRate->rate ?? null;
+        if ($data) {
+            $this->contentId = $data->id;
+            $this->edited_content = $data->edited_content;
+            $this->description = $data->description;
+            $this->status = ($data->status == 'accept');
+            $this->rowStatus = ($data->status == 'accept') ? 'accept' : 'reject';
+            $this->editRate = $data->editRate->rate ?? null;
+
+            // Emit an event to open the modal after data is set
+            $this->dispatch('open-edit-modal');
+        }
     }
 
-    public function editContent()
+    public function submit()
     {
         DB::transaction(function () {
             $news = News::findOrFail($this->newsId);

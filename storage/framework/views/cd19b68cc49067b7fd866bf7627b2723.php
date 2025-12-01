@@ -1,11 +1,10 @@
 
 <?php $__env->startPush("style"); ?>
-<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.0.0/ckeditor5.css" />
-
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.0.0/ckeditor5.css" />
+    
 <?php $__env->stopPush(); ?>
 
 <div class="card mb-5 mb-xl-10">
-    
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
@@ -167,6 +166,19 @@
                                     <!--begin::Menu 3-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
                                         <!--begin::Heading-->
+                                            <!--[if BLOCK]><![endif]--><?php if($status != "accept"): ?>
+                                            <div class="menu-item px-3">
+                                                <a wire:click="update(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">ویرایش بازنویسی
+                                                <span class="ms-2" data-bs-toggle="tooltip" title="ویرایش محتوای بازنویسی">
+                                                    <i class="ki-duotone ki-pencil fs-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </i>
+                                                </span>
+                                                </a>
+                                            </div>
+                                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                             <div class="menu-item px-3">
                                                 <a wire:click="reviewHistory(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">تاریخچه بازنویسی ها
                                                 <span class="ms-2" data-bs-toggle="tooltip" title="تاریخچه بازنویسی های رد شده">
@@ -189,19 +201,6 @@
                                                 </span>
                                                 </a>
                                             </div>
-                                            <!--[if BLOCK]><![endif]--><?php if($status != "accept"): ?>
-                                            <div class="menu-item px-3">
-                                                <a wire:click="update(<?php echo e($item->id); ?>)" class="menu-link flex-stack px-3">ویرایش بازنویسی
-                                                <span class="ms-2" data-bs-toggle="tooltip" title="ویرایش محتوای بازنویسی">
-                                                    <i class="ki-duotone ki-pencil fs-2">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                        <span class="path3"></span>
-                                                    </i>
-                                                </span>
-                                                </a>
-                                            </div>
-                                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                                     </div>
                                 </div>
                             </td>
@@ -222,16 +221,10 @@
         </div>
         <!--end::Table container-->
     </div>
-    <!--begin::Body-->
-    <style>
-        .text-new-green{
-            color:#3da5a5 !important;
-        }
-    </style>
 </div>
 <?php $__env->startPush('scripts'); ?>
     <script>
-         $('#searching').on('keyup', function (e) {
+        $('#searching').on('keyup', function (e) {
             let data = $(this).val();
             window.Livewire.find('<?php echo e($_instance->getId()); ?>').set('char', data);
         });
@@ -245,26 +238,4 @@
             });
         });
     </script>
-
-
-<script src="<?php echo e(asset("assets/plugins/custom/tinymce/tinymce.bundle.js")); ?>"></script>
-
-<script>
-    // start textEditor
-    var options = {selector: "#editor", height : "480"};
-
-    if ( KTThemeMode.getMode() === "dark" ) {
-        options["skin"] = "oxide-dark";
-        options["content_css"] = "dark";
-    }
-
-    tinymce.init({
-        selector: "#editor",
-        height : "480",
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link code',    plugins : "advlist autolink link image lists charmap print preview",
-        menubar: false 
-    });
-    // end textEditor
-</script>
-
 <?php $__env->stopPush(); ?><?php /**PATH D:\B\work\Asou\main asou react\asoon\resources\views/livewire/manage-news/review-news/review-list-component.blade.php ENDPATH**/ ?>

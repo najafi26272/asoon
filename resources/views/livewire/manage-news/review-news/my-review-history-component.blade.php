@@ -41,7 +41,7 @@
                                 <!--end::Icon-->
                                 <!--begin::Title-->
                                 <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">   
-                                    {{verta($value->updated_at)->format('Y/m/d') . ' : '.  Str::limit($value->edited_content, 20, '...') }} 
+                                    {{ verta($value->updated_at)->format('Y/m/d') . ' : ' . Str::limit(strip_tags(html_entity_decode($value->edited_content)), 20, '...') }}
                                 </h4>
                                 <!--end::Title-->
                             </div>
@@ -52,7 +52,7 @@
                                 <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
                                     <input  class="form-control mb-3 is-invalid" type="text" value="{{$value->description}}" disabled/>
                                     <p>
-                                        {{$value->edited_content}}
+                                        {!! $value->edited_content !!}
                                     </p>
                                 </div>
                                 <!--end::Text-->

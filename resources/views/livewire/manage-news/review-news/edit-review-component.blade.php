@@ -16,7 +16,7 @@
                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">متن بازنویسی</span>
                         </label>
-                        <textarea  wire:model.defer="edited_content" id="summernote" class="form-control form-control-solid" placeholder="متن بازنویسی"></textarea>
+                        <textarea wire:model="edited_content" id="editor" class="form-control form-control-solid" placeholder="متن بازنویسی"></textarea>
                         @error('edited_content')
                             <div class="form-text text-danger">{{ $message }}</div>
                         @enderror
@@ -24,7 +24,7 @@
                 </div>
                 <div class="modal-footer flex-center">
                     <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">لغو</button>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" id="submit-btn">
                         <span class="indicator-label">ثبت</span>
                         <span wire:loading class="indicator-progress">
                             لطفا صبر کنید...
@@ -36,3 +36,53 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+{{-- Text Editor --}}
+<script src="{{ asset('assets/plugins/custom/tinymce/tinymce.bundle.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to initialize TinyMCE
+        function initTinyMCE(content = '') {
+            tinymce.init({
+                selector: "#editor",
+                height: 480,
+                toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link code',
+                plugins: "advlist autolink link image lists charmap print preview",
+                menubar: false,
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        editor.save();
+                    });
+                    editor.setContent(content); // Set initial content from Livewire
+                }
+            });
+        }
+
+        // Function to remove TinyMCE
+        function removeTinyMCE() {
+            var editor = tinymce.get('editor');
+            if (editor) {
+                editor.remove();
+            }
+        }
+
+        // Initialize TinyMCE when the modal is opened
+        $('#kt_modal_edit_review').on('shown.bs.modal', function () {
+            removeTinyMCE(); // Remove any existing instance
+            initTinyMCE(@json($edited_content));   // Initialize new instance with content from Livewire
+        });
+
+        // Remove TinyMCE when modal is closed
+        $('#kt_modal_edit_review').on('hidden.bs.modal', function () {
+            removeTinyMCE();
+        });
+
+        // Capture the editor's content on form submit
+        document.getElementById('submit-btn').addEventListener('click', function (e) {
+            let content = tinymce.get('editor').getContent();
+            @this.set('edited_content', content); // Set the Livewire property
+        });
+    });
+</script>
+@endpush

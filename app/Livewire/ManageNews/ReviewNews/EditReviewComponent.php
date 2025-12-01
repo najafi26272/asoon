@@ -26,6 +26,7 @@ class EditReviewComponent extends Component
         $this->review_status = $news->editNews->status ?? null;
         $this->edited_content = $news->editNews->edited_content ?? null;
     }
+
     public function submit()
     {
         $this->validate([

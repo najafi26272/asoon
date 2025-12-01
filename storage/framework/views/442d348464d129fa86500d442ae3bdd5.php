@@ -41,9 +41,10 @@
                                 <!--end::Icon-->
                                 <!--begin::Title-->
                                 <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">   
-                                    <?php echo e(verta($value->updated_at)->format('Y/m/d') . ' : '.  Str::limit($value->edited_content, 20, '...')); ?> 
+                                    <?php echo e(verta($value->updated_at)->format('Y/m/d') . ' : ' . Str::limit(strip_tags(html_entity_decode($value->edited_content)), 20, '...')); ?>
+
                                 </h4>
-                                <!--end::Title-->
+                                    <!--end::Title-->
                             </div>
                             <!--end::Heading-->
                             <!--begin::Body-->
@@ -52,7 +53,7 @@
                                 <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
                                     <input  class="form-control mb-3 is-invalid" type="text" value="<?php echo e($value->description); ?>" disabled/>
                                     <p>
-                                        <?php echo e($value->edited_content); ?>
+                                        <?php echo $value->edited_content; ?>
 
                                     </p>
                                 </div>
