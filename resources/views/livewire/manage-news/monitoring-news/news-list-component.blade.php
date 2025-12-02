@@ -1,12 +1,6 @@
 @push("style")
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.0.0/ckeditor5.css" />
-<style>
-    .select2-container .select2-selection--single{
-        height:100% !important;
-    }
-</style>
 @endpush
 <div class="card mb-5 mb-xl-10">
     <!--begin::Header-->
@@ -149,12 +143,14 @@
                     <tr class="fw-bold text-muted ">
                         @if(!$pathIsFinal && !$pathIsMyMonitoring && !$pathIsReview)
                         <th class="min-w-50px">
+                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                             <input 
                                 type="checkbox" 
                                 id="selectAll" 
                                 wire:model="selectAll" 
                                 class="form-check-input"
                                 data-tab="{{ $activeTab }}">
+                            </div>
                         </th>
                         @endif
                         <th class="min-w-200px">
@@ -196,6 +192,7 @@
                         <tr>
                             @if(!$pathIsFinal && !$pathIsMyMonitoring && !$pathIsReview)
                             <td>
+                                <div class="form-check form-check-sm form-check-custom form-check-solid">
                                 <input 
                                     type="checkbox" 
                                     wire:model="selectedIds" 
@@ -203,6 +200,7 @@
                                     class="form-check-input item-checkbox"
                                     data-tab="{{ $activeTab }}" 
                                 >
+                                </div>
                             </td>
                             @endif
                             <td class="flex">
@@ -261,6 +259,34 @@
                                         </i>
                                     </span>
                                     </a>
+                                    <div class="modal fade" id="kt_modal_reject_title" tabindex="-1" wire:ignore.self>
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">رد تیتر انتخاب شده</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <textarea 
+                                                        wire:model="rejectDescription"
+                                                        class="form-control"
+                                                        rows="4"
+                                                        placeholder="لطفاً دلیل رد تیتر انتخابی را وارد کنید..."
+                                                        required
+                                                    ></textarea>
+                                                    @error('rejectDescription') <span class="text-danger">{{ $message }}</span> @enderror
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button 
+                                                        wire:click="rejectSelectedTitr({{$item->id}})"
+                                                        class="btn btn-danger"
+                                                    >
+                                                        تأیید رد
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @endif
                                 </td>
                             @else
@@ -274,7 +300,6 @@
                                     </p>
                                 </td>
                             @endif
-
                             @if($pathIsFinal && $item->step->stepDefinition->id == 11)
                             <td class="text-start">
                             <div class="dropdown d-inline-block">
@@ -556,38 +581,6 @@
             </div>
         </div>
     </div>
-
-    @if($pathIsTitle && count($items))
-    <!-- Reject one Titr Modal -->
-    <div class="modal fade" id="kt_modal_reject_title" tabindex="-1" wire:ignore.self>
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">رد تیتر انتخاب شده</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <textarea 
-                        wire:model="rejectDescription"
-                        class="form-control"
-                        rows="4"
-                        placeholder="لطفاً دلیل رد تیتر انتخابی را وارد کنید..."
-                        required
-                    ></textarea>
-                    @error('rejectDescription') <span class="text-danger">{{ $message }}</span> @enderror
-                </div>
-                <div class="modal-footer">
-                    <button 
-                        wire:click="rejectSelectedTitr({{$item->id}})"
-                        class="btn btn-danger"
-                    >
-                        تأیید رد
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
 </div>
 
 @push('scripts')

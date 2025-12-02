@@ -19,12 +19,14 @@ class NewsListComponent extends Component
     public $pageNumber = 10;
     public $pathIsMonitoring = false, $pathIsReview = false, $pathIsTitle = false, $pathIsAddInfo = false, $pathIsFinal = false, $pathIsMyMonitoring = false;
     protected $listeners = ['$_news_refresh' => 'refresh'];
-    public $activeTab = 'web';
+    public $activeTab = 'web',$test;
 
     public function setActiveTab($tab)
     {
         $this->activeTab = $tab;
-        $this->resetPage();
+        $this->selectedIds = []; 
+        $this->selectAll = false; 
+        $this->resetPage(); 
     }
     
     public function mount()
@@ -291,7 +293,7 @@ class NewsListComponent extends Component
         //     'selectedIds.*' => 'integer|exists:news,id',
         // ]);
 
-        $this->processTitrsStatus('accept',6);
+        $this->processTitrsStatus('accept',6,['progressing', 'waiting', 'reject']);
     }
 
     public function rejectSelectedTitrs()
@@ -302,14 +304,15 @@ class NewsListComponent extends Component
         //     'rejectDescription' => 'required|string|max:500'
         // ]);
 
-        $this->processTitrsStatus('reject',7);
+        $this->processTitrsStatus('reject',7,['progressing', 'waiting']);
     }
 
-    private function processTitrsStatus($status,$stepId)
+    private function processTitrsStatus($status,$stepId,$arrayStatus = [],)
     {
-        DB::transaction(function () use ($status, $stepId) {
+        DB::transaction(function () use ($status, $stepId, $arrayStatus) {
             foreach ($this->selectedIds as $newsId) {
                 $news = News::findOrFail($newsId);
+                $this->test = $news->step->stepDefinition->id;
                 $totalStatus = true;
         
                 $title = ($this->activeTab === 'web') 
@@ -323,11 +326,11 @@ class NewsListComponent extends Component
                     ]);
                 }
 
-                if ($news->latestWebTitle && in_array($news->latestWebTitle->status, ['progressing', 'waiting'])) {
+                if ($news->latestWebTitle && in_array($news->latestWebTitle->status, $arrayStatus)) {
                     $totalStatus = false;
                 }
         
-                if ($news->latestSocialTitle && in_array($news->latestSocialTitle->status, ['progressing', 'waiting'])) {
+                if ($news->latestSocialTitle && in_array($news->latestSocialTitle->status, $arrayStatus)) {
                     $totalStatus = false;
                 }
         

@@ -1,7 +1,6 @@
 
 <?php $__env->startPush("style"); ?>
-<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.0.0/ckeditor5.css" />
-
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.0.0/ckeditor5.css" />
 <?php $__env->stopPush(); ?>
 
 <div class="card mb-5 mb-xl-10">
@@ -224,12 +223,6 @@
         </div>
         <!--end::Table container-->
     </div>
-    <!--begin::Body-->
-    <style>
-        .text-new-green{
-            color:#3da5a5 !important;
-        }
-    </style>
 </div>
 
 <?php $__env->startPush('scripts'); ?>
