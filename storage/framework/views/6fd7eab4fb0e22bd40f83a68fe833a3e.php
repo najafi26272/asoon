@@ -607,8 +607,6 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
         </div>
     </div>
-
-    
 </div>
 
 <?php $__env->startPush('scripts'); ?>

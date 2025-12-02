@@ -231,26 +231,51 @@
                 </div>
                 <!--end:Menu item-->
 
-                <!--begin:Menu item-->
-                <div class="menu-item  <?php if(Request::segment(2) == "newsMenu" ): ?> here active <?php endif; ?> menu-accordion">
-                    <!--begin:Menu link-->
-                    <span class="menu-link">
-                    <span class="menu-icon">
-                        <i class="ki-duotone ki-black-left fs-2"></i>
-                    </span>
-                    <a href="<?php echo e(route('newsMenu')); ?>" class="menu-title"
-                    <?php if(Request::segment(2) == "newsMenu"): ?> style=" font-weight: bold" <?php endif; ?>>رصد اخبار</a>
-                    <span>
-                        <?php if(Request::segment(2) == "newsMenu"): ?>
-                            <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
-                        <?php else: ?>
-                            <i class="fa fa-chevron-left" style="font-size: 10px"></i>
-                        <?php endif; ?>
-                    </span>
-                    </span>
-                    <!--end:Menu link-->
-                </div>
-               <!--end:Menu item-->
+                <?php if(\Illuminate\Support\Facades\Auth::user()->accesses->management_news_access or \Illuminate\Support\Facades\Auth::user()->accesses->my_news_access): ?>
+                    <!--begin:Menu item-->
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                        <span class="menu-link">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-black-left fs-2"></i>
+                            </span>
+                            <span class="menu-title" <?php if(Request::segment(2) == "managementNewsMenu" or Request::segment(2) == "myNewsMenu"): ?> style=" color: black;font-weight: bold" <?php endif; ?> >رصد اخبار</span>
+                            <span class="menu-arrow" style="overflow:unset">
+                                <?php if(Request::segment(2) == "managementNewsMenu" or Request::segment(2) == "myNewsMenu"): ?>
+                                        <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
+                                <?php else: ?>
+                                        <i class="fa fa-chevron-left" style="font-size: 10px"></i>
+                                <?php endif; ?>
+                            </span>
+                        </span>
+                        <div class="menu-sub menu-sub-accordion" kt-hidden-height="121" style="display: none; overflow: hidden;">
+                            <?php if(\Illuminate\Support\Facades\Auth::user()->accesses->management_news_access): ?> 
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link " href="<?php echo e(route('managementNewsMenu')); ?>">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">مدیریت اخبار</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <?php endif; ?>
+                            <?php if(\Illuminate\Support\Facades\Auth::user()->accesses->my_news_access): ?>
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link " href="<?php echo e(route('myNewsMenu')); ?>">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">رصدهای من</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <!--end:Menu item-->
+                <?php endif; ?>
             </div>
             <!--end::Menu-->
         </div>

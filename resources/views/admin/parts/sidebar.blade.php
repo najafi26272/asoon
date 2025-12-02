@@ -231,26 +231,51 @@
                 </div>
                 <!--end:Menu item-->
 
-                <!--begin:Menu item-->
-                <div class="menu-item  @if(Request::segment(2) == "newsMenu" ) here active @endif menu-accordion">
-                    <!--begin:Menu link-->
-                    <span class="menu-link">
-                    <span class="menu-icon">
-                        <i class="ki-duotone ki-black-left fs-2"></i>
-                    </span>
-                    <a href="{{route('newsMenu')}}" class="menu-title"
-                    @if(Request::segment(2) == "newsMenu") style=" font-weight: bold" @endif>رصد اخبار</a>
-                    <span>
-                        @if(Request::segment(2) == "newsMenu")
-                            <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
-                        @else
-                            <i class="fa fa-chevron-left" style="font-size: 10px"></i>
-                        @endif
-                    </span>
-                    </span>
-                    <!--end:Menu link-->
-                </div>
-               <!--end:Menu item-->
+                @if (\Illuminate\Support\Facades\Auth::user()->accesses->management_news_access or \Illuminate\Support\Facades\Auth::user()->accesses->my_news_access)
+                    <!--begin:Menu item-->
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                        <span class="menu-link">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-black-left fs-2"></i>
+                            </span>
+                            <span class="menu-title" @if(Request::segment(2) == "managementNewsMenu" or Request::segment(2) == "myNewsMenu") style=" color: black;font-weight: bold" @endif >رصد اخبار</span>
+                            <span class="menu-arrow" style="overflow:unset">
+                                @if(Request::segment(2) == "managementNewsMenu" or Request::segment(2) == "myNewsMenu")
+                                        <i class="fa fa-circle" style="color: #50cd89; font-size: 10px"></i>
+                                @else
+                                        <i class="fa fa-chevron-left" style="font-size: 10px"></i>
+                                @endif
+                            </span>
+                        </span>
+                        <div class="menu-sub menu-sub-accordion" kt-hidden-height="121" style="display: none; overflow: hidden;">
+                            @if (\Illuminate\Support\Facades\Auth::user()->accesses->management_news_access) 
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link " href="{{route('managementNewsMenu')}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">مدیریت رصدها</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            @endif
+                            @if (\Illuminate\Support\Facades\Auth::user()->accesses->my_news_access)
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link " href="{{route('myNewsMenu')}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">رصدهای من</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    <!--end:Menu item-->
+                @endif
             </div>
             <!--end::Menu-->
         </div>
