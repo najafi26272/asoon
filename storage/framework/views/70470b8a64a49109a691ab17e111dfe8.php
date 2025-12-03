@@ -255,7 +255,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">مدیریت اخبار</span>
+                                    <span class="menu-title">مدیریت رصدها</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>

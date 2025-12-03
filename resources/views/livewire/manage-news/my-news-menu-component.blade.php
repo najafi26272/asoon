@@ -1,5 +1,6 @@
 <div>
     <div class="row gy-5 g-xl-10">
+        @if (\Illuminate\Support\Facades\Auth::user()->accesses->my_news_access)
         <!--begin::Col-->
         <div class="col-xl-4">
             <!--begin::مخلوط Widget 14-->
@@ -88,6 +89,8 @@
             <!--end::مخلوط Widget 14-->
         </div>
         <!--end::Col-->
+        @endif
+        @if (\Illuminate\Support\Facades\Auth::user()->accesses->my_titles_access)
         <!--begin::Col-->
         <div class="col-xl-4">
             <!--begin::مخلوط Widget 14-->
@@ -198,6 +201,8 @@
             <!--end::مخلوط Widget 14-->
         </div>
         <!--end::Col-->
+        @endif
+        @if (\Illuminate\Support\Facades\Auth::user()->accesses->my_review_access)
         <!--begin::Col-->
         <div class="col-xl-4">
             <!--begin::مخلوط Widget 14-->
@@ -308,6 +313,7 @@
             <!--end::مخلوط Widget 14-->
         </div>
         <!--end::Col-->
+        @endif
     </div>
     <!--end::Row-->
 </div>
